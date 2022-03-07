@@ -1,5 +1,5 @@
 public class Ball {
     
-    private int a;
+    private int a = 0;
 
 }
