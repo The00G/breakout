@@ -1,5 +1,6 @@
 public class Ball {
     
-    private int a = 0;
+    public int size; // radius
+    public double posx, posy; // position of the center
 
 }
