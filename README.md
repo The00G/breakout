@@ -5,6 +5,6 @@
 
 > Citation
 
-[lien hypertexte](fr.wikipedia.org)
+exemple de [lien hypertexte](fr.wikipedia.org)
 
 [@Jeremy Banks](jeremy.banks@insa-lyon.fr)
