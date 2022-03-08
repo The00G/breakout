@@ -7,6 +7,17 @@ public class Vector {
         this.y = y;
     }
 
+    //constructor with polar or cartesian coordinates
+    public Vector(double a, double b, boolean polar) {
+        if(polar){
+            this.x = a*Math.cos(b);
+            this.y = a*Math.sin(b);
+        } else {
+            this.x = a;
+            this.y = b;
+        }
+    }
+
     public Vector(double[] v) {
         this.x = v[0];
         this.y = v[1];
