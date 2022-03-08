@@ -92,6 +92,10 @@ public class Vector {
         this.setAngle(a+this.angle());
     }
 
+    public String toString() {
+        return "(" + this.x + "; " + this.y;
+    }
+
 
     public static Vector add(Vector v1, Vector v2){
         return new Vector(v1.x+v2.x, v1.y+v2.y);
