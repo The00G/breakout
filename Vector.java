@@ -92,7 +92,7 @@ public class Vector {
     }
 
     /**
-     * sets the length to this to 1
+     * sets the length of this to 1
      */
     public void normalize() {
         this.mult(1 / this.mag());
@@ -156,7 +156,7 @@ public class Vector {
     }
 
     public void rotate(double a) {
-        this.setAngle(a + this.angle());
+        this.setAngle(a + this.getAngle());
     }
 
     public String toString() {
