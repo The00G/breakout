@@ -197,4 +197,8 @@ public class Vector {
     public static double angle(Vector v) {
         return Math.atan2(v.y, v.x);
     }
+
+    public static Vector normalize(Vector v){
+        return new Vector(v.x/v.mag(), v.y/v.mag());
+    }
 }
