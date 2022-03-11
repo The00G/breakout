@@ -52,11 +52,21 @@ public class Vector {
         this.y = 0;
     }
 
+    /**
+     * Adds a given vector to the vector
+     * 
+     * @param v
+     */
     public void add(Vector v) {
         this.x += v.x;
         this.y += v.y;
     }
 
+    /**
+     * Subtracts a given vector to the vector
+     * 
+     * @param v
+     */
     public void sub(Vector v) {
         this.x -= v.x;
         this.y -= v.y;
@@ -73,7 +83,7 @@ public class Vector {
     }
 
     /**
-     * Gives back the dot product between this and a given vector
+     * Gives back the dot product between the vector and a given vector
      * 
      * @param v
      * @return double
@@ -92,14 +102,14 @@ public class Vector {
     }
 
     /**
-     * sets the length of this to 1
+     * Normalizes the vector
      */
     public void normalize() {
         this.mult(1 / this.mag());
     }
 
     /**
-     * returns a vector with the same coordinates
+     * Returns a copy of the vector with the same coordinates
      * 
      * @return Vector
      */
@@ -108,7 +118,7 @@ public class Vector {
     }
 
     /**
-     * Returns true if this vector has the same components as a given vector
+     * Returns true if the vector has the same components as a given vector
      * 
      * @param v
      * @return boolean
@@ -118,7 +128,7 @@ public class Vector {
     }
 
     /**
-     * Returns the vector as an array with the x component as element 0 and the y
+     * Converts the vector to an array with the x component as element 0 and the y
      * component as element 1
      * 
      * @return double[]
@@ -131,17 +141,17 @@ public class Vector {
     }
 
     /**
-     * Sets the magnitude of this vector at a given length
+     * Sets the magnitude of the vector to a given length
      * 
-     * @param f
+     * @param m
      */
-    public void setMag(double f) {
+    public void setMag(double m) {
         this.normalize();
-        this.mult(f);
+        this.mult(m);
     }
 
     /**
-     * Returns the angle made by the vector to the horizontal axis
+     * Returns the angle between the vector and the horizontal axis
      * 
      * @return double
      */
@@ -149,12 +159,22 @@ public class Vector {
         return Math.atan2(this.y, this.x);
     }
 
+    /**
+     * Set the angle the vector to a given angle
+     * 
+     * @param a
+     */
     public void setAngle(double a) {
         double mag = this.mag();
         this.x = mag * Math.cos(a);
         this.y = mag * Math.sin(a);
     }
 
+    /**
+     * Rotate the vector by a given angle
+     * 
+     * @param a
+     */
     public void rotate(double a) {
         this.setAngle(a + this.getAngle());
     }
@@ -163,30 +183,77 @@ public class Vector {
         return "(" + this.x + "; " + this.y + ")";
     }
 
+    /**
+     * Return the sum of two given vectors
+     * 
+     * @param v1
+     * @param v2
+     * @return Vector
+     */
     public static Vector add(Vector v1, Vector v2) {
         return new Vector(v1.x + v2.x, v1.y + v2.y);
     }
 
+    /**
+     * Return the difference between two given vectors
+     * 
+     * @param v1
+     * @param v2
+     * @return Vector
+     */
     public static Vector sub(Vector v1, Vector v2) {
         return new Vector(v1.x - v2.x, v1.y - v2.y);
     }
 
+    /**
+     * Return a copy of a given vector scaled by a given factor
+     * 
+     * @param v1
+     * @param f
+     * @return Vector
+     */
     public static Vector mult(Vector v1, double f) {
         return new Vector(v1.x * f, v1.y * f);
     }
 
+    /**
+     * Return the dot product of two given vectors
+     * 
+     * @param v1
+     * @param v2
+     * @return double
+     */
     public static double dot(Vector v1, Vector v2) {
         return v1.x * v2.x + v1.y * v2.y;
     }
 
+    /**
+     * Return the magnitude of a given vector
+     * 
+     * @param v
+     * @return double
+     */
     public static double mag(Vector v) {
         return Math.sqrt(v.x * v.x + v.y * v.y);
     }
 
+    /**
+     * Returns a copy of a given vector
+     * 
+     * @param v
+     * @return Vector
+     */
     public static Vector clone(Vector v) {
         return new Vector(v.x, v.y);
     }
 
+    /**
+     * Converts a vector to an array with the x component as element 0 and the y
+     * component as element 1
+     * 
+     * @param v
+     * @return double[]
+     */
     public static double[] toArray(Vector v) {
         double[] a = new double[2];
         a[0] = v.x;
@@ -194,11 +261,23 @@ public class Vector {
         return a;
     }
 
+    /**
+     * Returns the angle between a vector and the horizontal axis
+     * 
+     * @param v
+     * @return double
+     */
     public static double angle(Vector v) {
         return Math.atan2(v.y, v.x);
     }
 
-    public static Vector normalize(Vector v){
+    /** 
+     * Returns a normalized copy of a vector
+     * 
+     * @param v
+     * @return Vector
+    */
+    public static Vector normalized(Vector v){
         return new Vector(v.x/v.mag(), v.y/v.mag());
     }
 }
