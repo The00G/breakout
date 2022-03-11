@@ -7,6 +7,8 @@ public class Game extends JFrame {
     public ArrayList<Brick> bricks;
     public Ball ball;
     public Platform platform;
+    public int score;
+    public int life;
 
     public JPanel main, field;
 
