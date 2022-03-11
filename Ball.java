@@ -1,15 +1,19 @@
+import java.awt.Color;
+
 public class Ball {
     
     public int size; // radius
     public Vector pos; // position of the center
     public double speed;
     public Vector direction;
+    public Color color = Color.white;
 
     public Ball(Vector p, int s, double sp, Vector d){
         this.pos = p;
         this.size = s;
         this.speed = sp;
-        this.direction = Vector.normalize(d);
+        this.direction = d;
+        this.direction.normalize();
     }
     
     public Ball(Vector p, int s, double sp){

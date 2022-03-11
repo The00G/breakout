@@ -1,7 +1,10 @@
+import java.awt.Color;
+
 public class Platform {
     
     public Vector pos; //position of the center
     public Vector size;
+    public Color color = Color.white;
 
     public Platform(Vector p, Vector s) {
         this.pos = p;
