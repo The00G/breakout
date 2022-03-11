@@ -179,8 +179,23 @@ public class Vector {
         this.setAngle(a + this.getAngle());
     }
 
+    @Override
     public String toString() {
         return "(" + this.x + "; " + this.y + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        }
+
+        if(!(o instanceof Vector)) {
+            return false;
+        }
+
+        Vector v = (Vector) o;
+        return this.equals(v);
     }
 
     /**
