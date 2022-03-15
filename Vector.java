@@ -179,6 +179,16 @@ public class Vector {
         this.setAngle(a + this.getAngle());
     }
 
+    /**
+     * return the angle from the vector to another vector
+     * 
+     * @param v
+     * @return double
+     */
+    public double angleWith(Vector v){
+        return v.getAngle()-this.getAngle();
+    }
+
     @Override
     public String toString() {
         return "(" + this.x + "; " + this.y + ")";
@@ -294,5 +304,16 @@ public class Vector {
     */
     public static Vector normalized(Vector v){
         return new Vector(v.x/v.mag(), v.y/v.mag());
+    }
+
+    /**
+     * Returns the angle between two vectors
+     * 
+     * @param v1
+     * @param v2
+     * @return double
+     */
+    public static double angleBetween(Vector v1, Vector v2) {
+        return v2.getAngle()-v1.getAngle();
     }
 }

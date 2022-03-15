@@ -46,6 +46,8 @@ public class Game extends JFrame {
             g.drawRect((int)fieldOrigin.x, (int)fieldOrigin.y, (int)fieldSize.x, (int)fieldSize.y);
         }
     }
+}
+
 
     /**
      * fills the list of bricks of the game according to the length and height of the standart frame
@@ -59,3 +61,4 @@ public class Game extends JFrame {
         }
     }
 }
+
