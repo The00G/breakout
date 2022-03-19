@@ -1,14 +1,13 @@
 import java.awt.Color;
-import java.util.EventListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent; 
 
-public class Platform implements MouseMotionListener{
+public class Platform{
         
     public Vector pos; //position of the center
     public Vector size;
     public double speed;
     public Color color = Color.white;
+    public int dx; 
 
     public Platform(Vector p, Vector s) {
         this.pos = p;
@@ -36,11 +35,39 @@ public class Platform implements MouseMotionListener{
         return new Vector(dx, dy);
     }
 
-    public void mouseMoved(MouseEvent e){
-        if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone 
-            mouseX=e.getX(); 
-            mouseY=e.getY(); 
+
+    public void move(){
+        pos.x+=dx;  //update of the plateform position 
+
+        if (pos.x<=0){
+            pos.x=0; 
+        }
+
+        if (pos.x>=//taille de la fenêtre){
+
         }
     }
+
+    public void KeyPressed(KeyEvent e){
+        int key=e.getKeyCode(); 
+        if (key==KeyEvent.VK_LEFT){//if the left arrow is pressed 
+            dx=1; 
+        }
+        if (key==KeyEvent.VK_RIGHT){//if the right arrow is pressed 
+            dx=-1; 
+        }
+    
+    }
+
+    public void KeyReleased(KeyEvent e){
+        int key=e.getKeyCode(); 
+        if (key==KeyEvent.VK_LEFT){//if the left arrow is pressed  
+            dx=0; 
+        }
+        if (key==KeyEvent.VK_RIGHT){//if the right arrow is pressed 
+            dx=0; 
+        }
+    }
+
 
 }
