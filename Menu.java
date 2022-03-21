@@ -37,7 +37,7 @@ public class Menu extends JFrame implements ActionListener{
         aboutButton.addActionListener(this);
         mainPanel.add(aboutButton);
 
-        playButton = new JButton();
+        playButton = new JButton("Jouer");
         playButton.setBounds(75,200,100,50);
         playButton.addActionListener(this);
         mainPanel.add(playButton);

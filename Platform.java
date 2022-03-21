@@ -36,13 +36,6 @@ public class Platform implements MouseMotionListener{
         return new Vector(dx, dy);
     }
 
-    // public void mouseMoved(MouseEvent e){
-    //     if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone 
-    //         mouseX=e.getX(); 
-    //         mouseY=e.getY(); 
-    //     }
-    // }
-
     @Override
     public void mouseDragged(MouseEvent e) {
         //     if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone 
