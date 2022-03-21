@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.MouseInfo;
+import java.awt.Point; 
+import java.awt.PointerInfo; 
 
 import helpers.mathHelper;
 
@@ -66,6 +69,15 @@ public class Platform {
         if (key == KeyEvent.VK_RIGHT) {// if the right arrow is pressed
             dx = 0;
         }
+    }
+
+    public Vector MousePosition (){
+        PointerInfo i = MouseInfo.getPointerInfo();
+        Point b = i.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        Vector position = new Vector (x,y); 
+        return position;         
     }
 
 }
