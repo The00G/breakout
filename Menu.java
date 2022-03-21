@@ -24,6 +24,7 @@ public class Menu extends JFrame implements ActionListener{
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.green);
         mainPanel.setBounds(0,0,250,350);
+        mainPanel.setLayout(null);
         this.add(mainPanel);
 
         rulesButton = new JButton("Règles du jeu");
@@ -64,9 +65,9 @@ public class Menu extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==playButton){
             Game game = new Game();
-            game.init(); //méthodes à coder
-            game.play();
-            game.end();
+            //game.init(); //méthodes à coder
+            //game.play();
+            //game.end();
         }else if(e.getSource()==aboutButton){
             this.showAbout();
         }

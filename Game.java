@@ -1,4 +1,4 @@
-import javax.lang.model.util.ElementScanner14;
+//import javax.lang.model.util.ElementScanner14;
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
@@ -46,7 +46,6 @@ public class Game extends JFrame {
             g.drawRect((int)fieldOrigin.x, (int)fieldOrigin.y, (int)fieldSize.x, (int)fieldSize.y);
         }
     }
-}
 
 
     /**
