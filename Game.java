@@ -39,7 +39,29 @@ public class Game extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setContentPane(new Painter());
+        
+        this.getContentPane().paint(this.getContentPane().getGraphics());
+
+        this.playGame();
     }
+
+    public void playGame(){
+
+    }
+
+    /**
+     * fills the list of bricks of the game according to the length and height of the standart frame
+     */
+    public void createBricks (){
+        Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x/15 , FIELD_DEFAULT_SIZE.y/24);
+        for (int i = 1; i<=8; i++){
+            for(int j = 0; j<15; j++){
+                Brick newBrick = new Brick (j*brickSize.x, i*brickSize.y, brickSize.x, brickSize.y, i);
+                bricks.add(newBrick);
+            }
+        }
+    }
+
 
     public class Painter extends JComponent {
         public void paint(Graphics g) {
@@ -70,16 +92,5 @@ public class Game extends JFrame {
         }
     }
     
-    /**
-     * fills the list of bricks of the game according to the length and height of the standart frame
-     */
-    public void createBricks (){
-        Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x/15 , FIELD_DEFAULT_SIZE.y/24);
-        for (int i = 1; i<=8; i++){
-            for(int j = 0; j<15; j++){
-                Brick newBrick = new Brick (j*brickSize.x, i*brickSize.y, brickSize.x, brickSize.y, i);
-                bricks.add(newBrick);
-            }
-        }
-    }
+    
 }
