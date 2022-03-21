@@ -35,16 +35,15 @@ public class Platform{
         return new Vector(dx, dy);
     }
 
+    public void move(int xMax){ // takes in parameter fieldSize.x  
+        pos.x+=dx;  //updates the plateform position 
 
-    public void move(){
-        pos.x+=dx;  //update of the plateform position 
-
-        if (pos.x<=0){
-            pos.x=0; 
+        if (pos.x-size.x/2<=0){
+            pos.x=size.x/2; 
         }
 
-        if (pos.x>=//taille de la fenêtre){
-
+        if (pos.x+size.x/2>=xMax){
+            pos.x=xMax-size.x/2; 
         }
     }
 
@@ -56,9 +55,9 @@ public class Platform{
         if (key==KeyEvent.VK_RIGHT){//if the right arrow is pressed 
             dx=-1; 
         }
-    
     }
-
+    
+    
     public void KeyReleased(KeyEvent e){
         int key=e.getKeyCode(); 
         if (key==KeyEvent.VK_LEFT){//if the left arrow is pressed  
