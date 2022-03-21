@@ -61,8 +61,8 @@ public class Brick {
     public void setColorBrick (){
         if (this.life<8 && this.life>0){
             this.color = colorList [this.life];
-        } else if(this.life >7){
-            this.color = Color.pink;
+        } else if(this.life >8){
+            this.color = colorList [8];
         } else {
             this.color = Color.gray;
         }
