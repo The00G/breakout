@@ -5,7 +5,7 @@ public class Brick {
     public Vector pos; //position of the center
     public Vector size;
     public int totalLife, life; // if the brick is unbreakable, set life inferior to 0
-    public Color color;
+    public Color color; 
     private Color [] colorList = {Color.white, Color.red, Color.magenta, Color.orange, Color.yellow, Color.green, Color.cyan, Color.blue, Color.pink};
 
     public Brick(double posx, double posy, double width, double height, int tl, Color c) {

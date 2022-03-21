@@ -35,13 +35,13 @@ public class Platform {
         return new Vector(dx, dy);
     }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        // if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone
-        // mouseX=e.getX();
-        // mouseY=e.getY();
-        // }
-    }
+    // @Override
+    // public void mouseDragged() {
+    //     if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone
+    //     mouseX=e.getX();
+    //     mouseY=e.getY();
+    //     }
+    // }
 
     public void move(int xMax) { // takes in parameter fieldSize.x
         pos.x += dx; // updates the plateform position

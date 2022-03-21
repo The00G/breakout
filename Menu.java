@@ -19,8 +19,6 @@ public class Menu extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
-        System.out.println(this.getSize().getWidth());
-
         //Main panel -------------------------------------------
 
         mainPanel = new JPanel();
