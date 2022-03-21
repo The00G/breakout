@@ -38,10 +38,10 @@ public class Platform implements MouseMotionListener{
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        //     if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone 
-        //         mouseX=e.getX(); 
-        //         mouseY=e.getY(); 
-        //     }
+            // if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone 
+            //     mouseX=e.getX(); 
+            //     mouseY=e.getY(); 
+            // }
         
     }
 

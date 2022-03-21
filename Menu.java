@@ -14,16 +14,18 @@ public class Menu extends JFrame implements ActionListener{
 
     public Menu(){
         super("Breakout!");
-        this.setBounds(200, 200, 250, 350);
+        this.setBounds(200, 200, 1200, 800);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
+        System.out.println(this.getSize().getWidth());
 
         //Main panel -------------------------------------------
 
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.green);
-        mainPanel.setBounds(0,0,250,350);
+        mainPanel.setBounds(0,0,(int) this.getSize().getWidth(),(int) this.getSize().getHeight());
         mainPanel.setLayout(null);
         this.add(mainPanel);
 
