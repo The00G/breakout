@@ -1,5 +1,10 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.MouseInfo;
+import java.awt.Point; 
+import java.awt.PointerInfo; 
+
+import helpers.mathHelper;
 
 public class Platform {
 
@@ -35,18 +40,9 @@ public class Platform {
         return new Vector(dx, dy);
     }
 
-    // @Override
-    // public void mouseDragged() {
-    //     if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone
-    //     mouseX=e.getX();
-    //     mouseY=e.getY();
-    //     }
-    // }
-
     public void move(int xMax) { // takes in parameter fieldSize.x
         pos.x += dx; // updates the plateform position
-
-        if (pos.x - size.x / 2 <= 0) {
+        if (pos.x - size.x / 2 <= 0) { 
             pos.x = size.x / 2;
         }
 
@@ -73,6 +69,15 @@ public class Platform {
         if (key == KeyEvent.VK_RIGHT) {// if the right arrow is pressed
             dx = 0;
         }
+    }
+
+    public Vector MousePosition (){
+        PointerInfo i = MouseInfo.getPointerInfo();
+        Point b = i.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        Vector position = new Vector (x,y); 
+        return position;         
     }
 
 }

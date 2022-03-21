@@ -5,8 +5,8 @@ public class Brick {
     public Vector pos; //position of the center
     public Vector size;
     public int totalLife, life; // if the brick is unbreakable, set life inferior to 0
-    public Color color; 
-    private Color [] colorList = {Color.white, Color.red, Color.magenta, Color.orange, Color.yellow, Color.green, Color.cyan, Color.blue, Color.pink};
+    public Color color;
+    private Color [] colorList = {Color.white, Color.red, Color.magenta, Color.pink, Color.orange, Color.yellow, Color.green, Color.cyan, Color.blue};
 
     public Brick(double posx, double posy, double width, double height, int tl, Color c) {
         this.pos = new Vector(posx, posy);
@@ -21,7 +21,7 @@ public class Brick {
         this.size = new Vector(width, height);
         this.totalLife = tl;
         this.life= tl;
-        this.color = Color.white;
+        setColorBrick();
     }
 
     public Brick(Vector pos, Vector size, int tl, Color c) {
@@ -61,8 +61,8 @@ public class Brick {
     public void setColorBrick (){
         if (this.life<8 && this.life>0){
             this.color = colorList [this.life];
-        } else if(this.life >7){
-            this.color = Color.pink;
+        } else if(this.life >=8){
+            this.color = colorList [8];
         } else {
             this.color = Color.gray;
         }
