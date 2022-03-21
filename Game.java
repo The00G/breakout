@@ -24,8 +24,11 @@ public class Game extends JFrame {
     public int score;
     public int life;
 
-    public Game() {
+    public Game(ArrayList<Brick> br, Ball b, Platform p) {
         super("Breakout!");
+        this.bricks = br;
+        this.ball = b;
+        this.platform = p;
         this.setBounds(10, 10, 250, 350);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,17 +47,22 @@ public class Game extends JFrame {
 
             g.setColor(Color.white);
             g.drawRect((int)fieldOrigin.x, (int)fieldOrigin.y, (int)fieldSize.x, (int)fieldSize.y);
+
+            for(Brick b : bricks) {
+                g.drawRect((int)(fieldOrigin.x + b.pos.x*fieldScale), (int)(fieldOrigin.y + b.pos.y*fieldScale), (int)(b.size.x), (int)(b.size.y));
+            }
+
+            g.fillOval((int)(fieldOrigin.x + ball.pos.x*fieldScale), (int)(fieldOrigin.y + ball.pos.y*fieldScale), (int)(ball.size), (int)(ball.size));
+            g.drawRect((int)(fieldOrigin.x + platform.pos.x*fieldScale), (int)(fieldOrigin.y + platform.pos.y*fieldScale), (int)(platform.size.x), (int)(platform.size.y));
         }
     }
-}
-
-
+    
     /**
      * fills the list of bricks of the game according to the length and height of the standart frame
      */
     public void createBricks (){
-        for ( int i = 0; i<8; i++){
-            for( int j = 0; j<15; j++){
+        for (int i = 0; i<8; i++){
+            for(int j = 0; j<15; j++){
                 Brick newBrick = new Brick ( j*(FIELD_DEFAULT_SIZE.x/15)+FIELD_DEFAULT_SIZE.x/20, i*(FIELD_DEFAULT_SIZE.y/(3*8))+FIELD_DEFAULT_SIZE.y/(3*10), FIELD_DEFAULT_SIZE.x/20, FIELD_DEFAULT_SIZE.y/10, i);
                 bricks.add(newBrick);
             }
