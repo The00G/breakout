@@ -21,7 +21,7 @@ public class Brick {
         this.size = new Vector(width, height);
         this.totalLife = tl;
         this.life= tl;
-        this.color = Color.white;
+        setColorBrick();
     }
 
     public Brick(Vector pos, Vector size, int tl, Color c) {

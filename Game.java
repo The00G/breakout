@@ -74,9 +74,10 @@ public class Game extends JFrame {
      * fills the list of bricks of the game according to the length and height of the standart frame
      */
     public void createBricks (){
-        for (int i = 0; i<8; i++){
+        Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x/15 , FIELD_DEFAULT_SIZE.y/24);
+        for (int i = 1; i<=8; i++){
             for(int j = 0; j<15; j++){
-                Brick newBrick = new Brick ( j*(FIELD_DEFAULT_SIZE.x/15), i*(FIELD_DEFAULT_SIZE.y/(3*8))+FIELD_DEFAULT_SIZE.y/58, FIELD_DEFAULT_SIZE.x/20, FIELD_DEFAULT_SIZE.y/10, i);
+                Brick newBrick = new Brick (j*brickSize.x, i*brickSize.y, brickSize.x, brickSize.y, i);
                 bricks.add(newBrick);
             }
         }
