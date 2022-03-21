@@ -35,12 +35,12 @@ public class Ball {
         if(this.pos.x < this.size) {
             this.direction.x = Math.abs(this.direction.x);
             return;
-        } else if (this.fieldSize.x- this.pos.x < this.size){
+        } else if ((this.fieldSize.x- this.pos.x) < this.size){
             this.direction.x = -Math.abs(this.direction.x);
             return;
         }
 
-        if (this.fieldSize.y- this.pos.y < this.size){
+        if ((this.fieldSize.y- this.pos.y) < this.size){
             this.direction.y = -Math.abs(this.direction.y);
             return;
         }

@@ -47,11 +47,6 @@ public class Game extends JFrame {
 
             g.setColor(Color.white);
             g.drawRect((int)fieldOrigin.x, (int)fieldOrigin.y, (int)fieldSize.x, (int)fieldSize.y);
-<<<<<<< HEAD
-=======
-        }
-    }
->>>>>>> 95f40296a7e3c3dd40c5674691b0d3fec51a0e38
 
             for(Brick b : bricks) {
                 g.drawRect((int)(fieldOrigin.x + b.pos.x*fieldScale), (int)(fieldOrigin.y + b.pos.y*fieldScale), (int)(b.size.x), (int)(b.size.y));
