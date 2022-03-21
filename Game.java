@@ -57,8 +57,8 @@ public class Game extends JFrame {
                 g.drawRect((int)(fieldOrigin.x + b.pos.x*fieldScale), (int)(fieldOrigin.y + b.pos.y*fieldScale), (int)(b.size.x), (int)(b.size.y));
             }
 
-            g.fillOval((int)(fieldOrigin.x + ball.pos.x*fieldScale), (int)(fieldOrigin.y + ball.pos.y*fieldScale), (int)(ball.size), (int)(ball.size));
-            g.drawRect((int)(fieldOrigin.x + platform.pos.x*fieldScale), (int)(fieldOrigin.y + platform.pos.y*fieldScale), (int)(platform.size.x), (int)(platform.size.y));
+            g.fillOval((int)(fieldOrigin.x + ball.pos.x*fieldScale), (int)(fieldOrigin.y + ball.pos.y*fieldScale), (int)(ball.size*fieldScale), (int)(ball.size*fieldScale));
+            g.drawRect((int)(fieldOrigin.x + platform.pos.x*fieldScale), (int)(fieldOrigin.y + platform.pos.y*fieldScale), (int)(platform.size.x*fieldScale), (int)(platform.size.y*fieldScale));
         }
     }
     
