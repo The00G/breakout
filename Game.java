@@ -76,7 +76,7 @@ public class Game extends JFrame {
     public void createBricks (){
         for (int i = 0; i<8; i++){
             for(int j = 0; j<15; j++){
-                Brick newBrick = new Brick ( j*(FIELD_DEFAULT_SIZE.x/15)+FIELD_DEFAULT_SIZE.x/20, i*(FIELD_DEFAULT_SIZE.y/(3*8))+FIELD_DEFAULT_SIZE.y/(3*10), FIELD_DEFAULT_SIZE.x/20, FIELD_DEFAULT_SIZE.y/10, i);
+                Brick newBrick = new Brick ( j*(FIELD_DEFAULT_SIZE.x/15), i*(FIELD_DEFAULT_SIZE.y/(3*8)), FIELD_DEFAULT_SIZE.x/20, FIELD_DEFAULT_SIZE.y/10, i);
                 bricks.add(newBrick);
             }
         }
