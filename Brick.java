@@ -55,7 +55,6 @@ public class Brick {
 
         return new Vector(dx, dy);
     }
-    
     /**
      * changes the color of the brick according to it's life
      */
