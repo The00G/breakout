@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
+import helpers.mathHelper;
+
 public class Platform {
 
     public Vector pos; // position of the center
@@ -35,18 +37,9 @@ public class Platform {
         return new Vector(dx, dy);
     }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        // if (contains(e.getX(),e.getY())) { //check if the mouse is in the zone
-        // mouseX=e.getX();
-        // mouseY=e.getY();
-        // }
-    }
-
     public void move(int xMax) { // takes in parameter fieldSize.x
         pos.x += dx; // updates the plateform position
-
-        if (pos.x - size.x / 2 <= 0) {
+        if (pos.x - size.x / 2 <= 0) { 
             pos.x = size.x / 2;
         }
 
