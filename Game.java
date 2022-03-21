@@ -24,11 +24,16 @@ public class Game extends JFrame {
     public int score;
     public int life;
 
-    public Game(ArrayList<Brick> br, Ball b, Platform p) {
+    public Game() {
         super("Breakout!");
-        this.bricks = br;
-        this.ball = b;
-        this.platform = p;
+
+        this.bricks = new ArrayList<Brick>();
+        this.createBricks();
+
+        this.ball = new Ball(250, 500, 20, 2);
+
+        this.platform = new Platform(250, 600, 40, 10);
+
         this.setBounds(10, 10, 250, 350);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
