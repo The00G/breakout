@@ -71,6 +71,8 @@ public class Platform {
         }
     }
 
+
+    //https://www.tabnine.com/code/query/java.awt@Robot@mouseMove+java.awt@Robot@%3Cinit%3E
     public Vector MousePosition (){
         PointerInfo i = MouseInfo.getPointerInfo();
         Point b = i.getLocation();
