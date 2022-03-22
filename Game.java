@@ -56,7 +56,7 @@ public class Game extends JFrame {
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x/15 , FIELD_DEFAULT_SIZE.y/24);
         for (int i = 1; i<=8; i++){
             for(int j = 0; j<15; j++){
-                Brick newBrick = new Brick (j*brickSize.x, i*brickSize.y, brickSize.x, brickSize.y, i);
+                Brick newBrick = new Brick (j*brickSize.x, i*brickSize.y, brickSize.x, brickSize.y, 9-i);
                 bricks.add(newBrick);
             }
         }
