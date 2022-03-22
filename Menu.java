@@ -54,11 +54,12 @@ public class Menu extends JFrame implements ActionListener{
         this.add(aboutPanel);
 
         JLabel aboutText = new JLabel();
-        aboutText.setBounds(10,10,230,330);
-        aboutText.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed efficitur est. Cras semper ornare elit at porttitor. Cras et semper elit. Suspendisse lobortis nisl vitae quam elementum tempor eu in nulla. Cras non vulputate libero, et pharetra ligula. Duis nec turpis purus. Etiam elementum, ante et laoreet mollis, elit purus bibendum velit, sit amet suscipit lectus velit a magna. Proin tempus pretium mauris ut ultrices. Donec pretium varius neque, ac condimentum ante volutpat et. Fusce dignissim tristique ligula, quis cursus elit rhoncus at. Cras mattis, est quis consequat congue, nunc massa sollicitudin ex, in elementum leo libero id lectus. Vivamus vitae iaculis urna. Duis vehicula tempor quam sagittis tincidunt. Aliquam vel ligula eget eros vehicula varius. Pellentesque ultrices enim et nisl euismod, in convallis eros sagittis. Curabitur pellentesque aliquam mauris at aliquet.");
+        aboutText.setBounds(0,0,50,70);
+        aboutText.setText("Code realise par Jeremy BANKS, Margaux NAGUEL, Theo GAIGE et Valentin MINOT");
         aboutPanel.add(aboutText);
 
         returnButton = new JButton("Return to menu");
+        aboutPanel.add(returnButton);
 
     }
 
