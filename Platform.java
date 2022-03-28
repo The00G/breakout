@@ -72,7 +72,11 @@ public class Platform {
     }
 
 
-    //https://www.tabnine.com/code/query/java.awt@Robot@mouseMove+java.awt@Robot@%3Cinit%3E
+    /**
+     * https://www.tabnine.com/code/query/java.awt@Robot@mouseMove+java.awt@Robot@%3Cinit%3E
+     * 
+     * @return Vector containing the x and y coordinates from the mouse
+     */
     public Vector MousePosition (){
         PointerInfo i = MouseInfo.getPointerInfo();
         Point b = i.getLocation();
