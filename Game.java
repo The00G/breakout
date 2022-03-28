@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.*;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements ActionListener{
 
     /**
      * for the painting method see:
@@ -18,16 +18,20 @@ public class Game extends JFrame {
     final public Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
     public double fieldScale;
     public Vector fieldOrigin, fieldSize;
-    public ArrayList<Brick> bricks;
+    public LinkedList<Brick> bricks;
     public Ball ball;
     public Platform platform;
     public int score;
     public int life;
+    Timer t = new Timer(100,this);
+    t.start();
+
+
 
     public Game() {
         super("Breakout!");
 
-        this.bricks = new ArrayList<Brick>();
+        this.bricks = new LinkedList<Brick>();
         this.createBricks();
 
         this.ball = new Ball(250, 500, 20, 2);
@@ -45,6 +49,15 @@ public class Game extends JFrame {
         this.playGame();
     }
 
+
+    public void ActionPerformed (ActionEvent e){
+        if (e.getSource() == t){
+            platform.move((int) fieldSize.x);
+            ball.move(bricks, platform);
+        }
+    }
+
+
     public void playGame(){
 
     }
@@ -56,7 +69,7 @@ public class Game extends JFrame {
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x/15 , FIELD_DEFAULT_SIZE.y/24);
         for (int i = 1; i<=8; i++){
             for(int j = 0; j<15; j++){
-                Brick newBrick = new Brick (j*brickSize.x, i*brickSize.y, brickSize.x, brickSize.y, i);
+                Brick newBrick = new Brick (j*brickSize.x, i*brickSize.y, brickSize.x, brickSize.y, 9-i);
                 bricks.add(newBrick);
             }
         }

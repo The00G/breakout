@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.MouseInfo;
+import java.awt.Point; 
+import java.awt.PointerInfo; 
 
 import helpers.mathHelper;
 
@@ -48,6 +51,19 @@ public class Platform {
         }
     }
 
+    public void move ( ){
+        Vector mouse=MousePosition();
+        pos.x += mouse.x; 
+        if (pos.x-size.x/2<=0){
+            pos.x=size.x/2;
+        }
+        double field=Game.fieldsize.x; 
+        if (pos.x + size.x/2>=field)
+            pos.x = field - size.x / 2;
+
+
+    }
+
     public void KeyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {// if the left arrow is pressed
@@ -66,6 +82,18 @@ public class Platform {
         if (key == KeyEvent.VK_RIGHT) {// if the right arrow is pressed
             dx = 0;
         }
+    }
+
+
+    //https://www.tabnine.com/code/query/java.awt@Robot@mouseMove+java.awt@Robot@%3Cinit%3E
+    public Vector MousePosition (){
+        PointerInfo i = MouseInfo.getPointerInfo();
+        Point b = i.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        Vector position = new Vector (x,y); 
+        position.sub(Game.FieldOrigin); 
+        return position;         
     }
 
 }

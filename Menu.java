@@ -19,8 +19,6 @@ public class Menu extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
-        System.out.println(this.getSize().getWidth());
-
         //Main panel -------------------------------------------
 
         mainPanel = new JPanel();
@@ -56,11 +54,12 @@ public class Menu extends JFrame implements ActionListener{
         this.add(aboutPanel);
 
         JLabel aboutText = new JLabel();
-        aboutText.setBounds(10,10,230,330);
-        aboutText.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec metus odio, lacinia et ornare sit amet, imperdiet vitae turpis. Vestibulum in dui vitae est interdum suscipit. Nullam nec velit porttitor, egestas ligula quis, ultricies nisi. Pellentesque aliquet, quam eu finibus viverra, odio ex posuere leo, quis accumsan quam nibh sit amet ante. Phasellus tempus dapibus risus nec rhoncus. Praesent id ante sed nisi viverra dignissim. Aliquam aliquam maximus iaculis. In a accumsan ipsum, at lobortis dolor.");
+        aboutText.setBounds(0,0,50,70);
+        aboutText.setText("Code realise par Jeremy BANKS, Margaux NAGUEL, Theo GAIGE et Valentin MINOT");
         aboutPanel.add(aboutText);
 
         returnButton = new JButton("Return to menu");
+        aboutPanel.add(returnButton);
 
     }
 
