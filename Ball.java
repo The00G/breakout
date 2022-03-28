@@ -32,34 +32,42 @@ public class Ball {
     }
 
     public void updateDirection(LinkedList<Brick> bricks, Platform platform) {
+        LinkedList<Vector> collision = new LinkedList<Vector>();
         if(this.pos.x < this.size) {
-            this.direction.x = Math.abs(this.direction.x);
-            return;
+            collision.add(new Vector(this.pos.x, 0));
         } else if ((this.fieldSize.x- this.pos.x) < this.size){
-            this.direction.x = -Math.abs(this.direction.x);
-            return;
+            collision.add(new Vector(this.fieldSize.x-this.pos.x, 0));
         }
 
         if ((this.fieldSize.y- this.pos.y) < this.size){
-            this.direction.y = -Math.abs(this.direction.y);
-            return;
+            collision.add(new Vector(0, this.fieldSize.y- this.pos.y));
         }
 
         for(Brick b : bricks) {
             Vector dis = b.distanceVectorTo(this.pos);
-            if(dis.mag()<this.size) {
-                this.direction.rotate(2*this.direction.angleWith(dis));
-                return;
+            if(dis.mag()<this.size){
+                collision.add(dis);
             }
         }
 
-        Vector dis = platform.distanceVectorTo(this.pos);
-        if(dis.mag()<this.size) {
-            this.direction.rotate(2*this.direction.angleWith(dis));
+        Vector platformDis = platform.distanceVectorTo(this.pos);
+        if(platformDis.mag()<this.size) {
+            collision.add(platformDis);
+        }
+
+        if(collision.isEmpty()) {
+            return;
+        }
+
+        collision.sort(null);
+       
+        this.direction.rotate(2*this.direction.angleWith(collision.get(0)));
+        if(collision.get(0) == platformDis){
             this.direction.mult(this.speed);
             this.direction.add(new Vector(platform.speed, 0));
             this.direction.normalize();
         }
+    
     }
 
 }
