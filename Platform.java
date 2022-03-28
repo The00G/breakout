@@ -59,7 +59,7 @@ public class Platform {
         }
         double field=Game.fieldsize.x; 
         if (pos.x + size.x/2>=field)
-            pos.x = xMax - size.x / 2;
+            pos.x = field - size.x / 2;
 
 
     }
