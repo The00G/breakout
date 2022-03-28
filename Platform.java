@@ -51,6 +51,19 @@ public class Platform {
         }
     }
 
+    public void move ( ){
+        Vector mouse=MousePosition();
+        pos.x += mouse.x; 
+        if (pos.x-size.x/2<=0){
+            pos.x=size.x/2;
+        }
+        double field=Game.fieldsize.x; 
+        if (pos.x + size.x/2>=field)
+            pos.x = xMax - size.x / 2;
+
+
+    }
+
     public void KeyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {// if the left arrow is pressed
@@ -79,6 +92,7 @@ public class Platform {
         int x = (int) b.getX();
         int y = (int) b.getY();
         Vector position = new Vector (x,y); 
+        position.sub(Game.FieldOrigin); 
         return position;         
     }
 
