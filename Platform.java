@@ -92,7 +92,7 @@ public class Platform {
         int x = (int) b.getX();
         int y = (int) b.getY();
         Vector position = new Vector (x,y); 
-        position.sub(Game.FieldOrigin); 
+        //position.sub(Game.FieldOrigin); 
         return position;         
     }
 

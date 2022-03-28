@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.*;
 
-public class Game extends JFrame implements ActionListener{
+public class Game extends JFrame {
 
     /**
      * for the painting method see:
@@ -23,7 +23,6 @@ public class Game extends JFrame implements ActionListener{
     public Platform platform;
     public int score;
     public int life;
-    public Timer t;
 
 
 
@@ -41,12 +40,10 @@ public class Game extends JFrame implements ActionListener{
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(new Painter());
+
+        //Timer t = new Timer(1000,this);
+        //t.start();
         
-        this.getContentPane().paint(this.getContentPane().getGraphics());
-
-        Timer t = new Timer(1000,this);
-        t.start();
-
         this.setVisible(true);
         
     }
@@ -102,6 +99,7 @@ public class Game extends JFrame implements ActionListener{
 
             g.setColor(Color.white);
             g.drawRect((int)fieldOrigin.x, (int)fieldOrigin.y, (int)fieldSize.x, (int)fieldSize.y);
+            
         }
     }
     
