@@ -40,7 +40,7 @@ public class Platform {
         return new Vector(dx, dy);
     }
 
-    public void move(int xMax) { // takes in parameter fieldSize.x
+    /*public void move(int xMax) { // takes in parameter fieldSize.x
         pos.x += dx; // updates the plateform position
         if (pos.x - size.x / 2 <= 0) { 
             pos.x = size.x / 2;
@@ -62,7 +62,7 @@ public class Platform {
             pos.x = field - size.x / 2;
 
 
-    }
+    }*/
 
     public void KeyPressed(KeyEvent e) {
         int key = e.getKeyCode();

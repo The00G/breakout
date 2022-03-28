@@ -18,13 +18,12 @@ public class Game extends JFrame implements ActionListener{
     final public Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
     public double fieldScale;
     public Vector fieldOrigin, fieldSize;
-    public LinkedList<Brick> bricks;
+    public LinkedList <Brick> bricks;
     public Ball ball;
     public Platform platform;
     public int score;
     public int life;
-    Timer t = new Timer(100,this);
-    t.start();
+    public Timer t;
 
 
 
@@ -41,26 +40,27 @@ public class Game extends JFrame implements ActionListener{
         this.setBounds(10, 10, 250, 350);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
         this.setContentPane(new Painter());
         
         this.getContentPane().paint(this.getContentPane().getGraphics());
 
-        this.playGame();
+        Timer t = new Timer(1000,this);
+        t.start();
+
+        this.setVisible(true);
+        
     }
 
 
-    public void ActionPerformed (ActionEvent e){
+    /*public void ActionPerformed (ActionEvent e){
         if (e.getSource() == t){
             platform.move((int) fieldSize.x);
             ball.move(bricks, platform);
         }
-    }
+    }*/
 
 
-    public void playGame(){
-
-    }
+    
 
     /**
      * fills the list of bricks of the game according to the length and height of the standart frame
