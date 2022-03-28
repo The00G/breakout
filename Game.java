@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.*;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements ActionListener{
 
     /**
      * for the painting method see:
@@ -23,6 +23,7 @@ public class Game extends JFrame {
     public Platform platform;
     public int score;
     public int life;
+    Timer t = new Timer(100,this); 
 
     public Game() {
         super("Breakout!");
