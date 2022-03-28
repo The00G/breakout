@@ -2,8 +2,10 @@
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
+import javax.swing.Timer; 
+import java.awt.event.*;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements ActionListener{
 
     /**
      * for the painting method see:
@@ -23,6 +25,7 @@ public class Game extends JFrame {
     public Platform platform;
     public int score;
     public int life;
+    public Timer t;
 
 
 
@@ -41,20 +44,20 @@ public class Game extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(new Painter());
 
-        //Timer t = new Timer(1000,this);
-        //t.start();
+        Timer t = new Timer(1000,this);
+        t.start();
         
         this.setVisible(true);
         
     }
 
 
-    /*public void ActionPerformed (ActionEvent e){
+    public void actionPerformed (ActionEvent e){
         if (e.getSource() == t){
             platform.move((int) fieldSize.x);
             ball.move(bricks, platform);
         }
-    }*/
+    }
 
 
     
