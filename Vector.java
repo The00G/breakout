@@ -1,7 +1,7 @@
 /**
  * Class vector
  */
-public class Vector {
+public class Vector implements Comparable<Vector> {
 
     public double x, y;
 
@@ -315,5 +315,21 @@ public class Vector {
      */
     public static double angleBetween(Vector v1, Vector v2) {
         return v2.getAngle()-v1.getAngle();
+    }
+
+    public int compareTo(Vector v){
+        if(this.mag()<v.mag()) {
+            return -1;
+        }
+        if(this.mag()>v.mag()){
+            return 1;
+        }
+        if(this.getAngle()<v.getAngle()) {
+            return -1;
+        }
+        if(this.getAngle()>v.getAngle()){
+            return 1;
+        }
+        return 0;
     }
 }

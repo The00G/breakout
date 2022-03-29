@@ -3,8 +3,10 @@
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
+import javax.swing.Timer; 
+import java.awt.event.*;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements ActionListener{
 
     /**
      * for the painting method see:
@@ -22,16 +24,19 @@ public class Game extends JFrame {
     final public Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
     public double fieldScale;
     public Vector fieldOrigin, fieldSize;
-    public ArrayList<Brick> bricks;
+    public LinkedList <Brick> bricks;
     public Ball ball;
     public Platform platform;
     public int score;
     public int life;
+    public Timer t;
+
+
 
     public Game() {
         super("Breakout!");
 
-        this.bricks = new ArrayList<Brick>();
+        this.bricks = new LinkedList<Brick>();
         this.createBricks();
 
         this.ball = new Ball(250, 500, 20, 2);
@@ -40,21 +45,27 @@ public class Game extends JFrame {
 
         this.setBounds(10, 10, 250, 350);
         this.setLayout(null);
-        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-        this.setContentPane(new Painter());
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(new Painter());
         this.getContentPane().paint(this.getContentPane().getGraphics());
 
+        Timer t = new Timer(1000,this);
+        t.start();
+        
+        this.setVisible(true);
+        
     }
 
-    public void play() {
-
+    public void actionPerformed (ActionEvent e){
+        if (e.getSource() == t){
+            platform.move((int) fieldSize.x);
+            ball.move(bricks, platform);
+        }
     }
 
-    public void end() {
 
-    }
+    
 
     /**
      * fills the list of bricks of the game according to the length and height of
@@ -102,6 +113,7 @@ public class Game extends JFrame {
 
             g.setColor(Color.white);
             g.drawRect((int) fieldOrigin.x, (int) fieldOrigin.y, (int) fieldSize.x, (int) fieldSize.y);
+
         }
     }
 

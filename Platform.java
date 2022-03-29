@@ -40,7 +40,7 @@ public class Platform {
         return new Vector(dx, dy);
     }
 
-    public void move(int xMax) { // takes in parameter fieldSize.x
+    /*public void move(int xMax) { // takes in parameter fieldSize.x
         pos.x += dx; // updates the plateform position
         if (pos.x - size.x / 2 <= 0) { 
             pos.x = size.x / 2;
@@ -50,6 +50,19 @@ public class Platform {
             pos.x = xMax - size.x / 2;
         }
     }
+
+    public void move ( ){
+        Vector mouse=MousePosition();
+        pos.x += mouse.x; 
+        if (pos.x-size.x/2<=0){
+            pos.x=size.x/2;
+        }
+        double field=Game.fieldsize.x; 
+        if (pos.x + size.x/2>=field)
+            pos.x = field - size.x / 2;
+
+
+    }*/
 
     public void KeyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -83,6 +96,7 @@ public class Platform {
         int x = (int) b.getX();
         int y = (int) b.getY();
         Vector position = new Vector (x,y); 
+        //position.sub(Game.FieldOrigin); 
         return position;         
     }
 
