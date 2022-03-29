@@ -65,7 +65,8 @@ public class Menu extends JFrame implements ActionListener {
 
         JLabel imageInsa = new JLabel(iconInsa, JLabel.CENTER);
         imageInsa.setBounds(mainPanel.getWidth() - iconInsa.getIconWidth() - 25,
-                mainPanel.getHeight() - iconInsa.getIconHeight() - 45, iconInsa.getIconWidth(), iconInsa.getIconHeight());
+                mainPanel.getHeight() - iconInsa.getIconHeight() - 45, iconInsa.getIconWidth(),
+                iconInsa.getIconHeight());
         mainPanel.add(imageInsa);
 
         // About panel ------------------------------------------
