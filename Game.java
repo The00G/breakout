@@ -3,10 +3,10 @@
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
-import javax.swing.Timer; 
+import javax.swing.Timer;
 import java.awt.event.*;
 
-public class Game extends JFrame implements ActionListener{
+public class Game extends JFrame implements ActionListener {
 
     /**
      * for the painting method see:
@@ -24,14 +24,12 @@ public class Game extends JFrame implements ActionListener{
     final public Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
     public double fieldScale;
     public Vector fieldOrigin, fieldSize;
-    public LinkedList <Brick> bricks;
+    public LinkedList<Brick> bricks;
     public Ball ball;
     public Platform platform;
     public int score;
     public int life;
     public Timer t;
-
-
 
     public Game() {
         super("Breakout!");
@@ -39,33 +37,29 @@ public class Game extends JFrame implements ActionListener{
         this.bricks = new LinkedList<Brick>();
         this.createBricks();
 
-        this.ball = new Ball(250, 500, 20, 2);
+        this.ball = new Ball(250, 500, 20, 4, FIELD_DEFAULT_SIZE);
 
         this.platform = new Platform(250, 600, 40, 10);
 
         this.setBounds(10, 10, 250, 350);
         this.setLayout(null);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(new Painter());
-        this.getContentPane().paint(this.getContentPane().getGraphics());
+        // this.getContentPane().paint(this.getContentPane().getGraphics());
 
-        Timer t = new Timer(1000,this);
-        t.start();
-        
+        GameTimer gt = new GameTimer(1000 / 60, this);
+
         this.setVisible(true);
-        
+
     }
 
-    public void actionPerformed (ActionEvent e){
-        if (e.getSource() == t){
-            platform.move((int) fieldSize.x);
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == t) {
+            // platform.move((int) fieldSize.x);
             ball.move(bricks, platform);
         }
     }
-
-
-    
 
     /**
      * fills the list of bricks of the game according to the length and height of
@@ -86,19 +80,22 @@ public class Game extends JFrame implements ActionListener{
             g.setColor(Color.black);
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-            fieldScale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x, this.getHeight() / FIELD_DEFAULT_SIZE.y);
+            fieldScale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
+                    this.getHeight() / FIELD_DEFAULT_SIZE.y);
             fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, fieldScale);
             fieldOrigin = new Vector((int) ((this.getWidth() - fieldSize.x) / 2),
                     (int) ((this.getHeight() - fieldSize.y) / 2));
 
             for (Brick b : bricks) {
                 g.setColor(b.color);
-                g.fillRect((int) (fieldOrigin.x + b.pos.x * fieldScale), (int) (fieldOrigin.y + b.pos.y * fieldScale),
+                g.fillRect((int) (fieldOrigin.x + b.pos.x * fieldScale), (int) (fieldOrigin.y
+                        + b.pos.y * fieldScale),
                         (int) (b.size.x * fieldScale), (int) (b.size.y * fieldScale));
             }
             g.setColor(Color.black);
             for (Brick b : bricks) {
-                g.drawRect((int) (fieldOrigin.x + b.pos.x * fieldScale), (int) (fieldOrigin.y + b.pos.y * fieldScale),
+                g.drawRect((int) (fieldOrigin.x + b.pos.x * fieldScale), (int) (fieldOrigin.y
+                        + b.pos.y * fieldScale),
                         (int) (b.size.x * fieldScale), (int) (b.size.y * fieldScale));
             }
 
@@ -108,7 +105,8 @@ public class Game extends JFrame implements ActionListener{
 
             g.setColor(platform.color);
             g.drawRect((int) (fieldOrigin.x + platform.pos.x * fieldScale),
-                    (int) (fieldOrigin.y + platform.pos.y * fieldScale), (int) (platform.size.x * fieldScale),
+                    (int) (fieldOrigin.y + platform.pos.y * fieldScale), (int) (platform.size.x *
+                            fieldScale),
                     (int) (platform.size.y * fieldScale));
 
             g.setColor(Color.white);
