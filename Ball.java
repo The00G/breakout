@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.util.LinkedList;
 
+import javax.swing.text.Position;
+
 public class Ball {
 
     public int size; // radius
@@ -22,25 +24,26 @@ public class Ball {
         this.pos = new Vector(posx, posy);
         this.size = s;
         this.speed = sp;
-        this.direction = Vector.normalized(new Vector(0, -1));
+        this.direction = Vector.normalized(new Vector(2, -1));
         this.fieldSize = fs;
     }
 
-    public void move(LinkedList<Brick> bricks, Platform platform) {
-        this.updateDirection(bricks, platform);
+    public Vector move(LinkedList<Brick> bricks, Platform platform) {
+        Vector vec = this.updateDirection(bricks, platform);
         this.pos.add(Vector.mult(this.direction, this.speed));
+        return vec;
     }
 
-    public void updateDirection(LinkedList<Brick> bricks, Platform platform) {
+    public Vector updateDirection(LinkedList<Brick> bricks, Platform platform) {
         LinkedList<Vector> collision = new LinkedList<Vector>();
         if (this.pos.x < this.size) {
             collision.add(new Vector(this.pos.x, 0));
         } else if ((this.fieldSize.x - this.pos.x) < this.size) {
-            collision.add(new Vector(this.fieldSize.x - this.pos.x, 0));
+            collision.add(new Vector(-(this.fieldSize.x - this.pos.x), 0));
         }
 
-        if ((this.fieldSize.y - this.pos.y) < this.size) {
-            collision.add(new Vector(0, this.fieldSize.y - this.pos.y));
+        if (this.pos.y < this.size) {
+            collision.add(new Vector(0, this.pos.y));
         }
 
         for (Brick b : bricks) {
@@ -56,17 +59,19 @@ public class Ball {
         }
 
         if (collision.isEmpty()) {
-            return;
+            return null;
         }
 
         collision.sort(null);
 
-        this.direction.rotate(2 * this.direction.angleWith(collision.get(0)));
+        this.direction.rotate(1 * this.direction.angleWith(collision.get(0)));
         if (collision.get(0) == platformDis) {
             this.direction.mult(this.speed);
             this.direction.add(new Vector(platform.speed, 0));
             this.direction.normalize();
         }
+
+        return collision.get(0);
 
     }
 

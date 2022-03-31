@@ -118,8 +118,6 @@ public class Menu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) {
             Game game = new Game();
-            // game.play();
-            // game.end();
         } else if (e.getSource() == aboutButton) {
             this.showAbout();
         } else if (e.getSource() == returnButton) {

@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.*;
 import javax.swing.Timer;
-import java.awt.event.*;
 
-public class Game extends JFrame implements ActionListener {
+public class Game extends JFrame {
 
     /**
      * for the painting method see:
@@ -52,13 +51,6 @@ public class Game extends JFrame implements ActionListener {
 
         this.setVisible(true);
 
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == t) {
-            // platform.move((int) fieldSize.x);
-            ball.move(bricks, platform);
-        }
     }
 
     /**

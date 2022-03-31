@@ -317,6 +317,7 @@ public class Vector implements Comparable<Vector> {
         return v2.getAngle()-v1.getAngle();
     }
 
+    
     public int compareTo(Vector v){
         if(this.mag()<v.mag()) {
             return -1;
