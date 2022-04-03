@@ -38,7 +38,7 @@ public class Game extends JFrame {
 
         this.ball = new Ball(250, 500, 10, 5, FIELD_DEFAULT_SIZE);
 
-        this.platform = new Platform(250, 600, 40, 10);
+        this.platform = new Platform(250, 600, 40, 10, FIELD_DEFAULT_SIZE);
 
         this.setBounds(10, 10, 500, 700);
         this.setLayout(null);

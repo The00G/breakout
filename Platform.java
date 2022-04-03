@@ -13,15 +13,18 @@ public class Platform {
     public double speed;
     public Color color = Color.white;
     public int dx;
+    public Vector fieldSize;
 
-    public Platform(Vector p, Vector s) {
+    public Platform(Vector p, Vector s, Vector fs) {
         this.pos = p;
         this.size = s;
+        this.fieldSize = fs;
     }
 
-    public Platform(double posx, double posy, double width, double height) {
+    public Platform(double posx, double posy, double width, double height, Vector fs) {
         this.pos = new Vector(posx, posy);
         this.size = new Vector(width, height);
+        this.fieldSize = fs;
     }
 
     public Vector distanceVectorTo(Vector p) {
@@ -38,6 +41,12 @@ public class Platform {
         }
 
         return new Vector(dx, dy);
+    }
+
+    public void move(Vector mousePos) {
+        double newPosX = mathHelper.constrain(mousePos.x, this.size.x, this.fieldSize.x-this.size.x);
+        this.speed = newPosX - this.pos.x;
+        this.pos.x = newPosX;
     }
 
     /*public void move(int xMax) { // takes in parameter fieldSize.x

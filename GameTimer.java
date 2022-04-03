@@ -21,14 +21,16 @@ public class GameTimer implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         g.ball.move(g.bricks, g.platform);
-        // g.platform.move();
-        g.repaint();
 
         mouseScreenPosition = MouseInfo.getPointerInfo().getLocation();
         windowPosition = g.getLocation();
-        mousePosition.x = mouseScreenPosition.getX() - windowPosition.getX();
-        mousePosition.y = mouseScreenPosition.getY() - windowPosition.getY();
+        mousePosition.x = (mouseScreenPosition.getX() - windowPosition.getX())/g.fieldScale;
+        mousePosition.y = (mouseScreenPosition.getY() - windowPosition.getY())/g.fieldScale;
         System.out.println(mousePosition);
+
+        g.platform.move(mousePosition);
+
+        g.repaint();
 
     }
 
