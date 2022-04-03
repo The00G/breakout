@@ -63,8 +63,8 @@ public class Ball {
         }
 
         collision.sort(null);
-
-        this.direction.rotate(1 * this.direction.angleWith(collision.get(0)));
+        
+        this.direction.sub(Vector.mult(collision.get(0), 2*this.direction.dot(collision.get(0))/collision.get(0).sqMag()));
         if (collision.get(0) == platformDis) {
             this.direction.mult(this.speed);
             this.direction.add(new Vector(platform.speed, 0));

@@ -102,6 +102,15 @@ public class Vector implements Comparable<Vector> {
     }
 
     /**
+     * Returns the squared magnitude of the vector
+     * 
+     * @return double
+     */
+    public double sqMag() {
+        return this.x * this.x + this.y * this.y;
+    }
+
+    /**
      * Normalizes the vector
      */
     public void normalize() {
