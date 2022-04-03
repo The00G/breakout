@@ -80,15 +80,15 @@ public class Game extends JFrame {
 
             for (Brick b : bricks) {
                 g.setColor(b.color);
-                g.fillRect((int) (fieldOrigin.x + b.pos.x * fieldScale), (int) (fieldOrigin.y
-                        + b.pos.y * fieldScale),
-                        (int) (b.size.x * fieldScale), (int) (b.size.y * fieldScale));
+                g.fillRect((int) (fieldOrigin.x + (b.pos.x - b.size.x) * fieldScale), (int) (fieldOrigin.y
+                        + (b.pos.y - b.size.y) * fieldScale),
+                        (int) (2 * b.size.x * fieldScale), (int) (2 * b.size.y * fieldScale));
             }
             g.setColor(Color.black);
             for (Brick b : bricks) {
-                g.drawRect((int) (fieldOrigin.x + b.pos.x * fieldScale), (int) (fieldOrigin.y
-                        + b.pos.y * fieldScale),
-                        (int) (b.size.x * fieldScale), (int) (b.size.y * fieldScale));
+                g.drawRect((int) (fieldOrigin.x + (b.pos.x - b.size.x) * fieldScale), (int) (fieldOrigin.y
+                        + (b.pos.y - b.size.y) * fieldScale),
+                        (int) (2 * b.size.x * fieldScale), (int) (2 * b.size.y * fieldScale));
             }
 
             g.setColor(ball.color);
