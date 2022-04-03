@@ -96,10 +96,10 @@ public class Game extends JFrame {
                     (int) (2*ball.size * fieldScale), (int) (2*ball.size * fieldScale));
 
             g.setColor(platform.color);
-            g.drawRect((int) (fieldOrigin.x + platform.pos.x * fieldScale),
-                    (int) (fieldOrigin.y + platform.pos.y * fieldScale), (int) (platform.size.x *
+            g.drawRect((int) (fieldOrigin.x + (platform.pos.x - platform.size.x)* fieldScale),
+                    (int) (fieldOrigin.y + (platform.pos.y - platform.size.y) * fieldScale), (int) (2 * platform.size.x *
                             fieldScale),
-                    (int) (platform.size.y * fieldScale));
+                    (int) (2 * platform.size.y * fieldScale));
 
             g.setColor(Color.white);
             g.drawRect((int) fieldOrigin.x, (int) fieldOrigin.y, (int) fieldSize.x, (int) fieldSize.y);
