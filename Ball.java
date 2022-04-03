@@ -63,12 +63,15 @@ public class Ball {
         }
 
         collision.sort(null);
-        
-        this.direction.sub(Vector.mult(collision.get(0), 2*this.direction.dot(collision.get(0))/collision.get(0).sqMag()));
-        if (collision.get(0) == platformDis) {
-            this.direction.mult(this.speed);
-            this.direction.add(new Vector(platform.speed, 0));
-            this.direction.normalize();
+        Vector normalVector = Vector.normalized(collision.get(0));
+        double normalSpeed = this.direction.dot(normalVector);
+        if(normalSpeed<0){
+            this.direction.sub(Vector.mult(normalVector, 2*normalSpeed));
+            if (collision.get(0) == platformDis) {
+                this.direction.mult(this.speed);
+                this.direction.add(new Vector(platform.speed, 0));
+                this.direction.normalize();
+            }
         }
 
         return collision.get(0);
