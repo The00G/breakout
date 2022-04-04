@@ -12,10 +12,11 @@ public class GameTimer implements ActionListener {
     Point windowPosition;
     Vector mousePosition = new Vector();
     boolean useless;
+    Timer t;
 
     public GameTimer(int interval, Game g) {
         this.g = g;
-        Timer t = new Timer(interval, this);
+        t = new Timer(interval, this);
         t.start();
     }
 
@@ -43,6 +44,10 @@ public class GameTimer implements ActionListener {
                 useless = g.bricks.remove(e);
             }
         }
+    }
+
+    public void stop() {
+        t.stop();
     }
 
 }

@@ -25,15 +25,15 @@ public class Ball {
      * 
      * @param posx the x position of the center of the ball
      * @param posy the y position of the center of the ball
-     * @param s the diameter of the ball
-     * @param sp the speed of the ball
-     * @param fs the field size vector
+     * @param s    the diameter of the ball
+     * @param sp   the speed of the ball
+     * @param fs   the field size vector
      */
     public Ball(double posx, double posy, int s, double sp, Vector fs) {
         this.pos = new Vector(posx, posy);
         this.size = s;
         this.speed = sp;
-        this.direction = Vector.normalized(new Vector(0, -1));
+        this.direction = Vector.normalized(new Vector(2, -1));
         this.fieldSize = fs;
     }
 
@@ -74,8 +74,8 @@ public class Ball {
         collision.sort(null);
         Vector normalVector = Vector.normalized(collision.get(0));
         double normalSpeed = this.direction.dot(normalVector);
-        if(normalSpeed<0){
-            this.direction.sub(Vector.mult(normalVector, 2*normalSpeed));
+        if (normalSpeed < 0) {
+            this.direction.sub(Vector.mult(normalVector, 2 * normalSpeed));
             if (collision.get(0) == platformDis) {
                 this.direction.mult(this.speed);
                 this.direction.add(new Vector(platform.speed, 0));

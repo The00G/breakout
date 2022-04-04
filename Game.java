@@ -31,6 +31,8 @@ public class Game extends JFrame {
     public Timer t;
     public int numberGames = 0;
 
+    private GameTimer gt;
+
     private int fps = 90;
 
     public Game() {
@@ -50,7 +52,7 @@ public class Game extends JFrame {
         this.setContentPane(new Painter());
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
-        GameTimer gt = new GameTimer(1000 / fps, this);
+        gt = new GameTimer(1000 / fps, this);
 
         this.setVisible(true);
 
@@ -62,9 +64,9 @@ public class Game extends JFrame {
      */
     public void createBricks() {
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
-        for (int i = 1; i < 20; i+=2) {
-            for (int j = 3; j < 18; j+=2) {
-                Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j/2);
+        for (int i = 1; i < 20; i += 2) {
+            for (int j = 3; j < 18; j += 2) {
+                Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j / 2);
                 bricks.add(newBrick);
             }
         }
@@ -95,12 +97,14 @@ public class Game extends JFrame {
             }
 
             g.setColor(ball.color);
-            g.fillOval((int) (fieldOrigin.x + (ball.pos.x-ball.size) * fieldScale), (int) (fieldOrigin.y + (ball.pos.y-ball.size) * fieldScale),
-                    (int) (2*ball.size * fieldScale), (int) (2*ball.size * fieldScale));
+            g.fillOval((int) (fieldOrigin.x + (ball.pos.x - ball.size) * fieldScale),
+                    (int) (fieldOrigin.y + (ball.pos.y - ball.size) * fieldScale),
+                    (int) (2 * ball.size * fieldScale), (int) (2 * ball.size * fieldScale));
 
             g.setColor(platform.color);
-            g.drawRect((int) (fieldOrigin.x + (platform.pos.x - platform.size.x)* fieldScale),
-                    (int) (fieldOrigin.y + (platform.pos.y - platform.size.y) * fieldScale), (int) (2 * platform.size.x *
+            g.drawRect((int) (fieldOrigin.x + (platform.pos.x - platform.size.x) * fieldScale),
+                    (int) (fieldOrigin.y + (platform.pos.y - platform.size.y) * fieldScale),
+                    (int) (2 * platform.size.x *
                             fieldScale),
                     (int) (2 * platform.size.y * fieldScale));
 
@@ -109,26 +113,28 @@ public class Game extends JFrame {
 
         }
     }
-    public void noMoreBricks (){
-        numberGames ++;
-        if(numberGames >=3){
+
+    public void noMoreBricks() {
+        numberGames++;
+        if (numberGames >= 3) {
             end();
         }
     }
-    public void end (){
-        if(numberGames >= 3){
+
+    public void end() {
+        if (numberGames >= 3) {
             // victory
             // create a Jframe to tell he won
-            t.stop();
+            gt.stop();
             JLabel endWinning = new JLabel();
             String WinningText = "You won! Congratulations!";
             endWinning.setText(WinningText);
             endWinning.setBounds(0, 0, (int) FIELD_DEFAULT_SIZE.x, (int) FIELD_DEFAULT_SIZE.y);
             this.add(endWinning);
-        }else if (ball.pos.y> FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0){
+        } else if (ball.pos.y > FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0) {
             // player loses
             // create a Jframe to tell he loses and close all
-            t.stop();
+            gt.stop();
             JLabel endLosing = new JLabel();
             String LosingText = "You won! Congratulations!";
             endLosing.setText(LosingText);
