@@ -31,6 +31,8 @@ public class Game extends JFrame {
     public Timer t;
     public int numberGames = 0;
 
+    private int fps = 90;
+
     public Game() {
         super("Breakout!");
 
@@ -48,7 +50,7 @@ public class Game extends JFrame {
         this.setContentPane(new Painter());
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
-        GameTimer gt = new GameTimer(1000 / 60, this);
+        GameTimer gt = new GameTimer(1000 / fps, this);
 
         this.setVisible(true);
 

@@ -20,11 +20,20 @@ public class Ball {
         this.fieldSize = fs;
     }
 
+    /**
+     * Create a ball with a default direction of movement
+     * 
+     * @param posx the x position of the center of the ball
+     * @param posy the y position of the center of the ball
+     * @param s the diameter of the ball
+     * @param sp the speed of the ball
+     * @param fs the field size vector
+     */
     public Ball(double posx, double posy, int s, double sp, Vector fs) {
         this.pos = new Vector(posx, posy);
         this.size = s;
         this.speed = sp;
-        this.direction = Vector.normalized(new Vector(2, -1));
+        this.direction = Vector.normalized(new Vector(0, -1));
         this.fieldSize = fs;
     }
 
