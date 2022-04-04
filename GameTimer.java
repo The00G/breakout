@@ -11,6 +11,7 @@ public class GameTimer implements ActionListener {
     Point mouseScreenPosition = new Point(0, 0);
     Point windowPosition;
     Vector mousePosition = new Vector();
+    Timer t;
 
     public GameTimer(int interval, Game g) {
         this.g = g;
