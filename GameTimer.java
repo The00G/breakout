@@ -14,7 +14,7 @@ public class GameTimer implements ActionListener {
 
     public GameTimer(int interval, Game g) {
         this.g = g;
-        Timer t = new Timer(interval, this);
+        t = new Timer(interval, this);
         t.start();
     }
 
@@ -44,6 +44,10 @@ public class GameTimer implements ActionListener {
             }
         }
         g.bricks.remove(b);
+    }
+
+    public void stop() {
+        t.stop();
     }
 
 }
