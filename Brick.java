@@ -6,7 +6,7 @@ public class Brick {
     public Vector size;
     public int totalLife, life; // if the brick is unbreakable, set life inferior to 0
     public Color color;
-    private Color[] colorList = { Color.white,
+    private static Color[] colorList = { Color.black,
             Color.white,
             new Color(185, 213, 146),
             new Color(251, 240, 156),

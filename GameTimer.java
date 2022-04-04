@@ -32,6 +32,7 @@ public class GameTimer implements ActionListener {
         g.platform.move(mousePosition);
 
         refreshBricks();
+        g.end();
 
         g.repaint();
 
