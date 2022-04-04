@@ -3,7 +3,8 @@ import java.awt.Color;
 public class Brick extends Obstacle {
 
     public int totalLife, life; // if the brick is unbreakable, set life inferior to 0
-    private Color[] colorList = { Color.white,
+    public Color color;
+    private static Color[] colorList = { Color.black,
             Color.white,
             new Color(185, 213, 146),
             new Color(251, 240, 156),

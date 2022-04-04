@@ -29,6 +29,9 @@ public class Game extends JFrame {
     public int score;
     public int life;
     public Timer t;
+    public int numberGames = 0;
+
+    private int fps = 90;
 
     public Game() {
         super("Breakout!");
@@ -47,7 +50,7 @@ public class Game extends JFrame {
         this.setContentPane(new Painter());
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
-        GameTimer gt = new GameTimer(1000 / 60, this);
+        GameTimer gt = new GameTimer(1000 / fps, this);
 
         this.setVisible(true);
 
@@ -104,6 +107,33 @@ public class Game extends JFrame {
             g.setColor(Color.white);
             g.drawRect((int) fieldOrigin.x, (int) fieldOrigin.y, (int) fieldSize.x, (int) fieldSize.y);
 
+        }
+    }
+    public void noMoreBricks (){
+        numberGames ++;
+        if(numberGames >=3){
+            end();
+        }
+    }
+    public void end (){
+        if(numberGames >= 3){
+            // victory
+            // create a Jframe to tell he won
+            t.stop();
+            JLabel endWinning = new JLabel();
+            String WinningText = "You won! Congratulations!";
+            endWinning.setText(WinningText);
+            endWinning.setBounds(0, 0, (int) FIELD_DEFAULT_SIZE.x, (int) FIELD_DEFAULT_SIZE.y);
+            this.add(endWinning);
+        }else if (ball.pos.y> FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0){
+            // player loses
+            // create a Jframe to tell he loses and close all
+            t.stop();
+            JLabel endLosing = new JLabel();
+            String LosingText = "You won! Congratulations!";
+            endLosing.setText(LosingText);
+            endLosing.setBounds(0, 0, (int) FIELD_DEFAULT_SIZE.x, (int) FIELD_DEFAULT_SIZE.y);
+            this.add(endLosing);
         }
     }
 
