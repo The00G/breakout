@@ -53,9 +53,10 @@ public class Brick extends Obstacle {
      * decreases the life of the brick by one and changes the color according to
      * it's new life
      */
-    public void ballTouchesBrick() {
+    public void hit() {
         this.life--;
         this.setColorBrick();
+        System.out.println("j'ai "+this.life+"points de vie");
     }
 
 }

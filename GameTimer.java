@@ -11,7 +11,6 @@ public class GameTimer implements ActionListener {
     Point mouseScreenPosition = new Point(0, 0);
     Point windowPosition;
     Vector mousePosition = new Vector();
-    boolean useless;
 
     public GameTimer(int interval, Game g) {
         this.g = g;
@@ -32,17 +31,19 @@ public class GameTimer implements ActionListener {
         g.platform.move(mousePosition);
 
         refreshBricks();
-        g.end();
+        //g.end();
 
         g.repaint();
-
     }
+
     public void refreshBricks (){
+        Brick b = null;
         for(Brick e: g.bricks){
             if(e.isDead()==true){
-                useless = g.bricks.remove(e);
+                b = e;
             }
         }
+        g.bricks.remove(b);
     }
 
 }

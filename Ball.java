@@ -82,7 +82,7 @@ public class Ball {
                 this.direction.normalize();
             }
         }
-
+        bricks.get(0).hit();
         return collision.get(0);
 
     }
