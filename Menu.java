@@ -12,7 +12,9 @@ public class Menu extends JFrame implements ActionListener {
     JButton aboutButton;
     JButton playButton;
     JPanel aboutPanel;
-    JButton returnButton;
+    JPanel rulesPanel;
+    JButton returnAboutButton;
+    JButton returnRulesButton;
     ImageIcon icon = new ImageIcon("breakout logo.png");
     ImageIcon iconInsa = new ImageIcon("Logo Insa.png");
 
@@ -76,20 +78,7 @@ public class Menu extends JFrame implements ActionListener {
         aboutPanel.setVisible(false);
         aboutPanel.setLayout(null);
         this.add(aboutPanel);
-        int endOfText = aboutPanel.getHeight() / 2;
-
-        // JLabel aboutText = new JLabel();
-        // aboutText.setBounds(0, 0, aboutPanel.getWidth(), 100);
-        // aboutText.setBorder(BorderFactory.createTitledBorder("A propos"));
-        // aboutText.setText(
-        // "Ce jeu a été développé dans le cadre du projet de fin d'année du cours
-        // Algorithmique et programmation 1 & 2 dispensé en première année de FIMI à
-        // l'INSA Lyon."
-        // + System.lineSeparator() + "\n"
-        // + "Il utilise les notions d'algorithmique et de programmation en Java
-        // découvertes tout au long de l'année mais également d'autres notions
-        // découvertes dans un cadre extra-scolaire.");
-        // aboutPanel.add(aboutText);
+        int endOfAboutText = aboutPanel.getHeight() / 2;
 
         String[] aboutText = {
                 "Ce jeu a été développé dans le cadre du projet de fin d'année du cours Algorithmique et programmation 1 & 2 dispensé en première année de FIMI à l'INSA Lyon.",
@@ -99,19 +88,46 @@ public class Menu extends JFrame implements ActionListener {
                 "@Jeremy Banks - Développeur", "@Margaux Nagel - Développeur", "@Theo Gaigé - Développeur",
                 "@Valentin Minot - Développeur" };
 
-        JLabel[] labels = new JLabel[aboutText.length];
+        JLabel[] aboutLabels = new JLabel[aboutText.length];
         for (int i = 0; i < aboutText.length; i++) {
-            labels[i] = new JLabel();
-            labels[i].setBounds(15, (int) mathHelper.lerp(15, endOfText, i * 1 / ((double) aboutText.length)),
+            aboutLabels[i] = new JLabel();
+            aboutLabels[i].setBounds(15, (int) mathHelper.lerp(15, endOfAboutText, i * 1 / ((double) aboutText.length)),
                     aboutPanel.getWidth(), 25);
-            labels[i].setText(aboutText[i]);
-            aboutPanel.add(labels[i]);
+            aboutLabels[i].setText(aboutText[i]);
+            aboutPanel.add(aboutLabels[i]);
         }
 
-        returnButton = new JButton("Return to menu");
-        aboutPanel.add(returnButton);
-        returnButton.setBounds(15, endOfText, buttonWidth, buttonHeight);
-        returnButton.addActionListener(this);
+        returnAboutButton = new JButton("Return to menu");
+        aboutPanel.add(returnAboutButton);
+        returnAboutButton.setBounds(15, endOfAboutText, buttonWidth, buttonHeight);
+        returnAboutButton.setBackground(Color.WHITE);
+        returnAboutButton.addActionListener(this);
+
+        // Rules pannel -----------------------------------------
+
+        rulesPanel = new JPanel();
+        rulesPanel.setBounds(0, 0, mainPanel.getWidth(), mainPanel.getHeight());
+        rulesPanel.setVisible(false);
+        rulesPanel.setLayout(null);
+        this.add(rulesPanel);
+        int endOfRulesText = rulesPanel.getHeight() / 2;
+
+        String[] rulesText = { "J'aime les frites", "et le saucisson" };
+
+        JLabel[] rulesLabels = new JLabel[rulesText.length];
+        for (int i = 0; i < rulesText.length; i++) {
+            rulesLabels[i] = new JLabel();
+            rulesLabels[i].setBounds(15, (int) mathHelper.lerp(15, endOfRulesText, i * 1 / ((double) rulesText.length)),
+                    rulesPanel.getWidth(), 25);
+            rulesLabels[i].setText(rulesText[i]);
+            rulesPanel.add(rulesLabels[i]);
+        }
+
+        returnRulesButton = new JButton("Retour au menu");
+        rulesPanel.add(returnRulesButton);
+        returnRulesButton.setBounds(15, endOfAboutText, buttonWidth, buttonHeight);
+        returnRulesButton.setBackground(Color.WHITE);
+        returnRulesButton.addActionListener(this);
 
     }
 
@@ -120,8 +136,12 @@ public class Menu extends JFrame implements ActionListener {
             Game game = new Game();
         } else if (e.getSource() == aboutButton) {
             this.showAbout();
-        } else if (e.getSource() == returnButton) {
+        } else if (e.getSource() == returnAboutButton) {
             this.showMainMenu();
+        } else if (e.getSource() == returnRulesButton) {
+            this.showMainMenu();
+        } else if (e.getSource() == rulesButton) {
+            this.showRules();
         }
     }
 
@@ -133,5 +153,11 @@ public class Menu extends JFrame implements ActionListener {
     public void showMainMenu() {
         mainPanel.setVisible(true);
         aboutPanel.setVisible(false);
+        rulesPanel.setVisible(false);
+    }
+
+    public void showRules() {
+        mainPanel.setVisible(false);
+        rulesPanel.setVisible(true);
     }
 }

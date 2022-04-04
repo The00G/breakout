@@ -26,7 +26,7 @@ public class GameTimer implements ActionListener {
         windowPosition = g.getLocation();
         mousePosition.x = (mouseScreenPosition.getX() - windowPosition.getX())/g.fieldScale;
         mousePosition.y = (mouseScreenPosition.getY() - windowPosition.getY())/g.fieldScale;
-        System.out.println(mousePosition);
+        //System.out.println(mousePosition);
 
         g.platform.move(mousePosition);
 
