@@ -127,16 +127,6 @@ public class Game extends JFrame {
             // victory
             // create a Jframe to tell he won
             gt.stop();
-            /*JFrame endWinning = new JFrame();
-            String winningText = "You won! Congratulations!";
-            endWinning.setBounds(0, 0, (int) FIELD_DEFAULT_SIZE.x, (int) FIELD_DEFAULT_SIZE.y);
-            JLabel endText = new JLabel();
-            endText.setBounds(0, 0, (int) FIELD_DEFAULT_SIZE.x, (int) FIELD_DEFAULT_SIZE.y);
-            endText.setText(winningText);
-            endText.setVisible(true);
-            this.add(endText);
-            endWinning.setVisible(true);*/
-            //tentatives infructueuses mais l'idée est la pour ceux qui veulent
         } else if (ball.pos.y > FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0) {
             // player loses
             // create a Jframe to tell he loses and close all
@@ -145,13 +135,6 @@ public class Game extends JFrame {
                 this.ball = new Ball(250, 500, 10, 5, FIELD_DEFAULT_SIZE);
             }else if(hearts <= 0){
                 gt.stop();
-                /*JLabel endLosing = new JLabel();
-                String LosingText = "You lost! Try again";
-                endLosing.setText(LosingText);
-                endLosing.setBounds(0, 0, (int) FIELD_DEFAULT_SIZE.x, (int) FIELD_DEFAULT_SIZE.y);
-                endLosing.setVisible(true);
-                this.add(endLosing);*/
-                //tentatives infructueuses mais l'idée est la pour ceux qui veulent
             }
         }
     }
