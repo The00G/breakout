@@ -31,6 +31,7 @@ public class Game extends JFrame {
     public Timer t;
     public int numberGames = 0;
     public int hearts = 3;
+    JFrame winningFrame;
 
     private GameTimer gt;
 
@@ -137,6 +138,20 @@ public class Game extends JFrame {
                 gt.stop();
             }
         }
+    }
+    public void finalFrame (){
+        winningFrame =  new JFrame();
+        winningFrame.setBounds(20, 20, 500, 500);
+        winningFrame.setBackground(Color.yellow);
+        JLabel finalLabel = new JLabel();
+        finalLabel.setBounds(50, 50, 700, 700);
+        if (this.hearts<=0){
+            finalLabel.setText("LOOOSER");
+        }else if (this.numberGames>3) {
+            finalLabel.setText("VICTORY");
+        }
+        winningFrame.add(finalLabel);
+        winningFrame.setVisible(true);
     }
 
 }

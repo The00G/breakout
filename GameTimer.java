@@ -50,6 +50,7 @@ public class GameTimer implements ActionListener {
     public void stop() {
         t.stop();
         g.dispose();
+        g.finalFrame();
     }
 
 }

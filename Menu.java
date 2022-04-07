@@ -168,4 +168,5 @@ public class Menu extends JFrame implements ActionListener {
         mainPanel.setVisible(false);
         rulesPanel.setVisible(true);
     }
+    
 }
