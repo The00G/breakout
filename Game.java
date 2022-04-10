@@ -20,7 +20,7 @@ public class Game extends JFrame {
      * https://www.geeksforgeeks.org/nested-classes-java/#:~:text=In%20Java%2C%20it%20is%20possible,more%20readable%20and%20maintainable%20code.
      */
 
-    final public Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
+    final public static Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
     public double fieldScale;
     public Vector fieldOrigin, fieldSize;
     public LinkedList<Brick> bricks;
@@ -33,7 +33,6 @@ public class Game extends JFrame {
     public int life;
     public Timer t;
     public int numberGames = 0;
-    public int hearts = 3;
     JFrame winningFrame;
 
     private GameTimer gt;
@@ -52,6 +51,7 @@ public class Game extends JFrame {
         this.setContentPane(new Painter());
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
+        this.life = 3;
         gt = new GameTimer(1000 / fps, this);
 
        
@@ -139,10 +139,11 @@ public class Game extends JFrame {
         } else if (ball.pos.y > FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0) {
             // player loses
             // create a Jframe to tell he loses and close all
-            hearts --;
-            if (hearts>0){
-                this.ball = new Ball(250, 500, 10, 5, FIELD_DEFAULT_SIZE);
-            }else if(hearts <= 0){
+            this.life --;
+            if (this.life>0){
+                this.ball.pos = new Vector(250, 350);
+                this.ball.direction = new Vector(0,1);
+            }else if(this.life <= 0){
                 gt.stop();
             }
         }
@@ -153,7 +154,7 @@ public class Game extends JFrame {
         winningFrame.setBackground(Color.yellow);
         JLabel finalLabel = new JLabel();
         finalLabel.setBounds(50, 50, 700, 700);
-        if (this.hearts<=0){
+        if (this.life<=0){
             finalLabel.setText("LOOOSER");
         }else if (this.numberGames>3) {
             finalLabel.setText("VICTORY");
