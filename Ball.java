@@ -1,5 +1,5 @@
 import java.awt.*;
-import java.util.LinkedList;
+import java.util.*;
 
 import javax.swing.text.Position;
 
@@ -7,37 +7,58 @@ import org.w3c.dom.events.MouseEvent;
 
 public class Ball extends GameElement {
 
-    public int radius; // radius
-    public double speed;
-    public Vector direction;
-    public Vector fieldSize;
+    /**
+     * Radius of this ball
+     */
+    public int radius;
 
-    public Ball(Vector p, int r, double sp, Vector d, Vector fs) {
+    /**
+     * Speed of this ball in /s
+     */
+    public double speed;
+
+    /**
+     * Direction of this ball movement
+     */
+    public Vector direction;
+
+    /**
+     * Creates a ball with a given position, size, speed and direction of movement
+     * 
+     * @param p    the position of the center of the ball
+     * @param s    the radius of the ball
+     * @param sp   the speed of the ball
+     * @param d    the direction of movement of the ball
+     */
+    public Ball(Vector p, int r, double sp, Vector d) {
         super(p, new Vector(r,r));
         this.radius = r;
         this.speed = sp;
         this.direction = Vector.normalized(d);
-        this.fieldSize = fs;
     }
 
     /**
-     * Create a ball with a default direction of movement
+     * Creates a ball with a given position, size and speed and a default direction of movement
      * 
      * @param posx the x position of the center of the ball
      * @param posy the y position of the center of the ball
-     * @param s    the diameter of the ball
+     * @param s    the radius of the ball
      * @param sp   the speed of the ball
-     * @param fs   the field size vector
      */
-    public Ball(double posx, double posy, int r, double sp, Vector fs) {
+    public Ball(double posx, double posy, int r, double sp) {
         super(new Vector(posx, posy), new Vector(r, r));
         this.radius = r;
         this.speed = sp;
-        this.direction = Vector.normalized(new Vector(1, -1));
-        this.fieldSize = fs;
+        this.direction = Vector.normalized(new Vector(0, -1));
     }
 
-    public void move(LinkedList<Obstacle> obstacles, int dt) {
+    /**
+     * Moves this ball with a given time interval and set of obstacles
+     * 
+     * @param obstacles obstacles that can affect this ball trajectory
+     * @param dt        time interval
+     */
+    public void move(Collection<Obstacle> obstacles, int dt) {
         double movementLeft = this.speed * (dt/1000.0);
 
         while(movementLeft>0) {
@@ -62,15 +83,6 @@ public class Ball extends GameElement {
         }
 
         
-    }
-
-    public void bounce(Obstacle o) {
-        Vector normalVector = Vector.normalized(o.distanceVectorTo(this.pos));
-        double normalSpeed = this.direction.dot(normalVector);
-        if (normalSpeed < 0) {
-            this.direction.sub(Vector.mult(normalVector, 2 * normalSpeed));
-        }
-        o.hit();
     }
 
     @Override

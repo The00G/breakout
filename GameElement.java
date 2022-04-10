@@ -3,12 +3,12 @@ import java.awt.*;
 public abstract class GameElement {
     
     /**
-     * Vector representing the position this game element
+     * The position of the center of this game element
      */
     public Vector pos;
 
     /**
-     * Vector representing the size this game element
+     * The size this game element
      */
     public Vector size;
 
@@ -33,6 +33,7 @@ public abstract class GameElement {
     /**
      * Creates a game element with a given position and size
      * Set the color of the game element to white
+     * 
      * @param p vector representing the position of the game element
      * @param s vector representing the size of the game element
      */
@@ -43,7 +44,7 @@ public abstract class GameElement {
     }
 
     /**
-     * paint the game element 
+     * Paint the game element 
      * 
      * @param g the {@code Graphics} context in which to paint
      * @param fieldOrigin the origin of the coordinate system

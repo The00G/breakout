@@ -192,7 +192,7 @@ public class Vector implements Comparable<Vector> {
     }
 
     /**
-     * return the angle from this vector to another vector
+     * Return the angle from this vector to another vector
      * 
      * @param v
      * @return double

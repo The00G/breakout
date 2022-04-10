@@ -55,8 +55,8 @@ public abstract class Obstacle extends GameElement{
     /**
      * Update the direction of a ball to simulate a bounce on this obstacle
      * 
-     * @param bPos vector representing the position of the ball
-     * @param bDir vector representing the direction of the ball
+     * @param bPos the position of the ball
+     * @param bDir the direction of the ball
      */
     public void bounce(Vector bPos, Vector bDir) {
         Vector normalVector = Vector.normalized(this.distanceVectorTo(bPos));

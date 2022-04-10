@@ -8,30 +8,54 @@ import javax.swing.Timer;
 public class Game extends JFrame {
 
     /**
-     * for the painting method see:
-     * the problem :
-     * http://www.herongyang.com/Swing/JFrame-Draw-Graphics-paint-on-Frame.html
-     * solution 1
-     * :http://www.herongyang.com/Swing/JFrame-Draw-Graphics-paint-on-Component.html
-     * solution 2 (the one implemented) :
-     * http://www.herongyang.com/Swing/JFrame-Draw-Graphics-paint-on-Content-Pane.html
-     * 
-     * what the fuck is a class in a class? see:
-     * https://www.geeksforgeeks.org/nested-classes-java/#:~:text=In%20Java%2C%20it%20is%20possible,more%20readable%20and%20maintainable%20code.
+     * Size of the field
+     * <p>
+     * Every coordinate are calculated according to this
      */
-
     final public static Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
+
+    /**
+     * Scale between the coordinate system and the display
+     */
     public double fieldScale;
     public Vector fieldOrigin, fieldSize;
+
+    /**
+     * List of the bricks in this game
+     */
     public LinkedList<Brick> bricks;
+
+    /**
+     * Ball of this game
+     */
     public Ball ball;
+
+    /**
+     * Platform of this game
+     */
     public Platform platform;
+
+    /**
+     * List of the walls in this game
+     */
     public LinkedList<Wall> walls;
+
+    /**
+     * List of the obstacles in this game
+     * <p>
+     * Contains the bricks, the walls and the platform
+     */
     public LinkedList<Obstacle> obstacles;
+
+    /**
+     * List of the elements of this game
+     * <p>
+     * Contains the bricks, the walls, the platform and the ball
+     */
     public LinkedList<GameElement> elements;
+
     public int score;
     public int life;
-    public Timer t;
     public int numberGames = 0;
     JFrame winningFrame;
 
@@ -39,6 +63,9 @@ public class Game extends JFrame {
 
     private int fps = 90;
 
+    /**
+     * Creates a new game
+     */
     public Game() {
         super("Breakout!");
 
@@ -61,6 +88,9 @@ public class Game extends JFrame {
 
     }
 
+    /**
+     * Creates all the game elements and stores them in the dedicated lists
+     */
     public void createElements() {
         
         this.createBricks();
@@ -74,7 +104,7 @@ public class Game extends JFrame {
         this.obstacles.addAll(this.walls);
         this.obstacles.add(this.platform);
 
-        this.ball = new Ball(250, 500, 10, 600, FIELD_DEFAULT_SIZE);
+        this.ball = new Ball(250, 500, 10, 600);
 
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
@@ -83,8 +113,7 @@ public class Game extends JFrame {
     }
 
     /**
-     * fills the list of bricks of the game according to the length and height of
-     * the standart frame
+     * Fills the list of bricks of the game
      */
     public void createBricks() {
         this.bricks = new LinkedList<Brick>();
@@ -97,6 +126,9 @@ public class Game extends JFrame {
         }
     }
 
+    /**
+     * Fills the list of walls with the outer walls of the field
+     */
     public void createWalls(){
         this.walls = new LinkedList<Wall>();
         walls.add(new Wall(new Vector(0,0), this.FIELD_DEFAULT_SIZE.x, false));
@@ -104,23 +136,38 @@ public class Game extends JFrame {
         walls.add(new Wall(new Vector(this.FIELD_DEFAULT_SIZE.x,0), this.FIELD_DEFAULT_SIZE.y, true));
     }
 
+    /**
+     * remove the dead bricks from the bricks, obstacles and element lists
+     */
+    public void removeDeadBricks (){
+        LinkedList<Brick> deads = new LinkedList<Brick>();
+        for(Brick b : this.bricks){
+            if(b.isDead()){
+                deads.add(b);
+            }
+        }
+        this.bricks.removeAll(deads);
+        this.obstacles.removeAll(deads);
+        this.elements.removeAll(deads);
+    }
+
     public class Painter extends JComponent {
+
+        @Override
         public void paint(Graphics g) {
+
             g.setColor(Color.black);
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
             fieldScale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
-                    this.getHeight() / FIELD_DEFAULT_SIZE.y);
+                                  this.getHeight() / FIELD_DEFAULT_SIZE.y);
             fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, fieldScale);
             fieldOrigin = new Vector((int) ((this.getWidth() - fieldSize.x) / 2),
-                    (int) ((this.getHeight() - fieldSize.y) / 2));
+                                     (int) ((this.getHeight() - fieldSize.y) / 2));
 
             for(GameElement e : elements) {
                 e.paint(g, fieldOrigin, fieldScale);
             }
-
-            //g.setColor(Color.white);
-            //g.drawRect((int) fieldOrigin.x, (int) fieldOrigin.y, (int) fieldSize.x, (int) fieldSize.y);
 
         }
     }
