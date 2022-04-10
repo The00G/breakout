@@ -55,7 +55,7 @@ public class Platform extends Obstacle{
         if(bPos.y >= this.pos.y) {
             return;
         }
-        bDir.copy(Vector.sub(bPos, this.pos));
+        bDir.set(Vector.sub(bPos, this.pos));
         bDir.normalize();
         this.hit();
     }
