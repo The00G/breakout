@@ -2,14 +2,33 @@ import java.awt.*;
 
 public abstract class Obstacle extends GameElement{
     
+    /**
+     * Creates an obstacle with a given position, size and color
+     * 
+     * @param p vector representing the position of the obstacle
+     * @param s vector representing the size of the obstacle
+     * @param c color of the obstacle
+     */
     public Obstacle(Vector p, Vector s, Color c){
         super(p, s, c);
     }
 
+    /**
+     * Creates an obstacle with a given position and size
+     * 
+     * @param p vector representing the position of the obstacle
+     * @param s vector representing the size of the obstacle
+     */
     public Obstacle(Vector p, Vector s){
         super(p, s);
     }
 
+    /**
+     * Returns a vector corresponding to the shortest straight path from the boundary of this obstacle to a given point 
+     * this obstacle is considered to be rectangular box
+     * @param   p   
+     * @return  a vector corresponding to the shortest straight path from the boundary of this obstacle to a given point
+     */
     public Vector distanceVectorTo(Vector p) {
         double dx, dy;
 
@@ -26,11 +45,19 @@ public abstract class Obstacle extends GameElement{
         return new Vector(dx, dy);
     }
 
+    /**
+     * Signals to this obstacle that it has been hit
+     */
     public void hit() {
-        //System.out.println("autre touché");
         return;
     }
 
+    /**
+     * Update the direction of a ball to simulate a bounce on this obstacle
+     * 
+     * @param bPos vector representing the position of the ball
+     * @param bDir vector representing the direction of the ball
+     */
     public void bounce(Vector bPos, Vector bDir) {
         Vector normalVector = Vector.normalized(this.distanceVectorTo(bPos));
         double normalSpeed = bDir.dot(normalVector);
