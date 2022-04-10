@@ -33,6 +33,8 @@ public class Game extends JFrame {
     public int life;
     public Timer t;
     public int numberGames = 0;
+    public int hearts = 3;
+    JFrame winningFrame;
 
     private GameTimer gt;
 
@@ -134,21 +136,30 @@ public class Game extends JFrame {
             // victory
             // create a Jframe to tell he won
             gt.stop();
-            JLabel endWinning = new JLabel();
-            String WinningText = "You won! Congratulations!";
-            endWinning.setText(WinningText);
-            endWinning.setBounds(0, 0, (int) FIELD_DEFAULT_SIZE.x, (int) FIELD_DEFAULT_SIZE.y);
-            this.add(endWinning);
         } else if (ball.pos.y > FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0) {
             // player loses
             // create a Jframe to tell he loses and close all
-            gt.stop();
-            JLabel endLosing = new JLabel();
-            String LosingText = "You won! Congratulations!";
-            endLosing.setText(LosingText);
-            endLosing.setBounds(0, 0, (int) FIELD_DEFAULT_SIZE.x, (int) FIELD_DEFAULT_SIZE.y);
-            this.add(endLosing);
+            hearts --;
+            if (hearts>0){
+                this.ball = new Ball(250, 500, 10, 5, FIELD_DEFAULT_SIZE);
+            }else if(hearts <= 0){
+                gt.stop();
+            }
         }
+    }
+    public void finalFrame (){
+        winningFrame =  new JFrame();
+        winningFrame.setBounds(20, 20, 500, 500);
+        winningFrame.setBackground(Color.yellow);
+        JLabel finalLabel = new JLabel();
+        finalLabel.setBounds(50, 50, 700, 700);
+        if (this.hearts<=0){
+            finalLabel.setText("LOOOSER");
+        }else if (this.numberGames>3) {
+            finalLabel.setText("VICTORY");
+        }
+        winningFrame.add(finalLabel);
+        winningFrame.setVisible(true);
     }
 
 }
