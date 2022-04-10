@@ -200,7 +200,7 @@ public class Vector implements Comparable<Vector> {
         return v.getAngle()-this.getAngle();
     }
 
-    public void copy(Vector v){
+    public void set(Vector v){
         this.x = v.x;
         this.y = v.y;
     }
