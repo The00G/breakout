@@ -1,9 +1,8 @@
-import java.awt.Color;
+import java.awt.*;
 
 public class Brick extends Obstacle {
 
     public int totalLife, life; // if the brick is unbreakable, set life inferior to 0
-    public Color color;
     private static Color[] colorList = { Color.black,
             Color.white,
             new Color(185, 213, 146),
@@ -53,10 +52,21 @@ public class Brick extends Obstacle {
      * decreases the life of the brick by one and changes the color according to
      * it's new life
      */
+    @Override
     public void hit() {
         this.life--;
         this.setColorBrick();
-        System.out.println("j'ai "+this.life+"points de vie");
+        System.out.println("brick touchée");
+    }
+
+    @Override
+    public void paint(Graphics g, Vector fieldOrigin, double fieldScale) {
+        super.paint(g, fieldOrigin, fieldScale);
+        g.setColor(Color.black);
+        g.drawRect( (int) (fieldOrigin.x + (this.pos.x - this.size.x) * fieldScale),
+                    (int) (fieldOrigin.y + (this.pos.y - this.size.y) * fieldScale),
+                    (int) (2 * this.size.x * fieldScale),
+                    (int) (2 * this.size.y * fieldScale));
     }
 
 }

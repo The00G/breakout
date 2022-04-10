@@ -1,3 +1,5 @@
+import java.util.Collection;
+
 /**
  * Class vector
  */
@@ -341,5 +343,13 @@ public class Vector implements Comparable<Vector> {
             return 1;
         }
         return 0;
+    }
+
+    public static Vector sum(Collection<Vector> vectors) {
+        Vector sum = new Vector();
+        for(Vector v : vectors) {
+            sum.add(v);
+        }
+        return sum;
     }
 }

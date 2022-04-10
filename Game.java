@@ -26,6 +26,9 @@ public class Game extends JFrame {
     public LinkedList<Brick> bricks;
     public Ball ball;
     public Platform platform;
+    public LinkedList<Wall> walls;
+    public LinkedList<Obstacle> obstacles;
+    public LinkedList<GameElement> elements;
     public int score;
     public int life;
     public Timer t;
@@ -38,12 +41,7 @@ public class Game extends JFrame {
     public Game() {
         super("Breakout!");
 
-        this.bricks = new LinkedList<Brick>();
-        this.createBricks();
-
-        this.ball = new Ball(250, 500, 10, 5, FIELD_DEFAULT_SIZE);
-
-        this.platform = new Platform(250, 600, 40, 10, FIELD_DEFAULT_SIZE);
+        this.createElements();
 
         this.setBounds(10, 10, 500, 700);
         this.setLayout(null);
@@ -54,8 +52,31 @@ public class Game extends JFrame {
 
         gt = new GameTimer(1000 / fps, this);
 
+       
+
         this.setVisible(true);
 
+    }
+
+    public void createElements() {
+        
+        this.createBricks();
+
+        this.createWalls();
+
+        this.platform = new Platform(250, 600, 40, 10, FIELD_DEFAULT_SIZE);
+
+        this.obstacles = new LinkedList<Obstacle>();
+        this.obstacles.addAll(this.bricks);
+        this.obstacles.addAll(this.walls);
+        this.obstacles.add(this.platform);
+
+        this.ball = new Ball(250, 500, 10, 300, FIELD_DEFAULT_SIZE);
+
+        this.elements = new LinkedList<GameElement>();
+        this.elements.addAll(this.obstacles);
+        this.elements.add(this.ball);
+        
     }
 
     /**
@@ -63,6 +84,7 @@ public class Game extends JFrame {
      * the standart frame
      */
     public void createBricks() {
+        this.bricks = new LinkedList<Brick>();
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
         for (int i = 1; i < 20; i += 2) {
             for (int j = 3; j < 18; j += 2) {
@@ -70,6 +92,13 @@ public class Game extends JFrame {
                 bricks.add(newBrick);
             }
         }
+    }
+
+    public void createWalls(){
+        this.walls = new LinkedList<Wall>();
+        walls.add(new Wall(new Vector(0,0), this.FIELD_DEFAULT_SIZE.x, false));
+        walls.add(new Wall(new Vector(0,0), this.FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(this.FIELD_DEFAULT_SIZE.x,0), this.FIELD_DEFAULT_SIZE.y, true));
     }
 
     public class Painter extends JComponent {
@@ -83,33 +112,12 @@ public class Game extends JFrame {
             fieldOrigin = new Vector((int) ((this.getWidth() - fieldSize.x) / 2),
                     (int) ((this.getHeight() - fieldSize.y) / 2));
 
-            for (Brick b : bricks) {
-                g.setColor(b.color);
-                g.fillRect((int) (fieldOrigin.x + (b.pos.x - b.size.x) * fieldScale), (int) (fieldOrigin.y
-                        + (b.pos.y - b.size.y) * fieldScale),
-                        (int) (2 * b.size.x * fieldScale), (int) (2 * b.size.y * fieldScale));
-            }
-            g.setColor(Color.black);
-            for (Brick b : bricks) {
-                g.drawRect((int) (fieldOrigin.x + (b.pos.x - b.size.x) * fieldScale), (int) (fieldOrigin.y
-                        + (b.pos.y - b.size.y) * fieldScale),
-                        (int) (2 * b.size.x * fieldScale), (int) (2 * b.size.y * fieldScale));
+            for(GameElement e : elements) {
+                e.paint(g, fieldOrigin, fieldScale);
             }
 
-            g.setColor(ball.color);
-            g.fillOval((int) (fieldOrigin.x + (ball.pos.x - ball.size) * fieldScale),
-                    (int) (fieldOrigin.y + (ball.pos.y - ball.size) * fieldScale),
-                    (int) (2 * ball.size * fieldScale), (int) (2 * ball.size * fieldScale));
-
-            g.setColor(platform.color);
-            g.drawRect((int) (fieldOrigin.x + (platform.pos.x - platform.size.x) * fieldScale),
-                    (int) (fieldOrigin.y + (platform.pos.y - platform.size.y) * fieldScale),
-                    (int) (2 * platform.size.x *
-                            fieldScale),
-                    (int) (2 * platform.size.y * fieldScale));
-
-            g.setColor(Color.white);
-            g.drawRect((int) fieldOrigin.x, (int) fieldOrigin.y, (int) fieldSize.x, (int) fieldSize.y);
+            //g.setColor(Color.white);
+            //g.drawRect((int) fieldOrigin.x, (int) fieldOrigin.y, (int) fieldSize.x, (int) fieldSize.y);
 
         }
     }

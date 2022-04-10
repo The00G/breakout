@@ -25,4 +25,9 @@ public abstract class Obstacle extends GameElement{
 
         return new Vector(dx, dy);
     }
+
+    public void hit() {
+        System.out.println("autre touché");
+        return;
+    }
 }

@@ -1,6 +1,7 @@
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 
 /**
  * GameTimer
@@ -12,16 +13,18 @@ public class GameTimer implements ActionListener {
     Point windowPosition;
     Vector mousePosition = new Vector();
     Timer t;
+    int dt;
 
     public GameTimer(int interval, Game g) {
         this.g = g;
-        t = new Timer(interval, this);
+        this.dt = interval;
+        t = new Timer(this.dt, this);
         t.start();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        g.ball.move(g.bricks, g.platform);
+        g.ball.move(g.obstacles, dt);
 
         mouseScreenPosition = MouseInfo.getPointerInfo().getLocation();
         windowPosition = g.getLocation();
@@ -38,13 +41,15 @@ public class GameTimer implements ActionListener {
     }
 
     public void refreshBricks (){
-        Brick b = null;
-        for(Brick e: g.bricks){
-            if(e.isDead()==true){
-                b = e;
+        LinkedList<Brick> deads = new LinkedList<Brick>();
+        for(Brick b : g.bricks){
+            if(b.isDead()){
+                deads.add(b);
             }
         }
-        g.bricks.remove(b);
+        g.bricks.removeAll(deads);
+        g.obstacles.removeAll(deads);
+        g.elements.removeAll(deads);
     }
 
     public void stop() {

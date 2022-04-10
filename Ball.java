@@ -1,20 +1,20 @@
-import java.awt.Color;
+import java.awt.*;
 import java.util.LinkedList;
 
 import javax.swing.text.Position;
 
-public class Ball {
+import org.w3c.dom.events.MouseEvent;
 
-    public int size; // radius
-    public Vector pos; // position of the center
+public class Ball extends GameElement {
+
+    public int radius; // radius
     public double speed;
     public Vector direction;
-    public Color color = Color.white;
     public Vector fieldSize;
 
-    public Ball(Vector p, int s, double sp, Vector d, Vector fs) {
-        this.pos = p;
-        this.size = s;
+    public Ball(Vector p, int r, double sp, Vector d, Vector fs) {
+        super(p, new Vector(r,r));
+        this.radius = r;
         this.speed = sp;
         this.direction = Vector.normalized(d);
         this.fieldSize = fs;
@@ -29,62 +29,86 @@ public class Ball {
      * @param sp   the speed of the ball
      * @param fs   the field size vector
      */
-    public Ball(double posx, double posy, int s, double sp, Vector fs) {
-        this.pos = new Vector(posx, posy);
-        this.size = s;
+    public Ball(double posx, double posy, int r, double sp, Vector fs) {
+        super(new Vector(posx, posy), new Vector(r, r));
+        this.radius = r;
         this.speed = sp;
-        this.direction = Vector.normalized(new Vector(2, -1));
+        this.direction = Vector.normalized(new Vector(1, -1));
         this.fieldSize = fs;
     }
 
-    public Vector move(LinkedList<Brick> bricks, Platform platform) {
-        Vector vec = this.updateDirection(bricks, platform);
-        this.pos.add(Vector.mult(this.direction, this.speed));
-        return vec;
-    }
+    public void move(LinkedList<Obstacle> elements, int dt) {
+        double movement = this.speed * (dt/1000.0);
+        LinkedList<Obstacle> reachable = new LinkedList<Obstacle>();
+        Obstacle nearestReachable = null;
+        double distanceNearest = 0;
 
-    public Vector updateDirection(LinkedList<Brick> bricks, Platform platform) {
-        LinkedList<Vector> collision = new LinkedList<Vector>();
-        if (this.pos.x < this.size) {
-            collision.add(new Vector(this.pos.x, 0));
-        } else if ((this.fieldSize.x - this.pos.x) < this.size) {
-            collision.add(new Vector(-(this.fieldSize.x - this.pos.x), 0));
-        }
+        for(GameElement e : elements) {
+            if(e instanceof Obstacle) {
+                Obstacle o = (Obstacle)e;
+                double distance = o.distanceVectorTo(this.pos).mag()-this.radius;
 
-        if (this.pos.y < this.size) {
-            collision.add(new Vector(0, this.pos.y));
-        }
-
-        for (Brick b : bricks) {
-            Vector dis = b.distanceVectorTo(this.pos);
-            if (dis.mag() < this.size) {
-                collision.add(dis);
+                if(distance <= movement) {
+                    reachable.add(o);
+                    if(nearestReachable == null) {
+                        nearestReachable = o;
+                        distanceNearest = distance;
+                    } else if(distance<distanceNearest){
+                        nearestReachable = o;
+                        distanceNearest = distance;
+                    }
+                }
             }
         }
 
-        Vector platformDis = platform.distanceVectorTo(this.pos);
-        if (platformDis.mag() < this.size) {
-            collision.add(platformDis);
+        Obstacle lastBounce = null;
+        while(nearestReachable != null) {
+            if(distanceNearest>0.5
+            ) {
+                this.pos.add(Vector.mult(this.direction, distanceNearest));
+                movement -= distanceNearest;
+            } else {
+                this.bounce(nearestReachable);
+                lastBounce = nearestReachable;
+            }
+            nearestReachable = null;
+            for(Obstacle o : reachable) {
+                if(o!=lastBounce) {
+                    double distance = o.distanceVectorTo(this.pos).mag()-this.radius;
+                    if(distance < movement){
+                        if(nearestReachable == null) {
+                            nearestReachable = o;
+                            distanceNearest = distance;
+                        } else if(distance<distanceNearest){
+                            nearestReachable = o;
+                            distanceNearest = distance;
+                        }
+                    }
+                }
+            }
         }
+        this.pos.add(Vector.mult(this.direction,movement));
 
-        if (collision.isEmpty()) {
-            return null;
-        }
+        
+        
+    }
 
-        collision.sort(null);
-        Vector normalVector = Vector.normalized(collision.get(0));
+    public void bounce(Obstacle o) {
+        Vector normalVector = Vector.normalized(o.distanceVectorTo(this.pos));
         double normalSpeed = this.direction.dot(normalVector);
         if (normalSpeed < 0) {
             this.direction.sub(Vector.mult(normalVector, 2 * normalSpeed));
-            if (collision.get(0) == platformDis) {
-                this.direction.mult(this.speed);
-                this.direction.add(new Vector(platform.speed, 0));
-                this.direction.normalize();
-            }
         }
-        bricks.get(0).hit();
-        return collision.get(0);
+        o.hit();
+    }
 
+    @Override
+    public void paint(Graphics g, Vector fieldOrigin, double fieldScale) {
+        g.setColor(this.color);
+        g.fillOval( (int) (fieldOrigin.x + (this.pos.x - this.radius) * fieldScale),
+                    (int) (fieldOrigin.y + (this.pos.y - this.radius) * fieldScale),
+                    (int) (2 * this.radius * fieldScale),
+                    (int) (2 * this.radius * fieldScale));
     }
 
 }
