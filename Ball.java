@@ -37,59 +37,30 @@ public class Ball extends GameElement {
         this.fieldSize = fs;
     }
 
-    public void move(LinkedList<Obstacle> elements, int dt) {
-        double movement = this.speed * (dt/1000.0);
-        LinkedList<Obstacle> reachable = new LinkedList<Obstacle>();
-        Obstacle nearestReachable = null;
-        double distanceNearest = 0;
+    public void move(LinkedList<Obstacle> obstacles, int dt) {
+        double movementLeft = this.speed * (dt/1000.0);
 
-        for(GameElement e : elements) {
-            if(e instanceof Obstacle) {
-                Obstacle o = (Obstacle)e;
-                double distance = o.distanceVectorTo(this.pos).mag()-this.radius;
-
-                if(distance <= movement) {
-                    reachable.add(o);
-                    if(nearestReachable == null) {
-                        nearestReachable = o;
-                        distanceNearest = distance;
-                    } else if(distance<distanceNearest){
-                        nearestReachable = o;
-                        distanceNearest = distance;
-                    }
+        while(movementLeft>0) {
+            Obstacle nearest = null;
+            double distanceNearest = 0;
+            for(Obstacle o : obstacles) {
+                double d = o.distanceVectorTo(this.pos).mag() - this.radius;
+                if(nearest == null){
+                    nearest = o;
+                    distanceNearest = d;
+                } else if(d<distanceNearest){
+                    nearest = o;
+                    distanceNearest = d;
                 }
             }
+            if(distanceNearest<0) {
+                nearest.bounce(this.pos,this.direction);
+            }
+            double step = Math.min(movementLeft, Math.max(0.5, distanceNearest));
+            this.pos.add(Vector.mult(this.direction,step));
+            movementLeft-=Math.max(0.5, step);
         }
 
-        Obstacle lastBounce = null;
-        while(nearestReachable != null) {
-            if(distanceNearest>0.5
-            ) {
-                this.pos.add(Vector.mult(this.direction, distanceNearest));
-                movement -= distanceNearest;
-            } else {
-                this.bounce(nearestReachable);
-                lastBounce = nearestReachable;
-            }
-            nearestReachable = null;
-            for(Obstacle o : reachable) {
-                if(o!=lastBounce) {
-                    double distance = o.distanceVectorTo(this.pos).mag()-this.radius;
-                    if(distance < movement){
-                        if(nearestReachable == null) {
-                            nearestReachable = o;
-                            distanceNearest = distance;
-                        } else if(distance<distanceNearest){
-                            nearestReachable = o;
-                            distanceNearest = distance;
-                        }
-                    }
-                }
-            }
-        }
-        this.pos.add(Vector.mult(this.direction,movement));
-
-        
         
     }
 

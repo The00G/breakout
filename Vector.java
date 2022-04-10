@@ -200,6 +200,11 @@ public class Vector implements Comparable<Vector> {
         return v.getAngle()-this.getAngle();
     }
 
+    public void copy(Vector v){
+        this.x = v.x;
+        this.y = v.y;
+    }
+
     @Override
     public String toString() {
         return "(" + this.x + "; " + this.y + ")";
@@ -226,7 +231,7 @@ public class Vector implements Comparable<Vector> {
      * @param v2
      * @return Vector
      */
-    public static Vector add(Vector v1, Vector v2) {
+    public static Vector sum(Vector v1, Vector v2) {
         return new Vector(v1.x + v2.x, v1.y + v2.y);
     }
 

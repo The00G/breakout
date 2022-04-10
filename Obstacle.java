@@ -27,7 +27,16 @@ public abstract class Obstacle extends GameElement{
     }
 
     public void hit() {
-        System.out.println("autre touché");
+        //System.out.println("autre touché");
         return;
+    }
+
+    public void bounce(Vector bPos, Vector bDir) {
+        Vector normalVector = Vector.normalized(this.distanceVectorTo(bPos));
+        double normalSpeed = bDir.dot(normalVector);
+        if (normalSpeed < 0) {
+            bDir.sub(Vector.mult(normalVector, 2 * normalSpeed));
+        }
+        this.hit();
     }
 }

@@ -56,7 +56,7 @@ public class Brick extends Obstacle {
     public void hit() {
         this.life--;
         this.setColorBrick();
-        System.out.println("brick touchée");
+        //System.out.println("brick touchée");
     }
 
     @Override

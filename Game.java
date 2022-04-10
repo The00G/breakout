@@ -73,7 +73,7 @@ public class Game extends JFrame {
         this.obstacles.addAll(this.walls);
         this.obstacles.add(this.platform);
 
-        this.ball = new Ball(250, 500, 10, 300, FIELD_DEFAULT_SIZE);
+        this.ball = new Ball(250, 500, 10, 600, FIELD_DEFAULT_SIZE);
 
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
@@ -88,8 +88,8 @@ public class Game extends JFrame {
     public void createBricks() {
         this.bricks = new LinkedList<Brick>();
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
-        for (int i = 1; i < 20; i += 2) {
-            for (int j = 3; j < 18; j += 2) {
+        for (int i = 1; i < 20; i += 4) {
+            for (int j = 3; j < 18; j += 4) {
                 Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j / 2);
                 bricks.add(newBrick);
             }
