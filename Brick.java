@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class Brick extends Obstacle {
 
+    final private static int POINTS_BY_HIT = 20;
     /**
      * Bricks' color depending on life left
      * <ul><li>the color in position 0 is the color for indestructible bricks
@@ -76,10 +77,11 @@ public class Brick extends Obstacle {
      * Decreases the life of this brick by one and updates the color according to its new life
      */
     @Override
-    public void hit() {
+    public int hit() {
         super.hit();
         this.life--;
         this.setColorBrick();
+        return POINTS_BY_HIT;
         //System.out.println("brick touchée");
     }
 

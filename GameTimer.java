@@ -54,7 +54,7 @@ public class GameTimer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        g.ball.move(g.obstacles, dt);
+        g.score += g.ball.move(g.obstacles, dt);
 
         mouseScreenPosition = MouseInfo.getPointerInfo().getLocation();
         windowPosition = g.getLocation();
@@ -67,6 +67,8 @@ public class GameTimer implements ActionListener {
         g.removeDeadBricks();
         g.end();
         g.repaint();
+
+        System.out.println(g.score);
     }
 
     public void stop() {
