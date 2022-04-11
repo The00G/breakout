@@ -92,8 +92,9 @@ public class Game extends JFrame {
      */
     public void createElements() {
         
-        //this.createBricks();
-        this.createDebugBricks();
+        this.createBricks();
+        //this.createDebugBricks();
+        //this.createReboundBricks();
 
         this.createWalls();
 
@@ -118,18 +119,35 @@ public class Game extends JFrame {
     public void createBricks() {
         this.bricks = new LinkedList<Brick>();
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
-        for (int i = 1; i < 20; i += 4) {
-            for (int j = 3; j < 18; j += 4) {
+        for (int i = 1; i < 20; i += 2) {
+            for (int j = 3; j < 18; j += 2) {
                 Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j / 2);
                 bricks.add(newBrick);
             }
         }
     }
 
+    /**
+     * Fills the list of bricks with 1 white brick
+     */
     public void createDebugBricks() {
         this.bricks = new LinkedList<Brick>();
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
         bricks.add(new Brick(9*brickSize.x, 5*brickSize.y, brickSize.x, brickSize.y, 1));
+    }
+
+    /**
+     * Fills the list of bricks with half the bricks
+     */
+    public void createReboundBricks() {
+        this.bricks = new LinkedList<Brick>();
+        Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
+        for (int i = 1; i < 20; i += 4) {
+            for (int j = 3; j < 18; j += 4) {
+                Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j / 2);
+                bricks.add(newBrick);
+            }
+        }
     }
 
     /**

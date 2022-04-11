@@ -63,7 +63,7 @@ public abstract class Obstacle extends GameElement{
         double normalSpeed = bDir.dot(normalVector);
         if (normalSpeed < 0) {
             bDir.sub(Vector.mult(normalVector, 2 * normalSpeed));
+            this.hit();
         }
-        this.hit();
     }
 }
