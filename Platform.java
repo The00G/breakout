@@ -49,7 +49,7 @@ public class Platform extends Obstacle{
 
     @Override
     public void bounce(Vector bPos, Vector bDir) {
-        bDir.copy(Vector.sub(bPos, this.pos));
+        bDir.set(Vector.sub(bPos, this.pos));
         bDir.normalize();
         this.hit();
     }
