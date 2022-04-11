@@ -8,8 +8,11 @@ import java.util.LinkedList;
  */
 public class GameTimer implements ActionListener {
 
+<<<<<<< HEAD
     // ceci est un commentaire inutile mais pas si inutile que ça
 
+=======
+>>>>>>> parent of b511251 (gestion conflit)
     /**
      * Game window linked with this game timer
      */
@@ -66,7 +69,11 @@ public class GameTimer implements ActionListener {
         g.platform.move(mousePosition);
 
         g.removeDeadBricks();
+<<<<<<< HEAD
         g.end();
+=======
+        g.noMoreBricks();
+>>>>>>> parent of b511251 (gestion conflit)
 
         g.repaint();
     }
