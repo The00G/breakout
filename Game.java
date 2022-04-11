@@ -183,7 +183,7 @@ public class Game extends JFrame {
             this.numberGames++;
             this.createBricks();
         }
-        if (this.numberGames >= 3) {
+        if (this.numberGames >= 2) {
             // victory
             // create a Jframe to tell he won
             gt.stop();
