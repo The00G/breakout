@@ -1,8 +1,5 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.awt.MouseInfo;
-import java.awt.Point; 
-import java.awt.PointerInfo; 
 
 import helpers.mathHelper;
 
@@ -52,10 +49,7 @@ public class Platform extends Obstacle{
 
     @Override
     public void bounce(Vector bPos, Vector bDir) {
-        if(bPos.y >= this.pos.y) {
-            return;
-        }
-        bDir.set(Vector.sub(bPos, this.pos));
+        bDir.copy(Vector.sub(bPos, this.pos));
         bDir.normalize();
         this.hit();
     }
