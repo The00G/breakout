@@ -8,18 +8,47 @@ import java.util.LinkedList;
  */
 public class GameTimer implements ActionListener {
 
+<<<<<<< HEAD
     // ceci est un commentaire inutile mais pas si inutile que ça
 
+=======
+>>>>>>> parent of b511251 (gestion conflit)
     /**
      * Game window linked with this game timer
      */
     Game g;
+
+    /**
+     * Position of the mouse on the screen
+     */
     Point mouseScreenPosition = new Point(0, 0);
+
+    /**
+     * Position of the game's window
+     */
     Point windowPosition;
+
+    /**
+     * Position of the mouse in the game's coordinate system
+     */
     Vector mousePosition = new Vector();
+
+    /**
+     * Game timer
+     */
     Timer t;
+
+    /**
+     * Time interval of this game timer
+     */
     int dt;
 
+    /**
+     * Creates a new game timer with a given time interval and game window
+     * 
+     * @param interval  time interval of the game timer in ms
+     * @param g         game window linked with the game timer
+     */
     public GameTimer(int interval, Game g) {
         this.g = g;
         this.dt = interval;
@@ -40,21 +69,13 @@ public class GameTimer implements ActionListener {
         g.platform.move(mousePosition);
 
         g.removeDeadBricks();
+<<<<<<< HEAD
         g.end();
+=======
+        g.noMoreBricks();
+>>>>>>> parent of b511251 (gestion conflit)
 
         g.repaint();
-    }
-
-    public void refreshBricks (){
-        LinkedList<Brick> deads = new LinkedList<Brick>();
-        for(Brick b : g.bricks){
-            if(b.isDead()){
-                deads.add(b);
-            }
-        }
-        g.bricks.removeAll(deads);
-        g.obstacles.removeAll(deads);
-        g.elements.removeAll(deads);
     }
 
     public void stop() {
