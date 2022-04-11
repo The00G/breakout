@@ -92,7 +92,8 @@ public class Game extends JFrame {
      */
     public void createElements() {
         
-        this.createBricks();
+        //this.createBricks();
+        this.createDebugBricks();
 
         this.createWalls();
 
@@ -123,6 +124,12 @@ public class Game extends JFrame {
                 bricks.add(newBrick);
             }
         }
+    }
+
+    public void createDebugBricks() {
+        this.bricks = new LinkedList<Brick>();
+        Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
+        bricks.add(new Brick(9*brickSize.x, 5*brickSize.y, brickSize.x, brickSize.y, 1));
     }
 
     /**
