@@ -81,7 +81,7 @@ public class Menu extends JFrame implements ActionListener {
         int endOfAboutText = aboutPanel.getHeight() / 2;
 
         String[] aboutText = {
-                "Ce jeu a été développé dans le cadre du projet de fin d'année du cours Algorithmique et programmation 1 & 2 dispensé en première année de FIMI à l'INSA Lyon.",
+                "Ce jeu a été développé dans le cadre du projet de fin d'année du cours Algorithmique et programmation 1 & 2 dispensé en deuxième année de FIMI à l'INSA Lyon.",
                 "Il utilise les notions d'algorithmique et de programmation en Java découvertes tout au long de l'année mais également d'autres notions découvertes dans un cadre extra-scolaire.",
                 "", "------------------- Crédits ------------------",
                 "2022 - Réutilisation et modification autorisée", "Dernière mise à jour le 02/06/2021",
