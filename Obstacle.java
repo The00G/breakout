@@ -48,23 +48,26 @@ public abstract class Obstacle extends GameElement{
     /**
      * Signals to this obstacle that it has been hit
      */
+
     public void hit() {
         Game.playSound("pongHit.wav");
-        return;
+
     }
 
     /**
      * Update the direction of a ball to simulate a bounce on this obstacle
      * 
-     * @param bPos the position of the ball
-     * @param bDir the direction of the ball
+     * @param bPos  the position of the ball
+     * @param bDir  the direction of the ball
+     * @return      the score made by the bounce
      */
-    public void bounce(Vector bPos, Vector bDir) {
+    public int bounce(Vector bPos, Vector bDir) {
         Vector normalVector = Vector.normalized(this.distanceVectorTo(bPos));
         double normalSpeed = bDir.dot(normalVector);
         if (normalSpeed < 0) {
             bDir.sub(Vector.mult(normalVector, 2 * normalSpeed));
+            return this.hit();
         }
-        this.hit();
+        return 0;
     }
 }
