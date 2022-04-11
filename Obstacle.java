@@ -48,8 +48,10 @@ public abstract class Obstacle extends GameElement{
     /**
      * Signals to this obstacle that it has been hit
      */
-    public int hit() {
-        return 0;
+
+    public void hit() {
+        Game.playSound("pongHit.wav");
+
     }
 
     /**
