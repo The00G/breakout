@@ -71,7 +71,8 @@ public class Game extends JFrame {
         this.createElements();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setBounds((((int)screenSize.getWidth())/2)-250, (((int)screenSize.getHeight())/2)-350, 500, 700);
+        //this.setBounds((((int)screenSize.getWidth())/2)-250, (((int)screenSize.getHeight())/2)-350, 500, 700);
+        this.setBounds(0, 0, (int)screenSize.getWidth(), (int)screenSize.getHeight());
         this.setLayout(null);
 
         // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
