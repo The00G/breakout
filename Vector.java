@@ -1,15 +1,17 @@
+import java.util.Collection;
+
 /**
  * Class vector
  */
-public class Vector {
+public class Vector implements Comparable<Vector> {
 
     public double x, y;
 
     /**
      * Creates a vector given cartesian coordinates
      * 
-     * @param x
-     * @param y
+     * @param   x   the ordinate coordinate
+     * @param   y   the abscissa coordinate
      */
     public Vector(double x, double y) {
         this.x = x;
@@ -37,7 +39,7 @@ public class Vector {
     /**
      * Creates a vector using an array as imput
      * 
-     * @param v
+     * @param   v   array containing x and y coordinate
      */
     public Vector(double[] v) {
         this.x = v[0];
@@ -53,9 +55,9 @@ public class Vector {
     }
 
     /**
-     * Adds a given vector to the vector
+     * Adds a given vector to this vector
      * 
-     * @param v
+     * @param   v   vector added to this vector
      */
     public void add(Vector v) {
         this.x += v.x;
@@ -63,9 +65,9 @@ public class Vector {
     }
 
     /**
-     * Subtracts a given vector to the vector
+     * Subtracts a given vector to this vector
      * 
-     * @param v
+     * @param   v   vector substracted to this vector
      */
     public void sub(Vector v) {
         this.x -= v.x;
@@ -73,9 +75,9 @@ public class Vector {
     }
 
     /**
-     * Multiplies the vector by a given factor
+     * Multiplies this vector by a given factor
      * 
-     * @param f
+     * @param   f   factor applied to this vector
      */
     public void mult(double f) {
         this.x *= f;
@@ -93,35 +95,45 @@ public class Vector {
     }
 
     /**
-     * Returns the magnitude of the vector
+     * Returns the magnitude of this vector
      * 
-     * @return double
+     * @return  the magnitude of this vector
      */
     public double mag() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
     /**
-     * Normalizes the vector
+     * Returns the squared magnitude of this vector
+     * 
+     * @return  the squared magnitude of this vector
+     */
+    public double sqMag() {
+        return this.x * this.x + this.y * this.y;
+    }
+
+    /**
+     * Normalizes this vector
      */
     public void normalize() {
         this.mult(1 / this.mag());
     }
 
     /**
-     * Returns a copy of the vector with the same coordinates
+     * Returns a copy of this vector with the same coordinates
      * 
-     * @return Vector
+     * @return  a new Vector with the same coordinates
      */
     public Vector clone() {
         return new Vector(this.x, this.y);
     }
 
     /**
-     * Returns true if the vector has the same components as a given vector
+     * Indicates whether some other vector has the same coordinates as this vector
      * 
-     * @param v
-     * @return boolean
+     * @param   v   the reference vector with which to compare.
+     * @return  {@code true} if this vector has the same coordinates as the v
+     *          argument; {@code false} otherwise.
      */
     public boolean equals(Vector v) {
         return this.x == v.x && this.y == v.y;
@@ -180,13 +192,23 @@ public class Vector {
     }
 
     /**
-     * return the angle from the vector to another vector
+     * Return the angle from this vector to another vector
      * 
      * @param v
      * @return double
      */
     public double angleWith(Vector v){
         return v.getAngle()-this.getAngle();
+    }
+
+    /**
+     * Set the coordinates of this vector to the same coordinate as a given vectore
+     * 
+     * @param   v   
+     */
+    public void set(Vector v){
+        this.x = v.x;
+        this.y = v.y;
     }
 
     @Override
@@ -215,7 +237,7 @@ public class Vector {
      * @param v2
      * @return Vector
      */
-    public static Vector add(Vector v1, Vector v2) {
+    public static Vector sum(Vector v1, Vector v2) {
         return new Vector(v1.x + v2.x, v1.y + v2.y);
     }
 
@@ -315,5 +337,36 @@ public class Vector {
      */
     public static double angleBetween(Vector v1, Vector v2) {
         return v2.getAngle()-v1.getAngle();
+    }
+
+    @Override
+    public int compareTo(Vector v){
+        if(this.mag()<v.mag()) {
+            return -1;
+        }
+        if(this.mag()>v.mag()){
+            return 1;
+        }
+        if(this.getAngle()<v.getAngle()) {
+            return -1;
+        }
+        if(this.getAngle()>v.getAngle()){
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Create a vector which is the sum of the given vectors
+     * 
+     * @param   vectors collection containing the vectors to be summed
+     * @return  the sum of the vectors contained in the vectors parameter
+     */
+    public static Vector sum(Collection<Vector> vectors) {
+        Vector sum = new Vector();
+        for(Vector v : vectors) {
+            sum.add(v);
+        }
+        return sum;
     }
 }

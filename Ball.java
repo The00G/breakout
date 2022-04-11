@@ -1,65 +1,93 @@
-import java.awt.Color;
-import java.util.LinkedList;
+import java.awt.*;
+import java.util.*;
 
-public class Ball {
-    
-    public int size; // radius
-    public Vector pos; // position of the center
+public class Ball extends GameElement {
+
+    /**
+     * Radius of this ball
+     */
+    public int radius;
+
+    /**
+     * Speed of this ball in /s
+     */
     public double speed;
+
+    /**
+     * Direction of this ball movement
+     */
     public Vector direction;
-    public Color color = Color.white;
-    public Vector fieldSize;
 
-    public Ball(Vector p, int s, double sp, Vector d, Vector fs){
-        this.pos = p;
-        this.size = s;
+    /**
+     * Creates a ball with a given position, size, speed and direction of movement
+     * 
+     * @param p    the position of the center of the ball
+     * @param s    the radius of the ball
+     * @param sp   the speed of the ball
+     * @param d    the direction of movement of the ball
+     */
+    public Ball(Vector p, int r, double sp, Vector d) {
+        super(p, new Vector(r,r));
+        this.radius = r;
         this.speed = sp;
-        this.direction = d;
-        this.direction.normalize();
-        this.fieldSize = fs;
+        this.direction = Vector.normalized(d);
     }
 
-    public Ball(double posx, double posy, int s, double sp){
-        this.pos = new Vector(posx, posy);
-        this.size = s;
+    /**
+     * Creates a ball with a given position, size and speed and a default direction of movement
+     * 
+     * @param posx the x position of the center of the ball
+     * @param posy the y position of the center of the ball
+     * @param s    the radius of the ball
+     * @param sp   the speed of the ball
+     */
+    public Ball(double posx, double posy, int r, double sp) {
+        super(new Vector(posx, posy), new Vector(r, r));
+        this.radius = r;
         this.speed = sp;
-        this.direction = new Vector(0,-1);
+        this.direction = Vector.normalized(new Vector(0, -1));
     }
 
-    public void move(LinkedList<Brick> bricks, Platform platform) {
-        this.updateDirection(bricks, platform);
-        this.pos.add(Vector.mult(this.direction, this.speed));
-    }
+    /**
+     * Moves this ball with a given time interval and set of obstacles
+     * 
+     * @param obstacles obstacles that can affect this ball trajectory
+     * @param dt        time interval
+     */
+    public void move(Collection<Obstacle> obstacles, int dt) {
+        double movementLeft = this.speed * (dt/1000.0);
 
-    public void updateDirection(LinkedList<Brick> bricks, Platform platform) {
-        if(this.pos.x < this.size) {
-            this.direction.x = Math.abs(this.direction.x);
-            return;
-        } else if ((this.fieldSize.x- this.pos.x) < this.size){
-            this.direction.x = -Math.abs(this.direction.x);
-            return;
-        }
-
-        if ((this.fieldSize.y- this.pos.y) < this.size){
-            this.direction.y = -Math.abs(this.direction.y);
-            return;
-        }
-
-        for(Brick b : bricks) {
-            Vector dis = b.distanceVectorTo(this.pos);
-            if(dis.mag()<this.size) {
-                this.direction.rotate(2*this.direction.angleWith(dis));
-                return;
+        while(movementLeft>0) {
+            Obstacle nearest = null;
+            double distanceNearest = 0;
+            for(Obstacle o : obstacles) {
+                double d = o.distanceVectorTo(this.pos).mag() - this.radius;
+                if(nearest == null){
+                    nearest = o;
+                    distanceNearest = d;
+                } else if(d<distanceNearest){
+                    nearest = o;
+                    distanceNearest = d;
+                }
             }
+            if(distanceNearest<0) {
+                nearest.bounce(this.pos,this.direction);
+            }
+            double step = Math.min(movementLeft, Math.max(0.5, distanceNearest));
+            this.pos.add(Vector.mult(this.direction,step));
+            movementLeft-=Math.max(0.5, step);
         }
 
-        Vector dis = platform.distanceVectorTo(this.pos);
-        if(dis.mag()<this.size) {
-            this.direction.rotate(2*this.direction.angleWith(dis));
-            this.direction.mult(this.speed);
-            this.direction.add(new Vector(platform.speed, 0));
-            this.direction.normalize();
-        }
+        
+    }
+
+    @Override
+    public void paint(Graphics g, Vector fieldOrigin, double fieldScale) {
+        g.setColor(this.color);
+        g.fillOval( (int) (fieldOrigin.x + (this.pos.x - this.radius) * fieldScale),
+                    (int) (fieldOrigin.y + (this.pos.y - this.radius) * fieldScale),
+                    (int) (2 * this.radius * fieldScale),
+                    (int) (2 * this.radius * fieldScale));
     }
 
 }
