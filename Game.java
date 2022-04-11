@@ -3,7 +3,6 @@
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
-import javax.swing.Timer;
 
 public class Game extends JFrame {
 

@@ -1,10 +1,6 @@
 import java.awt.*;
 import java.util.*;
 
-import javax.swing.text.Position;
-
-import org.w3c.dom.events.MouseEvent;
-
 public class Ball extends GameElement {
 
     /**

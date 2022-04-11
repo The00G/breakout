@@ -1,8 +1,5 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.awt.MouseInfo;
-import java.awt.Point; 
-import java.awt.PointerInfo; 
 
 import helpers.mathHelper;
 

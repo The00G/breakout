@@ -1,12 +1,13 @@
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 
 /**
  * GameTimer
  */
 public class GameTimer implements ActionListener {
+
+    // ceci est un commentaire inutile mais pas si inutile que ça
 
     /**
      * Game window linked with this game timer
