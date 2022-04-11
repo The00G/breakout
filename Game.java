@@ -53,7 +53,11 @@ public class Game extends JFrame {
      */
     public LinkedList<GameElement> elements;
 
+    /**
+     * Score of the player in this game
+     */
     public int score;
+
     public int life;
     public int numberGames = 0;
     JFrame winningFrame;
@@ -80,9 +84,8 @@ public class Game extends JFrame {
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
         this.life = 3;
+        this.score = 0;
         gt = new GameTimer(1000 / fps, this);
-
-       
 
         this.setVisible(true);
 
