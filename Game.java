@@ -171,18 +171,12 @@ public class Game extends JFrame {
         }
     }
 
-    public void noMoreBricks() {
+    public void end() {
         if (this.bricks.isEmpty()){
             this.numberGames++;
             this.createBricks();
-            if (this.numberGames >= 3) {
-                this.end();
-            }
         }
-    }
-
-    public void end() {
-        if (numberGames >= 3) {
+        if (this.numberGames >= 3) {
             // victory
             // create a Jframe to tell he won
             gt.stop();
