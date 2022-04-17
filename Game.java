@@ -183,7 +183,7 @@ public class Game extends JFrame {
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
         for (int i = 1; i < 20; i += 4) {
             for (int j = 3; j < 18; j += 4) {
-                Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j / 2);
+                Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j/2);
                 bricks.add(newBrick);
             }
         }
@@ -239,7 +239,7 @@ public class Game extends JFrame {
         if (this.bricks.isEmpty()) {
             this.numberGames++;
             //this.createBricks();
-            this.createDebugBricks();
+            this.createBricks();
         this.obstacles.addAll(this.bricks);
         this.elements.addAll(this.bricks);
         }
@@ -264,10 +264,10 @@ public class Game extends JFrame {
      */
     public void finalFrame (){
         winningFrame =  new JFrame();
-        winningFrame.setBounds((((int)screenSize.getWidth())/2)-250, (((int)screenSize.getHeight())/2)-350, 500, 700);
+        winningFrame.setBounds((((int)screenSize.getWidth())/2)-250, (((int)screenSize.getHeight())/2)-350, iconGameOver.getIconWidth(), iconGameOver.getIconHeight());
         winningFrame.setLayout(null);
         finalPanel.setBounds(0,0,winningFrame.getWidth(), winningFrame.getHeight());
-        finalPanel.setBackground(Color.CYAN);
+        finalPanel.setBackground(Color.gray);
         if (this.life<=0){
             imageGameOver.setBounds(winningFrame.getWidth() / 2 - iconVictory.getIconWidth() / 2, winningFrame.getHeight() / 2 - iconVictory.getIconHeight() / 2, iconVictory.getIconWidth(),iconVictory.getIconHeight());
             finalPanel.add(imageGameOver);
