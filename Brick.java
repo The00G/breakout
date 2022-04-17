@@ -48,7 +48,7 @@ public class Brick extends Obstacle {
 
 
     /**
-     * Set the color of this brick according to it's life
+     * Set the color of this brick according to its life
      */
     public void setColorBrick() {
         if (this.life < 8 && this.life > 0) {
