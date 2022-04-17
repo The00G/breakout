@@ -4,6 +4,15 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.*;
 
+//for playing sound
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 public class Game extends JFrame {
 
     /**
@@ -75,8 +84,10 @@ public class Game extends JFrame {
         this.createElements();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
         //this.setBounds((((int)screenSize.getWidth())/2)-250, (((int)screenSize.getHeight())/2)-350, 500, 700);
         this.setBounds(0, 0, (int)screenSize.getWidth(), (int)screenSize.getHeight());
+
         this.setLayout(null);
 
         // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,6 +111,7 @@ public class Game extends JFrame {
         //this.createDebugBricks();
         //this.createReboundBricks();
 
+
         this.createWalls();
 
         this.platform = new Platform(250, 600, 40, 10, FIELD_DEFAULT_SIZE);
@@ -114,7 +126,7 @@ public class Game extends JFrame {
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
         this.elements.add(this.ball);
-        
+
     }
 
     /**
@@ -137,7 +149,7 @@ public class Game extends JFrame {
     public void createDebugBricks() {
         this.bricks = new LinkedList<Brick>();
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
-        bricks.add(new Brick(9*brickSize.x, 5*brickSize.y, brickSize.x, brickSize.y, 1));
+        bricks.add(new Brick(9 * brickSize.x, 5 * brickSize.y, brickSize.x, brickSize.y, 1));
     }
 
     /**
@@ -157,20 +169,20 @@ public class Game extends JFrame {
     /**
      * Fills the list of walls with the outer walls of the field
      */
-    public void createWalls(){
+    public void createWalls() {
         this.walls = new LinkedList<Wall>();
-        walls.add(new Wall(new Vector(0,0), this.FIELD_DEFAULT_SIZE.x, false));
-        walls.add(new Wall(new Vector(0,0), this.FIELD_DEFAULT_SIZE.y, true));
-        walls.add(new Wall(new Vector(this.FIELD_DEFAULT_SIZE.x,0), this.FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(0, 0), this.FIELD_DEFAULT_SIZE.x, false));
+        walls.add(new Wall(new Vector(0, 0), this.FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(this.FIELD_DEFAULT_SIZE.x, 0), this.FIELD_DEFAULT_SIZE.y, true));
     }
 
     /**
      * remove the dead bricks from the bricks, obstacles and element lists
      */
-    public void removeDeadBricks (){
+    public void removeDeadBricks() {
         LinkedList<Brick> deads = new LinkedList<Brick>();
-        for(Brick b : this.bricks){
-            if(b.isDead()){
+        for (Brick b : this.bricks) {
+            if (b.isDead()) {
                 deads.add(b);
             }
         }
@@ -188,12 +200,12 @@ public class Game extends JFrame {
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
             fieldScale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
-                                  this.getHeight() / FIELD_DEFAULT_SIZE.y);
+                    this.getHeight() / FIELD_DEFAULT_SIZE.y);
             fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, fieldScale);
             fieldOrigin = new Vector((int) ((this.getWidth() - fieldSize.x) / 2),
-                                     (int) ((this.getHeight() - fieldSize.y) / 2));
+                    (int) ((this.getHeight() - fieldSize.y) / 2));
 
-            for(GameElement e : elements) {
+            for (GameElement e : elements) {
                 e.paint(g, fieldOrigin, fieldScale);
             }
 
@@ -201,7 +213,7 @@ public class Game extends JFrame {
     }
 
     public void end() {
-        if (this.bricks.isEmpty()){
+        if (this.bricks.isEmpty()) {
             this.numberGames++;
             this.createBricks();
         }
@@ -212,28 +224,47 @@ public class Game extends JFrame {
         } else if (ball.pos.y > FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0) {
             // player loses
             // create a Jframe to tell he loses and close all
-            this.life --;
-            if (this.life>0){
+            this.life--;
+            if (this.life > 0) {
                 this.ball.pos = new Vector(250, 350);
-                this.ball.direction = new Vector(0,1);
-            }else if(this.life <= 0){
+                this.ball.direction = new Vector(0, 1);
+            } else if (this.life <= 0) {
                 gt.stop();
             }
         }
     }
-    public void finalFrame (){
-        winningFrame =  new JFrame();
+
+    public void finalFrame() {
+        winningFrame = new JFrame();
         winningFrame.setBounds(20, 20, 500, 500);
         winningFrame.setBackground(Color.yellow);
         JLabel finalLabel = new JLabel();
         finalLabel.setBounds(50, 50, 700, 700);
-        if (this.life<=0){
+        if (this.life <= 0) {
             finalLabel.setText("LOOOSER");
-        }else if (this.numberGames>3) {
+        } else if (this.numberGames > 3) {
             finalLabel.setText("VICTORY");
         }
         winningFrame.add(finalLabel);
         winningFrame.setVisible(true);
+    }
+
+    /**
+     * Plays a sound when called
+     * @param soundFile the path to the .wav file
+     */
+    public static void playSound(String soundFile) {
+        try {
+            File f = new File("./" + soundFile);
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 
 }

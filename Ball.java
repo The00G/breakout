@@ -38,7 +38,7 @@ public class Ball extends GameElement {
      * 
      * @param posx the x position of the center of the ball
      * @param posy the y position of the center of the ball
-     * @param s    the radius of the ball
+     * @param r    the radius of the ball
      * @param sp   the speed of the ball
      */
     public Ball(double posx, double posy, int r, double sp) {
