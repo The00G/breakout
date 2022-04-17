@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.event.KeyEvent;
 import helpers.mathHelper;
 
 public class Platform extends Obstacle{
