@@ -51,8 +51,9 @@ public abstract class Obstacle extends GameElement{
      * @return  the points given when hitting the obstacle
      */
 
-    public void hit() {
+    public int hit() {
         Game.playSound("pongHit.wav");
+        return 0;
 
     }
 
