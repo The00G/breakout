@@ -46,6 +46,19 @@ public class Brick extends Obstacle {
         setColorBrick();
     }
 
+    /**
+     * Create a new brick with a given position, size and life
+     * 
+     * @param pos       the coordinates of the center of the brick
+     * @param size      the size of the brick
+     * @param tl        the total life of the brick
+     */
+    public Brick(Vector pos, Vector size, int tl) {
+        super(pos, size);
+        this.totalLife = tl;
+        this.life = tl;
+        setColorBrick();
+    }
 
     /**
      * Set the color of this brick according to its life
