@@ -1,3 +1,4 @@
+package src;
 import javax.swing.*;
 
 import helpers.mathHelper;
@@ -15,8 +16,8 @@ public class Menu extends JFrame implements ActionListener {
     JPanel rulesPanel;
     JButton returnAboutButton;
     JButton returnRulesButton;
-    ImageIcon icon = new ImageIcon("breakout logo.png");
-    ImageIcon iconInsa = new ImageIcon("Logo Insa.png");
+    ImageIcon icon = new ImageIcon("media/breakout logo.png");
+    ImageIcon iconInsa = new ImageIcon("media/Logo Insa.png");
 
     int buttonWidth = 150;
     int buttonHeight = 50;
