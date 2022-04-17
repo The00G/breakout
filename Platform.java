@@ -25,13 +25,13 @@ public class Platform extends Obstacle{
 
 
     @Override
-    public void bounce(Vector bPos, Vector bDir) {
+    public int bounce(Vector bPos, Vector bDir) {
         if(bPos.y >= this.pos.y) {
-            return;
+            return 0;
         }
         bDir.set(Vector.sub(bPos, this.pos));
         bDir.normalize();
-        this.hit();
+        return this.hit();
     }
 
 }

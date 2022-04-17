@@ -53,7 +53,12 @@ public class Game extends JFrame {
      */
     public LinkedList<GameElement> elements;
 
+    /**
+     * Score of the player in this game
+     */
     public int score;
+
+    public int level = 5;
     public int life;
     public int numberGames = 0;
     JFrame winningFrame;
@@ -80,9 +85,8 @@ public class Game extends JFrame {
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
         this.life = 3;
+        this.score = 0;
         gt = new GameTimer(1000 / fps, this);
-
-       
 
         this.setVisible(true);
 
@@ -93,9 +97,10 @@ public class Game extends JFrame {
      */
     public void createElements() {
         
-        this.createBricks();
+        //this.createBricks();
         //this.createDebugBricks();
         //this.createReboundBricks();
+        this.bricks = Level.buildLevel(this.level, this.FIELD_DEFAULT_SIZE);
 
         this.createWalls();
 

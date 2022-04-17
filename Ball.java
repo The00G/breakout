@@ -53,9 +53,11 @@ public class Ball extends GameElement {
      * 
      * @param obstacles obstacles that can affect this ball trajectory
      * @param dt        time interval
+     * @return          the points made by the ball movement
      */
-    public void move(Collection<Obstacle> obstacles, int dt) {
+    public int move(Collection<Obstacle> obstacles, int dt) {
         double movementLeft = this.speed * (dt/1000.0);
+        int points = 0;
 
         while(movementLeft>0) {
             Obstacle nearest = null;
@@ -71,13 +73,13 @@ public class Ball extends GameElement {
                 }
             }
             if(distanceNearest<0) {
-                nearest.bounce(this.pos,this.direction);
+                points += nearest.bounce(this.pos,this.direction);
             }
             double step = Math.min(movementLeft, Math.max(0.5, distanceNearest));
             this.pos.add(Vector.mult(this.direction,step));
             movementLeft-=Math.max(0.5, step);
         }
-
+        return points;
         
     }
 

@@ -56,4 +56,15 @@ public class mathHelper {
     public static double lerp(double min, double max, double factor) {
         return min + (max - min) * factor;
     }
+
+    /**
+     * Returns a random integer between two given integers.
+     * 
+     * @param min
+     * @param max
+     * @return      random integer between min and max
+     */
+    public static int RandomIntBetween(int min, int max){
+        return (int)lerp(min, max+1, Math.random());
+    }
 }
