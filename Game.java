@@ -58,6 +58,7 @@ public class Game extends JFrame {
      */
     public int score;
 
+    public int level = 4;
     public int life;
     public int numberGames = 0;
     JFrame winningFrame;
@@ -96,9 +97,10 @@ public class Game extends JFrame {
      */
     public void createElements() {
         
-        this.createBricks();
+        //this.createBricks();
         //this.createDebugBricks();
         //this.createReboundBricks();
+        this.bricks = Level.buildLevel(this.level, this.FIELD_DEFAULT_SIZE);
 
         this.createWalls();
 

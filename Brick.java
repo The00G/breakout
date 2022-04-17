@@ -92,8 +92,10 @@ public class Brick extends Obstacle {
     @Override
     public int hit() {
         super.hit();
-        this.life--;
-        this.setColorBrick();
+        if(this.life > 0){
+            this.life--;
+            this.setColorBrick();
+        }
         return POINTS_BY_HIT;
         //System.out.println("brick touchée");
     }
