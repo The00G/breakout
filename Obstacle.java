@@ -47,9 +47,14 @@ public abstract class Obstacle extends GameElement{
 
     /**
      * Signals to this obstacle that it has been hit
+     * 
+     * @return  the points given when hitting the obstacle
      */
+
     public int hit() {
+        Game.playSound("pongHit.wav");
         return 0;
+
     }
 
     /**
@@ -57,7 +62,7 @@ public abstract class Obstacle extends GameElement{
      * 
      * @param bPos  the position of the ball
      * @param bDir  the direction of the ball
-     * @return      the score made by the bounce
+     * @return      the points made by the bounce
      */
     public int bounce(Vector bPos, Vector bDir) {
         Vector normalVector = Vector.normalized(this.distanceVectorTo(bPos));
