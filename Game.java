@@ -58,7 +58,7 @@ public class Game extends JFrame {
      */
     public int score;
 
-    public int level = 4;
+    public int level = 5;
     public int life;
     public int numberGames = 0;
     JFrame winningFrame;
