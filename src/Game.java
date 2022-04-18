@@ -215,14 +215,27 @@ public class Game extends JFrame {
         for (Brick b : this.bricks) {
             if (b.isDead()) {
                 deads.add(b);
-                if (Math.random()<1) {
-                    bonusItems.add(new StarItem(b.pos, 20, Color.yellow));
+                if (Math.random() < 1) {
+                    bonusItems.add(new StarItem(b.pos, 13, Color.yellow));
                 }
             }
         }
         this.bricks.removeAll(deads);
         this.obstacles.removeAll(deads);
         this.elements.removeAll(deads);
+    }
+
+    public void removeUnusedBonusItems() {
+        LinkedList<BonusItem> toDelete = new LinkedList<BonusItem>();
+            for (BonusItem b : bonusItems) {
+                if (b.pos.y > FIELD_DEFAULT_SIZE.y) {
+                    toDelete.add(b);
+                }
+            }
+            for (BonusItem b : toDelete) {
+                bonusItems.remove(b);
+            }
+        toDelete.clear();
     }
 
     public class Painter extends JComponent {
@@ -243,10 +256,9 @@ public class Game extends JFrame {
                 e.paint(g, fieldOrigin, fieldScale);
             }
 
-            for (BonusItem b : bonusItems){
+            for (BonusItem b : bonusItems) {
                 b.paint(g, fieldOrigin, fieldScale);
             }
-
         }
     }
 

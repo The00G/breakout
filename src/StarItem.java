@@ -25,9 +25,8 @@ public class StarItem extends BonusItem {
     public void paint(Graphics g, Vector fieldOrigin, double fieldScale) {
         points.clear();
         for (int i = 0; i < 5; i++) {
-            points.add(Vector.sum(fieldOrigin, Vector.sum(pos, new Vector(size * fieldScale, Math.PI*2 / 5.0 * i, true))));
-            points.add(Vector.sum(fieldOrigin,
-                    Vector.sum(pos, new Vector(size * 0.3 * fieldScale, Math.PI*2 / 5.0 * i + Math.PI*2 / 10, true))));
+            points.add(Vector.sum(fieldOrigin, Vector.sum(Vector.mult(pos, fieldScale), new Vector(size * fieldScale, Math.PI*2 / 5.0 * i, true))));
+            points.add(Vector.sum(fieldOrigin, Vector.sum(Vector.mult(pos, fieldScale), new Vector(size * 0.3 * fieldScale, Math.PI*2 / 5.0 * i + Math.PI*2 / 10, true))));
         }
 
         xPoints = new int[points.size()];

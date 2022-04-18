@@ -71,10 +71,11 @@ public class GameTimer implements ActionListener {
         
 
         g.removeDeadBricks();
+        g.removeUnusedBonusItems();
         g.end();
         g.repaint();
 
-        //System.out.println(g.score);
+        //System.out.println(g.bonusItems.size());
     }
 
     public void stop() {
