@@ -1,4 +1,6 @@
 import java.awt.event.*;
+import java.util.LinkedList;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -54,7 +56,7 @@ public class GameTimer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        g.score += g.ball.move(g.obstacles, dt);
+        updateBalls();
 
         mouseScreenPosition = MouseInfo.getPointerInfo().getLocation();
         windowPosition = g.getLocation();
@@ -69,6 +71,18 @@ public class GameTimer implements ActionListener {
         g.repaint();
 
         System.out.println(g.score);
+    }
+
+    public void updateBalls() {
+        LinkedList<Ball> lostBalls = new LinkedList<Ball>();
+        for(Ball b : g.balls) {
+            g.score += b.move(g.obstacles, dt);
+            if(b.pos.y > Game.FIELD_DEFAULT_SIZE.y) {
+                lostBalls.add(b);
+            }
+        }
+        g.balls.removeAll(lostBalls);
+        g.elements.removeAll(lostBalls);
     }
 
     public void stop() {
