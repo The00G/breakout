@@ -34,9 +34,9 @@ public class Game extends JFrame {
     public LinkedList<Brick> bricks;
 
     /**
-     * Ball of this game
+     * List of the balls of this game
      */
-    public Ball ball;
+    public LinkedList<Ball> balls;
 
     /**
      * Platform of this game
@@ -132,7 +132,7 @@ public class Game extends JFrame {
         //this.createBricks();
         //this.createDebugBricks();
         //this.createReboundBricks();
-        this.bricks = Level.buildLevel(this.level, this.FIELD_DEFAULT_SIZE);
+        this.bricks = Level.buildLevel(this.level, FIELD_DEFAULT_SIZE);
 
 
         this.createWalls();
@@ -144,11 +144,13 @@ public class Game extends JFrame {
         this.obstacles.addAll(this.walls);
         this.obstacles.add(this.platform);
 
-        this.ball = new Ball(250, 500, 10, 600);
+        this.balls = new LinkedList<Ball>();
+        this.balls.add(new Ball(250, 300, 10, 600));
+        this.balls.add(new Ball(260, 300, 10, 600));
 
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
-        this.elements.add(this.ball);
+        this.elements.addAll(this.balls);
 
     }
 
@@ -194,9 +196,9 @@ public class Game extends JFrame {
      */
     public void createWalls() {
         this.walls = new LinkedList<Wall>();
-        walls.add(new Wall(new Vector(0, 0), this.FIELD_DEFAULT_SIZE.x, false));
-        walls.add(new Wall(new Vector(0, 0), this.FIELD_DEFAULT_SIZE.y, true));
-        walls.add(new Wall(new Vector(this.FIELD_DEFAULT_SIZE.x, 0), this.FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(0, 0), FIELD_DEFAULT_SIZE.x, false));
+        walls.add(new Wall(new Vector(0, 0), FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, 0), FIELD_DEFAULT_SIZE.y, true));
     }
 
     /**
@@ -247,13 +249,13 @@ public class Game extends JFrame {
             // victory
             // create a Jframe to tell he won
             gt.stop();
-        } else if (ball.pos.y > FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0) {
+        } else if (this.balls.isEmpty()) {
             // player loses
             // create a Jframe to tell he loses and close all
             this.life--;
             if (this.life > 0) {
-                this.ball.pos = new Vector(250, 350);
-                this.ball.direction = new Vector(0, 1);
+                this.balls.add(new Ball(250, 300, 10, 600));
+                this.elements.addAll(this.balls);
             } else if (this.life <= 0) {
                 gt.stop();
             }
