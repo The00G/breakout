@@ -202,6 +202,17 @@ public class Vector implements Comparable<Vector> {
     }
 
     /**
+     * set the coordinate of this vector to given values
+     * 
+     * @param vx    x coordinate
+     * @param vy    y coordinate
+     */
+    public void set(double vx, double vy) {
+        this.x = vx;
+        this.y = vy;
+    }
+
+    /**
      * Set the coordinates of this vector to the same coordinate as a given vectore
      * 
      * @param   v   

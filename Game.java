@@ -18,14 +18,17 @@ public class Game extends JFrame {
     /**
      * Size of the field
      * <p>
-     * Every coordinate are calculated according to this
+     * Every ingame coordinate are calculated according to this
      */
     final public static Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
+
+    final public static Vector SCORE_DEFAULT_POS = new Vector(700,50);
+    final public static int SCORE_DEFAULT_SIZE = 40;
 
     /**
      * Scale between the coordinate system and the display
      */
-    public double fieldScale;
+    public double scale;
     public Vector fieldOrigin, fieldSize;
 
     /**
@@ -62,11 +65,6 @@ public class Game extends JFrame {
      */
     public LinkedList<GameElement> elements;
 
-    /**
-     * Score of the player in this game
-     */
-    public int score;
-
     public int level = 5;
     public int life;
     public int numberGames = 0;
@@ -93,6 +91,8 @@ public class Game extends JFrame {
     ImageIcon iconGameOver = new ImageIcon("GameOverIcon.png");
     JLabel imageGameOver = new JLabel(iconGameOver, JLabel.CENTER);
 
+    Score score;
+
     private GameTimer gt;
 
     private int fps = 90;
@@ -117,7 +117,6 @@ public class Game extends JFrame {
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
         this.life = 3;
-        this.score = 0;
         gt = new GameTimer(1000 / fps, this);
 
         this.setVisible(true);
@@ -148,9 +147,12 @@ public class Game extends JFrame {
         this.balls.add(new Ball(250, 300, 10, 600));
         this.balls.add(new Ball(260, 300, 10, 600));
 
+        this.score = new Score(new Vector(FIELD_DEFAULT_SIZE.x,50), 40);
+
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
         this.elements.addAll(this.balls);
+        this.elements.add(this.score);
 
     }
 
@@ -196,9 +198,9 @@ public class Game extends JFrame {
      */
     public void createWalls() {
         this.walls = new LinkedList<Wall>();
-        walls.add(new Wall(new Vector(0, 0), FIELD_DEFAULT_SIZE.x, false));
-        walls.add(new Wall(new Vector(0, 0), FIELD_DEFAULT_SIZE.y, true));
-        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, 0), FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x/2, 0), FIELD_DEFAULT_SIZE.x/2, false));
+        walls.add(new Wall(new Vector(0, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
+        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
     }
 
     /**
@@ -224,14 +226,14 @@ public class Game extends JFrame {
             g.setColor(Color.black);
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-            fieldScale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
+            scale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
                     this.getHeight() / FIELD_DEFAULT_SIZE.y);
-            fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, fieldScale);
+            fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, scale);
             fieldOrigin = new Vector((int) ((this.getWidth() - fieldSize.x) / 2),
                     (int) ((this.getHeight() - fieldSize.y) / 2));
 
             for (GameElement e : elements) {
-                e.paint(g, fieldOrigin, fieldScale);
+                e.paint(g, fieldOrigin, scale);
             }
 
         }
