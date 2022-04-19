@@ -73,7 +73,7 @@ public class Game extends JFrame {
      */
     public LinkedList<BonusItem> bonusItems = new LinkedList<BonusItem>();
 
-    public int level = 404;
+    public int level = -1;
 
     public int life;
     public int numberGames = 0;
