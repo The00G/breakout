@@ -88,6 +88,9 @@ public class Level {
                                 { 5, 5,-1,-1,-1, 5, 5, 5,-1,-1,-1, 5, 5},
                                 { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
             return buildBricks(map55, fieldSize);
+            case 404:
+            int [][] map404 = {{1,0},{0,0}};
+            return buildBricks(map404, fieldSize);
 
             default:
             return new LinkedList<>();

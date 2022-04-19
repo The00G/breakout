@@ -24,7 +24,7 @@ public class Game extends JFrame {
      */
     final public static Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
 
-    final public static Vector SCORE_DEFAULT_POS = new Vector(700,50);
+    final public static Vector SCORE_DEFAULT_POS = new Vector(720,100);
     final public static int SCORE_DEFAULT_SIZE = 40;
 
     /**
@@ -73,7 +73,7 @@ public class Game extends JFrame {
      */
     public LinkedList<BonusItem> bonusItems = new LinkedList<BonusItem>();
 
-    public int level = 3;
+    public int level = 404;
 
     public int life;
     public int numberGames = 0;
@@ -180,15 +180,6 @@ public class Game extends JFrame {
     }
 
     /**
-     * Fills the list of bricks with 1 white brick
-     */
-    public void createDebugBricks() {
-        this.bricks = new LinkedList<Brick>();
-        Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
-        bricks.add(new Brick(9 * brickSize.x, 5 * brickSize.y, brickSize.x, brickSize.y, 1));
-    }
-
-    /**
      * Fills the list of bricks with half the bricks
      */
     public void createReboundBricks() {
@@ -270,18 +261,13 @@ public class Game extends JFrame {
     public void end() {
         if (this.bricks.isEmpty()) {
             this.numberGames++;
-            // this.createBricks();
-            this.createBricks();
+            this.bricks = Level.buildLevel(this.level, FIELD_DEFAULT_SIZE);
             this.obstacles.addAll(this.bricks);
             this.elements.addAll(this.bricks);
         }
         if (this.numberGames >= 2) {
-            // victory
-            // create a Jframe to tell he won
             gt.stop();
         } else if (this.balls.isEmpty()) {
-            // player loses
-            // create a Jframe to tell he loses and close all
             this.life--;
             if (this.life > 0) {
                 this.balls.add(new Ball(250, 300, 10, 600));
@@ -297,18 +283,22 @@ public class Game extends JFrame {
      */
     public void finalFrame() {
         winningFrame = new JFrame();
-        winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250, (((int) screenSize.getHeight()) / 2) - 350,
-                iconGameOver.getIconWidth(), iconGameOver.getIconHeight());
-        winningFrame.setLayout(null);
-        finalPanel.setBounds(0, 0, winningFrame.getWidth(), winningFrame.getHeight());
         finalPanel.setBackground(Color.gray);
         if (this.life <= 0) {
-            imageGameOver.setBounds(winningFrame.getWidth() / 2 - iconVictory.getIconWidth() / 2,
-                    winningFrame.getHeight() / 2 - iconVictory.getIconHeight() / 2, iconVictory.getIconWidth(),
-                    iconVictory.getIconHeight());
+            winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250, (((int) screenSize.getHeight()) / 2) - 350,
+                iconGameOver.getIconWidth(), iconGameOver.getIconHeight());
+            winningFrame.setLayout(null);
+            finalPanel.setBounds(0, 0, winningFrame.getWidth(), winningFrame.getHeight());
+            imageGameOver.setBounds(winningFrame.getWidth() / 2 - iconGameOver.getIconWidth() / 2,
+                    winningFrame.getHeight() / 2 - iconGameOver.getIconHeight() / 2, iconGameOver.getIconWidth(),
+                    iconGameOver.getIconHeight());
             finalPanel.add(imageGameOver);
             finalPanel.setVisible(true);
         } else if (this.numberGames >= 2) {
+            winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250, (((int) screenSize.getHeight()) / 2) - 350,
+                iconVictory.getIconWidth(), iconVictory.getIconHeight());
+            winningFrame.setLayout(null);
+            finalPanel.setBounds(0, 0, winningFrame.getWidth(), winningFrame.getHeight());
             imageVictory.setBounds(winningFrame.getWidth() / 2 - iconVictory.getIconWidth() / 2,
                     winningFrame.getHeight() / 2 - iconVictory.getIconHeight() / 2, iconVictory.getIconWidth(),
                     iconVictory.getIconHeight());
