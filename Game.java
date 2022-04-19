@@ -18,14 +18,17 @@ public class Game extends JFrame {
     /**
      * Size of the field
      * <p>
-     * Every coordinate are calculated according to this
+     * Every ingame coordinate are calculated according to this
      */
     final public static Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
+
+    final public static Vector SCORE_DEFAULT_POS = new Vector(700,50);
+    final public static int SCORE_DEFAULT_SIZE = 40;
 
     /**
      * Scale between the coordinate system and the display
      */
-    public double fieldScale;
+    public double scale;
     public Vector fieldOrigin, fieldSize;
 
     /**
@@ -34,9 +37,9 @@ public class Game extends JFrame {
     public LinkedList<Brick> bricks;
 
     /**
-     * Ball of this game
+     * List of the balls of this game
      */
-    public Ball ball;
+    public LinkedList<Ball> balls;
 
     /**
      * Platform of this game
@@ -62,15 +65,34 @@ public class Game extends JFrame {
      */
     public LinkedList<GameElement> elements;
 
-    /**
-     * Score of the player in this game
-     */
-    public int score;
-
     public int level = 5;
+
     public int life;
     public int numberGames = 0;
+    /**
+     * gets us the size of the player's screen
+     */
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    /**
+     * frame that will be used at the end of the game
+     */
     JFrame winningFrame;
+    /**
+     * panel used also at the end of the game in the final frame
+     */
+    JPanel finalPanel = new JPanel(); 
+    /**
+     * image shown if the player wins and it's initialization
+     */
+    ImageIcon iconVictory = new ImageIcon("victoryImage.png");
+    JLabel imageVictory = new JLabel(iconVictory, JLabel.CENTER);
+    /**
+     * image shown if the player loses and it's initialization
+     */
+    ImageIcon iconGameOver = new ImageIcon("GameOverIcon.png");
+    JLabel imageGameOver = new JLabel(iconGameOver, JLabel.CENTER);
+
+    Score score;
 
     private GameTimer gt;
 
@@ -96,7 +118,6 @@ public class Game extends JFrame {
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
         this.life = 3;
-        this.score = 0;
         gt = new GameTimer(1000 / fps, this);
 
         this.setVisible(true);
@@ -111,7 +132,7 @@ public class Game extends JFrame {
         //this.createBricks();
         //this.createDebugBricks();
         //this.createReboundBricks();
-        this.bricks = Level.buildLevel(this.level, this.FIELD_DEFAULT_SIZE);
+        this.bricks = Level.buildLevel(this.level, FIELD_DEFAULT_SIZE);
 
 
         this.createWalls();
@@ -123,11 +144,16 @@ public class Game extends JFrame {
         this.obstacles.addAll(this.walls);
         this.obstacles.add(this.platform);
 
-        this.ball = new Ball(250, 500, 10, 600);
+        this.balls = new LinkedList<Ball>();
+        this.balls.add(new Ball(250, 300, 10, 600));
+        this.balls.add(new Ball(260, 300, 10, 600));
+
+        this.score = new Score(new Vector(FIELD_DEFAULT_SIZE.x,50), 40);
 
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
-        this.elements.add(this.ball);
+        this.elements.addAll(this.balls);
+        this.elements.add(this.score);
 
     }
 
@@ -162,7 +188,7 @@ public class Game extends JFrame {
         Vector brickSize = new Vector(FIELD_DEFAULT_SIZE.x / 20, FIELD_DEFAULT_SIZE.y / 48);
         for (int i = 1; i < 20; i += 4) {
             for (int j = 3; j < 18; j += 4) {
-                Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j / 2);
+                Brick newBrick = new Brick(i * brickSize.x, j * brickSize.y, brickSize.x, brickSize.y, 9 - j/2);
                 bricks.add(newBrick);
             }
         }
@@ -173,9 +199,9 @@ public class Game extends JFrame {
      */
     public void createWalls() {
         this.walls = new LinkedList<Wall>();
-        walls.add(new Wall(new Vector(0, 0), this.FIELD_DEFAULT_SIZE.x, false));
-        walls.add(new Wall(new Vector(0, 0), this.FIELD_DEFAULT_SIZE.y, true));
-        walls.add(new Wall(new Vector(this.FIELD_DEFAULT_SIZE.x, 0), this.FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x/2, 0), FIELD_DEFAULT_SIZE.x/2, false));
+        walls.add(new Wall(new Vector(0, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
+        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
     }
 
     /**
@@ -201,14 +227,14 @@ public class Game extends JFrame {
             g.setColor(Color.black);
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-            fieldScale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
+            scale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
                     this.getHeight() / FIELD_DEFAULT_SIZE.y);
-            fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, fieldScale);
+            fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, scale);
             fieldOrigin = new Vector((int) ((this.getWidth() - fieldSize.x) / 2),
                     (int) ((this.getHeight() - fieldSize.y) / 2));
 
             for (GameElement e : elements) {
-                e.paint(g, fieldOrigin, fieldScale);
+                e.paint(g, fieldOrigin, scale);
             }
 
         }
@@ -217,37 +243,46 @@ public class Game extends JFrame {
     public void end() {
         if (this.bricks.isEmpty()) {
             this.numberGames++;
+            //this.createBricks();
             this.createBricks();
+        this.obstacles.addAll(this.bricks);
+        this.elements.addAll(this.bricks);
         }
         if (this.numberGames >= 2) {
             // victory
             // create a Jframe to tell he won
             gt.stop();
-        } else if (ball.pos.y > FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0) {
+        } else if (this.balls.isEmpty()) {
             // player loses
             // create a Jframe to tell he loses and close all
             this.life--;
             if (this.life > 0) {
-                this.ball.pos = new Vector(250, 350);
-                this.ball.direction = new Vector(0, 1);
+                this.balls.add(new Ball(250, 300, 10, 600));
+                this.elements.addAll(this.balls);
             } else if (this.life <= 0) {
                 gt.stop();
             }
         }
     }
-
-    public void finalFrame() {
-        winningFrame = new JFrame();
-        winningFrame.setBounds(20, 20, 500, 500);
-        winningFrame.setBackground(Color.yellow);
-        JLabel finalLabel = new JLabel();
-        finalLabel.setBounds(50, 50, 700, 700);
-        if (this.life <= 0) {
-            finalLabel.setText("LOOOSER");
-        } else if (this.numberGames > 3) {
-            finalLabel.setText("VICTORY");
+    /**
+     * creates the final frame telling if the player has won or lost
+     */
+    public void finalFrame (){
+        winningFrame =  new JFrame();
+        winningFrame.setBounds((((int)screenSize.getWidth())/2)-250, (((int)screenSize.getHeight())/2)-350, iconGameOver.getIconWidth(), iconGameOver.getIconHeight());
+        winningFrame.setLayout(null);
+        finalPanel.setBounds(0,0,winningFrame.getWidth(), winningFrame.getHeight());
+        finalPanel.setBackground(Color.gray);
+        if (this.life<=0){
+            imageGameOver.setBounds(winningFrame.getWidth() / 2 - iconVictory.getIconWidth() / 2, winningFrame.getHeight() / 2 - iconVictory.getIconHeight() / 2, iconVictory.getIconWidth(),iconVictory.getIconHeight());
+            finalPanel.add(imageGameOver);
+            finalPanel.setVisible(true);
+        }else if (this.numberGames>3) {
+            imageVictory.setBounds(winningFrame.getWidth() / 2 - iconVictory.getIconWidth() / 2, winningFrame.getHeight() / 2 - iconVictory.getIconHeight() / 2, iconVictory.getIconWidth(),iconVictory.getIconHeight());
+            finalPanel.add(imageVictory);
+            finalPanel.setVisible(true);
         }
-        winningFrame.add(finalLabel);
+        winningFrame.add(finalPanel);
         winningFrame.setVisible(true);
     }
 

@@ -45,7 +45,7 @@ public class Ball extends GameElement {
         super(new Vector(posx, posy), new Vector(r, r));
         this.radius = r;
         this.speed = sp;
-        this.direction = Vector.normalized(new Vector(0, -1));
+        this.direction = Vector.normalized(new Vector(0, 1));
     }
 
     /**
