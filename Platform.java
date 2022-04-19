@@ -29,7 +29,7 @@ public class Platform extends Obstacle{
         if(bPos.y >= this.pos.y) {
             return 0;
         }
-        bDir.set(Vector.sub(bPos, this.pos));
+        bDir.set((bPos.x-this.pos.x)/this.size.x, -1);
         bDir.normalize();
         return this.hit();
     }
