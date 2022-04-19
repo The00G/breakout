@@ -140,7 +140,7 @@ public class Game extends JFrame {
         // this.createBricks();
         // this.createDebugBricks();
         // this.createReboundBricks();
-        this.bricks = Level.buildLevel(this.level, this.FIELD_DEFAULT_SIZE);
+        this.bricks = Level.buildLevel(this.level, FIELD_DEFAULT_SIZE);
 
         this.createWalls();
 
@@ -206,9 +206,9 @@ public class Game extends JFrame {
      */
     public void createWalls() {
         this.walls = new LinkedList<Wall>();
-        walls.add(new Wall(new Vector(0, 0), this.FIELD_DEFAULT_SIZE.x, false));
-        walls.add(new Wall(new Vector(0, 0), this.FIELD_DEFAULT_SIZE.y, true));
-        walls.add(new Wall(new Vector(this.FIELD_DEFAULT_SIZE.x, 0), this.FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(0, 0), FIELD_DEFAULT_SIZE.x, false));
+        walls.add(new Wall(new Vector(0, 0), FIELD_DEFAULT_SIZE.y, true));
+        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, 0), FIELD_DEFAULT_SIZE.y, true));
     }
 
     /**
