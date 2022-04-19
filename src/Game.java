@@ -17,12 +17,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Game extends JFrame {
 
-    /**
+   /**
      * Size of the field
      * <p>
-     * Every coordinate are calculated according to this
+     * Every ingame coordinate are calculated according to this
      */
     final public static Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
+
+    final public static Vector SCORE_DEFAULT_POS = new Vector(700,50);
+    final public static int SCORE_DEFAULT_SIZE = 40;
 
     /**
      * Scale between the coordinate system and the display
