@@ -1,3 +1,4 @@
+package src;
 import java.awt.event.*;
 import java.util.LinkedList;
 
@@ -65,6 +66,10 @@ public class GameTimer implements ActionListener {
         //System.out.println(mousePosition);
 
         g.platform.move(mousePosition);
+
+        for (BonusItem b : g.bonusItems) {
+            b.move();
+        }
 
         g.removeDeadBricks();
         g.end();

@@ -1,3 +1,4 @@
+package src;
 import java.awt.*;
 
 public abstract class Obstacle extends GameElement{
