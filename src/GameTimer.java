@@ -1,3 +1,4 @@
+package src;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -64,11 +65,17 @@ public class GameTimer implements ActionListener {
 
         g.platform.move(mousePosition);
 
+        for (BonusItem bonusItem : g.bonusItems) {
+            bonusItem.move();
+        }
+        
+
         g.removeDeadBricks();
+        g.removeUnusedBonusItems();
         g.end();
         g.repaint();
 
-        System.out.println(g.score);
+        //System.out.println(g.bonusItems.size());
     }
 
     public void stop() {
