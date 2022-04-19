@@ -66,6 +66,7 @@ public class Game extends JFrame {
     public LinkedList<GameElement> elements;
 
     public int level = 5;
+
     public int life;
     public int numberGames = 0;
     /**
