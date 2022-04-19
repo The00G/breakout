@@ -73,7 +73,7 @@ public class Game extends JFrame {
      */
     public LinkedList<BonusItem> bonusItems = new LinkedList<BonusItem>();
 
-    public int level = 5;
+    public int level = 3;
 
     public int life;
     public int numberGames = 0;
@@ -308,7 +308,7 @@ public class Game extends JFrame {
                     iconVictory.getIconHeight());
             finalPanel.add(imageGameOver);
             finalPanel.setVisible(true);
-        } else if (this.numberGames > 3) {
+        } else if (this.numberGames >= 2) {
             imageVictory.setBounds(winningFrame.getWidth() / 2 - iconVictory.getIconWidth() / 2,
                     winningFrame.getHeight() / 2 - iconVictory.getIconHeight() / 2, iconVictory.getIconWidth(),
                     iconVictory.getIconHeight());
