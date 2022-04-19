@@ -75,7 +75,7 @@ public class GameTimer implements ActionListener {
         LinkedList<Ball> lostBalls = new LinkedList<Ball>();
         for(Ball b : g.balls) {
             g.score.add(b.move(g.obstacles, dt));
-            if(b.pos.y > Game.FIELD_DEFAULT_SIZE.y) {
+            if(b.pos.y > Game.FIELD_DEFAULT_SIZE.y+b.size.y) {
                 lostBalls.add(b);
             }
         }
