@@ -1,5 +1,7 @@
 package src;
 import java.awt.event.*;
+import java.util.LinkedList;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -55,27 +57,35 @@ public class GameTimer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        g.score += g.ball.move(g.obstacles, dt);
+        updateBalls();
 
         mouseScreenPosition = MouseInfo.getPointerInfo().getLocation();
         windowPosition = g.getLocation();
-        mousePosition.x = (mouseScreenPosition.getX() - windowPosition.getX() - g.fieldOrigin.x)/g.fieldScale;
-        mousePosition.y = (mouseScreenPosition.getY() - windowPosition.getY() - g.fieldOrigin.y)/g.fieldScale;
+        mousePosition.x = (mouseScreenPosition.getX() - windowPosition.getX() - g.fieldOrigin.x)/g.scale;
+        mousePosition.y = (mouseScreenPosition.getY() - windowPosition.getY() - g.fieldOrigin.y)/g.scale;
         //System.out.println(mousePosition);
 
         g.platform.move(mousePosition);
 
-        for (BonusItem bonusItem : g.bonusItems) {
-            bonusItem.move();
+        for (BonusItem b : g.bonusItems) {
+            b.move();
         }
-        
 
         g.removeDeadBricks();
-        g.removeUnusedBonusItems();
         g.end();
         g.repaint();
+    }
 
-        //System.out.println(g.bonusItems.size());
+    public void updateBalls() {
+        LinkedList<Ball> lostBalls = new LinkedList<Ball>();
+        for(Ball b : g.balls) {
+            g.score.add(b.move(g.obstacles, dt));
+            if(b.pos.y > Game.FIELD_DEFAULT_SIZE.y+b.size.y) {
+                lostBalls.add(b);
+            }
+        }
+        g.balls.removeAll(lostBalls);
+        g.elements.removeAll(lostBalls);
     }
 
     public void stop() {

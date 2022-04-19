@@ -27,7 +27,7 @@ public class Game extends JFrame {
     /**
      * Scale between the coordinate system and the display
      */
-    public double fieldScale;
+    public double scale;
     public Vector fieldOrigin, fieldSize;
 
     /**
@@ -36,9 +36,9 @@ public class Game extends JFrame {
     public LinkedList<Brick> bricks;
 
     /**
-     * Ball of this game
+     * List of the balls of this game
      */
-    public Ball ball;
+    public LinkedList<Ball> balls;
 
     /**
      * Platform of this game
@@ -63,11 +63,6 @@ public class Game extends JFrame {
      * Contains the bricks, the walls, the platform and the ball
      */
     public LinkedList<GameElement> elements;
-
-    /**
-     * Score of the player in this game
-     */
-    public int score;
 
     /**
      * Bonus items are random elements that randomly appear when you break a brick.
@@ -101,6 +96,8 @@ public class Game extends JFrame {
     ImageIcon iconGameOver = new ImageIcon("media/GameOverIcon.png");
     JLabel imageGameOver = new JLabel(iconGameOver, JLabel.CENTER);
 
+    Score score;
+    
     private GameTimer gt;
 
     private int fps = 90;
@@ -126,7 +123,6 @@ public class Game extends JFrame {
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
         this.life = 3;
-        this.score = 0;
         gt = new GameTimer(1000 / fps, this);
 
         this.setVisible(true);
@@ -152,11 +148,16 @@ public class Game extends JFrame {
         this.obstacles.addAll(this.walls);
         this.obstacles.add(this.platform);
 
-        this.ball = new Ball(250, 500, 10, 600);
+        this.balls = new LinkedList<Ball>();
+        this.balls.add(new Ball(250, 300, 10, 600));
+        this.balls.add(new Ball(260, 300, 10, 600));
+        
+        this.score = new Score(new Vector(FIELD_DEFAULT_SIZE.x,50), 40);
 
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
-        this.elements.add(this.ball);
+        this.elements.addAll(this.balls);
+        this.elements.add(this.score);
 
     }
 
@@ -246,18 +247,18 @@ public class Game extends JFrame {
             g.setColor(Color.black);
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-            fieldScale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
+            scale = Math.min(this.getWidth() / FIELD_DEFAULT_SIZE.x,
                     this.getHeight() / FIELD_DEFAULT_SIZE.y);
-            fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, fieldScale);
+            fieldSize = Vector.mult(FIELD_DEFAULT_SIZE, scale);
             fieldOrigin = new Vector((int) ((this.getWidth() - fieldSize.x) / 2),
                     (int) ((this.getHeight() - fieldSize.y) / 2));
 
             for (GameElement e : elements) {
-                e.paint(g, fieldOrigin, fieldScale);
+                e.paint(g, fieldOrigin, scale);
             }
 
             for (BonusItem b : bonusItems) {
-                b.paint(g, fieldOrigin, fieldScale);
+                b.paint(g, fieldOrigin, scale);
             }
         }
     }
@@ -274,13 +275,13 @@ public class Game extends JFrame {
             // victory
             // create a Jframe to tell he won
             gt.stop();
-        } else if (ball.pos.y > FIELD_DEFAULT_SIZE.y || ball.pos.x > FIELD_DEFAULT_SIZE.x || ball.pos.x < 0) {
+        } else if (this.balls.isEmpty()) {
             // player loses
             // create a Jframe to tell he loses and close all
             this.life--;
             if (this.life > 0) {
-                this.ball.pos = new Vector(250, 350);
-                this.ball.direction = new Vector(0, 1);
+                this.balls.add(new Ball(250, 300, 10, 600));
+                this.elements.addAll(this.balls);
             } else if (this.life <= 0) {
                 gt.stop();
             }
