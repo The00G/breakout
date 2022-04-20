@@ -113,7 +113,6 @@ public class Game extends JFrame {
      */
     public Game() {
         super("Breakout!");
-        this.life = 3;
         this.createElements();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -210,15 +209,6 @@ public class Game extends JFrame {
         walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x/2, 0), FIELD_DEFAULT_SIZE.x/2, false));
         walls.add(new Wall(new Vector(0, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
         walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
-    }
-    /**
-     * creates the hearts representing the player's life
-     */
-    public void createHearts(){
-        for ( int i = 0; i<this.life; i++){
-            hearts e =  new hearts (new Vector(40+i*40, 100));
-            this.heartsLeft.add(e);
-        }
     }
 
     /**
