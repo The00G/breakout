@@ -73,9 +73,9 @@ public class Game extends JFrame {
      */
     public LinkedList<BonusItem> bonusItems = new LinkedList<BonusItem>();
 
-    public int level = -1;
+    public int level = 4;
 
-    public int life;
+    public Life life;
     public int numberGames = 0;
     /**
      * gets us the size of the player's screen
@@ -126,7 +126,6 @@ public class Game extends JFrame {
         this.setContentPane(new Painter());
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
-        this.life = 3;
         gt = new GameTimer(1000 / fps, this);
 
         this.setVisible(true);
@@ -156,12 +155,17 @@ public class Game extends JFrame {
         this.balls.add(new Ball(250, 300, 10, 600));
         this.balls.add(new Ball(260, 300, 10, 600));
         
-        this.score = new Score(new Vector(FIELD_DEFAULT_SIZE.x,50), 40);
+        this.score = new Score(new Vector(FIELD_DEFAULT_SIZE.x+10,30), 40);
+
+        this.life = new Life(new Vector(FIELD_DEFAULT_SIZE.x,40),
+                             new Vector(40,40),
+                             3);
 
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
         this.elements.addAll(this.balls);
         this.elements.add(this.score);
+        this.elements.add(this.life);
 
     }
 
@@ -268,12 +272,11 @@ public class Game extends JFrame {
         if (this.numberGames >= 2) {
             gt.stop();
         } else if (this.balls.isEmpty()) {
-            this.life--;
-            if (this.life > 0) {
+            if (this.life.lose()) {
+                gt.stop();
+            } else {
                 this.balls.add(new Ball(250, 300, 10, 600));
                 this.elements.addAll(this.balls);
-            } else if (this.life <= 0) {
-                gt.stop();
             }
         }
     }
@@ -284,7 +287,7 @@ public class Game extends JFrame {
     public void finalFrame() {
         winningFrame = new JFrame();
         finalPanel.setBackground(Color.gray);
-        if (this.life <= 0) {
+        if (this.life.isDead()) {
             winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250, (((int) screenSize.getHeight()) / 2) - 350,
                 iconGameOver.getIconWidth(), iconGameOver.getIconHeight());
             winningFrame.setLayout(null);
