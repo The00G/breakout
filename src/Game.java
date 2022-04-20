@@ -24,7 +24,7 @@ public class Game extends JFrame {
      */
     final public static Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
 
-    final public static Vector SCORE_DEFAULT_POS = new Vector(720,100);
+    final public static Vector SCORE_DEFAULT_POS = new Vector(600,200);
     final public static int SCORE_DEFAULT_SIZE = 40;
 
     /**
@@ -73,34 +73,36 @@ public class Game extends JFrame {
      */
     public LinkedList<BonusItem> bonusItems = new LinkedList<BonusItem>();
 
+
     public int level = 4;
 
     public Life life;
+  
     public int numberGames = 0;
     /**
      * gets us the size of the player's screen
      */
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    public Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     /**
      * frame that will be used at the end of the game
      */
-    JFrame winningFrame;
+    public JFrame winningFrame;
     /**
      * panel used also at the end of the game in the final frame
      */
-    JPanel finalPanel = new JPanel();
+    public JPanel finalPanel = new JPanel();
     /**
      * image shown if the player wins and it's initialization
      */
-    ImageIcon iconVictory = new ImageIcon("media/victoryImage.png");
-    JLabel imageVictory = new JLabel(iconVictory, JLabel.CENTER);
+    public ImageIcon iconVictory = new ImageIcon("media/victoryImage.png");
+    public JLabel imageVictory = new JLabel(iconVictory, JLabel.CENTER);
     /**
      * image shown if the player loses and it's initialization
      */
-    ImageIcon iconGameOver = new ImageIcon("media/GameOverIcon.png");
-    JLabel imageGameOver = new JLabel(iconGameOver, JLabel.CENTER);
+    public ImageIcon iconGameOver = new ImageIcon("media/GameOverIcon.png");
+    public JLabel imageGameOver = new JLabel(iconGameOver, JLabel.CENTER);
 
-    Score score;
+    public Score score;
     
     private GameTimer gt;
 
@@ -111,7 +113,7 @@ public class Game extends JFrame {
      */
     public Game() {
         super("Breakout!");
-
+        this.life = 3;
         this.createElements();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -127,7 +129,7 @@ public class Game extends JFrame {
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
         gt = new GameTimer(1000 / fps, this);
-
+        
         this.setVisible(true);
 
     }
@@ -143,6 +145,7 @@ public class Game extends JFrame {
         this.bricks = Level.buildLevel(this.level, FIELD_DEFAULT_SIZE);
 
         this.createWalls();
+        //this.createHearts();
 
         this.platform = new Platform(250, 600, 40, 10, FIELD_DEFAULT_SIZE);
 
@@ -165,7 +168,9 @@ public class Game extends JFrame {
         this.elements.addAll(this.obstacles);
         this.elements.addAll(this.balls);
         this.elements.add(this.score);
+
         this.elements.add(this.life);
+
 
     }
 
@@ -205,6 +210,15 @@ public class Game extends JFrame {
         walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x/2, 0), FIELD_DEFAULT_SIZE.x/2, false));
         walls.add(new Wall(new Vector(0, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
         walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
+    }
+    /**
+     * creates the hearts representing the player's life
+     */
+    public void createHearts(){
+        for ( int i = 0; i<this.life; i++){
+            hearts e =  new hearts (new Vector(40+i*40, 100));
+            this.heartsLeft.add(e);
+        }
     }
 
     /**
@@ -280,6 +294,7 @@ public class Game extends JFrame {
             }
         }
     }
+
 
     /**
      * creates the final frame telling if the player has won or lost

@@ -74,6 +74,7 @@ public class GameTimer implements ActionListener {
         g.removeDeadBricks();
         g.end();
         g.repaint();
+        
     }
 
     public void updateBalls() {
