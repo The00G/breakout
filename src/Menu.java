@@ -114,14 +114,12 @@ public class Menu extends JFrame implements ActionListener {
         int endOfRulesText = rulesPanel.getHeight() / 2;
 
         String[] rulesText = {
-                " L'évasion commence avec huit rangées de briques, avec chacune deux rangées d'un type de couleur différent.",
-                "L'ordre des couleurs de bas en haut est le jaune, le vert, l'orange et le rouge.",
+                " L'évasion commence avec des rangées de briques, chacune de couleur différente, représentatnt une résistance différente.",
+                "L'ordre des couleurs dans l'ordre de résistance croissante est: le blanc, le vert, le jaune, le beige, le violet, le rouge, le bleu.",
                 "A l'aide d'une seule balle, le joueur doit abattre un maximum de briques en utilisant les murs et/ou la raquette en dessous pour frapper la balle contre les briques et les éliminer.",
-                "Si la raquette du joueur rate le rebond de la balle, il perdra un tour.",
-                "Le joueur dispose de trois tours pour essayer de nettoyer deux écrans de briques.",
-                "Les briques jaunes gagnent un point chacune, les briques vertes gagnent trois points, les briques orange gagnent cinq points et les briques rouges de niveau supérieur marquent sept points chacune.",
-                "La palette se rétrécit à la moitié de sa taille après que la balle a traversé la rangée rouge et touché le mur supérieur.",
-                "La vitesse de la balle augmente à des intervalles spécifiques : après quatre coups, après douze coups et après avoir touché les rangées orange et rouge. " };
+                "Si la plateforme du joueur rate le rebond de la balle, il perdra une vie.",
+                "Le joueur dispose de trois vies pour essayer de nettoyer deux écrans de briques.",
+                "Les briques touchées rapportent 20 points par rebond contre elles",};
 
         JLabel[] rulesLabels = new JLabel[rulesText.length];
         for (int i = 0; i < rulesText.length; i++) {
