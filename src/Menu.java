@@ -115,7 +115,7 @@ public class Menu extends JFrame implements ActionListener {
 
         String[] rulesText = {
                 " L'évasion commence avec des rangées de briques, chacune de couleur différente, représentatnt une résistance différente.",
-                "L'ordre des couleurs dans l'ordre de résistance croissante est: le blanc, le vert, le jaune, le beige, le violet, le rouge, le bleu.",
+                "L'ordre des couleurs dans l'ordre de résistance croissante est: le blanc, le vert, le jaune, le beige, le rouge, le rose, le violet et enfin le bleu.",
                 "A l'aide d'une seule balle, le joueur doit abattre un maximum de briques en utilisant les murs et/ou la raquette en dessous pour frapper la balle contre les briques et les éliminer.",
                 "Si la plateforme du joueur rate le rebond de la balle, il perdra une vie.",
                 "Le joueur dispose de trois vies pour essayer de nettoyer deux écrans de briques.",
