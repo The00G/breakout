@@ -17,7 +17,7 @@ public class Life extends GameElement{
 
     public boolean lose() {
         this.points-=1;
-        return this.points<0;
+        return this.points<=0;
     }
 
     public boolean isDead() {

@@ -31,7 +31,7 @@ public class Brick extends Obstacle {
      */
     public int life;
 
-    public double bonusChance = 1;
+    public double bonusChance = 0.1;
     
     /**
      * Create a new brick with a given position, size and life
