@@ -67,8 +67,12 @@ public class GameTimer implements ActionListener {
 
         g.platform.move(mousePosition);
 
-        for (BonusItem b : g.bonusItems) {
-            b.move();
+        for ( int i = 0; i< g.bonusItems.size(); i++) {
+            g.bonusItems.get(i).move();
+            if (starTouchesPlatform(g.bonusItems.get(i), g.platform)){
+                g.createBonus();
+                g.bonusItems.remove(i);
+            }
         }
 
         g.removeDeadBricks();
@@ -93,6 +97,13 @@ public class GameTimer implements ActionListener {
         t.stop();
         g.dispose();
         g.finalFrame();
+    }
+    public boolean starTouchesPlatform (BonusItem star, Platform platf){
+        if (star.pos.x< (platf.pos.x + platf.size.x) && star.pos.x> (platf.pos.x - platf.size.x) && star.pos.y< (platf.pos.y + platf.size.y) && star.pos.y > (platf.pos.y - platf.size.y)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

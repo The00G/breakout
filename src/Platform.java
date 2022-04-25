@@ -23,6 +23,9 @@ public class Platform extends Obstacle{
         this.speed = newPosX - this.pos.x;
         this.pos.x = newPosX;
     }
+    public void widen (){
+        this.size.x += 1;
+    }
 
 
     @Override

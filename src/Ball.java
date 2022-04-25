@@ -48,6 +48,9 @@ public class Ball extends GameElement {
         this.speed = sp;
         this.direction = Vector.normalized(new Vector(0, 1));
     }
+    public void widenRadius(){
+        this.radius += 3;
+    }
 
     /**
      * Moves this ball with a given time interval and set of obstacles

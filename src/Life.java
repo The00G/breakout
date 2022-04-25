@@ -23,7 +23,9 @@ public class Life extends GameElement{
     public boolean isDead() {
         return this.points<0;
     }
-
+    public void addLife (){
+        this.points++;
+    }
     @Override
     public void paint(Graphics g, Vector fieldOrigin, double scale) {
         g.setColor(this.color);

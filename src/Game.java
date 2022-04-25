@@ -71,13 +71,17 @@ public class Game extends JFrame {
      * Bonus items are random elements that randomly appear when you break a brick.
      * They can give you special abilities or disabilies.
      */
-    public LinkedList<BonusItem> bonusItems = new LinkedList<BonusItem>();
+    public ArrayList<BonusItem> bonusItems = new ArrayList<BonusItem>();
 
 
     public int level = Level.getLevel();
        
     
     public Life life;
+    /**
+     * number of bonus invented
+     */
+    public int nbBonus =  4;
   
     public int numberGames = 0;
     /**
@@ -155,7 +159,6 @@ public class Game extends JFrame {
 
         this.balls = new LinkedList<Ball>();
         this.balls.add(new Ball(250, 300, 10, 600));
-        this.balls.add(new Ball(260, 300, 10, 600));
         
         this.score = new Score(new Vector(FIELD_DEFAULT_SIZE.x+10,30), 40);
 
@@ -167,7 +170,6 @@ public class Game extends JFrame {
         this.elements.addAll(this.obstacles);
         this.elements.addAll(this.balls);
         this.elements.add(this.score);
-
         this.elements.add(this.life);
 
 
@@ -219,7 +221,7 @@ public class Game extends JFrame {
         for (Brick b : this.bricks) {
             if (b.isDead()) {
                 deads.add(b);
-                if (Math.random() < 1) {
+                if (Math.random() < b.bonusChance) {
                     bonusItems.add(new StarItem(b.pos, 13, Color.yellow));
                 }
             }
@@ -333,6 +335,31 @@ public class Game extends JFrame {
             e.printStackTrace();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void createBonus (){
+        if (Math.random()<this.bricks.get(0).bonusChance){
+            switch ( (int) (this.nbBonus*Math.random()%this.nbBonus) ){
+
+                case 0:
+                this.life.addLife();
+                break;
+
+                case 1:
+                this.balls.add(new Ball(250, 300, 10, 600));
+                this.elements.addAll(this.balls);
+                break;
+
+                case 2:
+                this.platform.widen();
+                break;
+
+                case 3:
+                this.balls.get(0).widenRadius(); 
+                break;
+                
+            }
         }
     }
 
