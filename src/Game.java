@@ -74,8 +74,9 @@ public class Game extends JFrame {
     public LinkedList<BonusItem> bonusItems = new LinkedList<BonusItem>();
 
 
-    public int level = 4;
-
+    public int level = Level.getLevel();
+       
+    
     public Life life;
   
     public int numberGames = 0;
@@ -115,8 +116,7 @@ public class Game extends JFrame {
         super("Breakout!");
         this.createElements();
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
         // this.setBounds((((int)screenSize.getWidth())/2)-250,
         // (((int)screenSize.getHeight())/2)-350, 500, 700);
         this.setBounds(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight());

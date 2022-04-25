@@ -1,5 +1,6 @@
 package src;
 import java.util.LinkedList;
+import java.lang.Math; 
 
 import helpers.mathHelper;
 
@@ -12,6 +13,13 @@ public class Level {
      * @param fieldSize game's fieldsize
      * @return          level's bricks
      */
+
+    public static int getLevel(){
+        int [] levelTab = {1,2,3,4,5,55};
+        int randomlevel =levelTab[(int) (Math.random()*(levelTab.length))]; 
+        return randomlevel; 
+    }
+
     public static LinkedList<Brick> buildLevel(int id, Vector fieldSize) {
         switch(id) {
 
