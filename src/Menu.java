@@ -57,10 +57,6 @@ public class Menu extends JFrame implements ActionListener {
         playButton.setBackground(Color.white);
         mainPanel.add(playButton);
 
-        // JLabel titre = new JLabel();
-        // titre.setBounds(75,30,100,50);
-        // titre.setText("Breakout !");
-
         JLabel imageBreakout = new JLabel(icon, JLabel.CENTER);
         imageBreakout.setBounds(mainPanel.getWidth() / 2 - icon.getIconWidth() / 2, 50, icon.getIconWidth(),
                 icon.getIconHeight());
