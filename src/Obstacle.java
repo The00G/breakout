@@ -25,12 +25,11 @@ public abstract class Obstacle extends GameElement{
     }
 
     /**
-     * Returns a vector corresponding to the shortest straight path from the boundary of this obstacle to a given point 
-     * this obstacle is considered to be rectangular box
+     * Returns the normal vector of the surface portion nearest to a given point
      * @param   p   
-     * @return  a vector corresponding to the shortest straight path from the boundary of this obstacle to a given point
+     * @return  the normal vector of the surface portion nearest to a given point
      */
-    public Vector vectorTo(Vector p) {
+    public Vector normalVectorTo(Vector p) {
         double dx, dy;
 
         dx = Math.max(0, Math.max(this.pos.x - this.size.x - p.x, p.x - (this.pos.x + this.size.x)));
@@ -43,7 +42,7 @@ public abstract class Obstacle extends GameElement{
             dy *= -1;
         }
 
-        return new Vector(dx, dy);
+        return Vector.normalized(new Vector(dx, dy));
     }
 
     public double distanceTo(Vector p) {
@@ -74,7 +73,7 @@ public abstract class Obstacle extends GameElement{
      * @return      the points made by the bounce
      */
     public int bounce(Vector bPos, Vector bDir) {
-        Vector normalVector = Vector.normalized(this.vectorTo(bPos));
+        Vector normalVector = Vector.normalized(this.normalVectorTo(bPos));
         double normalSpeed = bDir.dot(normalVector);
         if (normalSpeed < 0) {
             bDir.sub(Vector.mult(normalVector, 2 * normalSpeed));
