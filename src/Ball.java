@@ -67,7 +67,7 @@ public class Ball extends GameElement {
             Obstacle nearest = null;
             double distanceNearest = 0;
             for(Obstacle o : obstacles) {
-                double d = o.distanceVectorTo(this.pos).mag() - this.radius;
+                double d = o.distanceTo(this.pos) - this.radius;
                 if(nearest == null){
                     nearest = o;
                     distanceNearest = d;
