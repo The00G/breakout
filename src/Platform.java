@@ -24,7 +24,7 @@ public class Platform extends Obstacle{
         this.pos.x = newPosX;
     }
     public void widen (){
-        this.size.x += 1;
+        this.size.x += 5;
     }
 
 

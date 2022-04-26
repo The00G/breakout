@@ -99,11 +99,7 @@ public class GameTimer implements ActionListener {
         g.finalFrame();
     }
     public boolean starTouchesPlatform (BonusItem star, Platform platf){
-        if (star.pos.x< (platf.pos.x + platf.size.x) && star.pos.x> (platf.pos.x - platf.size.x) && star.pos.y< (platf.pos.y + platf.size.y) && star.pos.y > (platf.pos.y - platf.size.y)){
-            return true;
-        }else{
-            return false;
-        }
+        return platf.distanceTo(star.pos) < star.size;
     }
 
 }

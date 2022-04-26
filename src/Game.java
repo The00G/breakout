@@ -340,15 +340,16 @@ public class Game extends JFrame {
 
     public void createBonus (){
         if (Math.random()<this.bricks.get(0).bonusChance){
-            switch ( (int) (this.nbBonus*Math.random()%this.nbBonus) ){
+            switch ( (int) (this.nbBonus*Math.random()) ){
 
                 case 0:
                 this.life.addLife();
                 break;
 
                 case 1:
-                this.balls.add(new Ball(250, 300, 10, 600));
-                this.elements.addAll(this.balls);
+                Ball newBall = new Ball(this.platform.pos.x, this.platform.pos.y-this.platform.size.y-10, 10, 600);
+                this.balls.add(newBall);
+                this.elements.add(newBall);
                 break;
 
                 case 2:
