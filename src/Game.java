@@ -17,14 +17,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Game extends JFrame {
 
-   /**
+    /**
      * Size of the field
      * <p>
      * Every ingame coordinate are calculated according to this
      */
     final public static Vector FIELD_DEFAULT_SIZE = new Vector(500, 700);
 
-    final public static Vector SCORE_DEFAULT_POS = new Vector(600,200);
+    final public static Vector SCORE_DEFAULT_POS = new Vector(600, 200);
     final public static int SCORE_DEFAULT_SIZE = 40;
 
     /**
@@ -73,16 +73,14 @@ public class Game extends JFrame {
      */
     public ArrayList<BonusItem> bonusItems = new ArrayList<BonusItem>();
 
-
     public int level = Level.getLevel();
-       
-    
+
     public Life life;
     /**
      * number of bonus invented
      */
-    public int nbBonus =  4;
-  
+    public int nbBonus = 4;
+
     public int numberGames = 0;
     /**
      * gets us the size of the player's screen
@@ -108,7 +106,7 @@ public class Game extends JFrame {
     public JLabel imageGameOver = new JLabel(iconGameOver, JLabel.CENTER);
 
     public Score score;
-    
+
     private GameTimer gt;
 
     private int fps = 90;
@@ -120,7 +118,7 @@ public class Game extends JFrame {
         super("Breakout!");
         this.createElements();
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         // this.setBounds((((int)screenSize.getWidth())/2)-250,
         // (((int)screenSize.getHeight())/2)-350, 500, 700);
         this.setBounds(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight());
@@ -132,7 +130,7 @@ public class Game extends JFrame {
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
         gt = new GameTimer(1000 / fps, this);
-        
+
         this.setVisible(true);
 
     }
@@ -148,7 +146,7 @@ public class Game extends JFrame {
         this.bricks = Level.buildLevel(this.level, FIELD_DEFAULT_SIZE);
 
         this.createWalls();
-        //this.createHearts();
+        // this.createHearts();
 
         this.platform = new Platform(250, 600, 40, 10, FIELD_DEFAULT_SIZE);
 
@@ -159,19 +157,18 @@ public class Game extends JFrame {
 
         this.balls = new LinkedList<Ball>();
         this.balls.add(new Ball(250, 300, 10, 600));
-        
-        this.score = new Score(new Vector(FIELD_DEFAULT_SIZE.x+10,30), 40);
 
-        this.life = new Life(new Vector(FIELD_DEFAULT_SIZE.x,40),
-                             new Vector(40,40),
-                             3);
+        this.score = new Score(new Vector(FIELD_DEFAULT_SIZE.x + 10, 30), 40);
+
+        this.life = new Life(new Vector(FIELD_DEFAULT_SIZE.x, 40),
+                new Vector(40, 40),
+                3);
 
         this.elements = new LinkedList<GameElement>();
         this.elements.addAll(this.obstacles);
         this.elements.addAll(this.balls);
         this.elements.add(this.score);
         this.elements.add(this.life);
-
 
     }
 
@@ -208,9 +205,9 @@ public class Game extends JFrame {
      */
     public void createWalls() {
         this.walls = new LinkedList<Wall>();
-        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x/2, 0), FIELD_DEFAULT_SIZE.x/2, false));
-        walls.add(new Wall(new Vector(0, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
-        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, FIELD_DEFAULT_SIZE.y/2), FIELD_DEFAULT_SIZE.y/2, true));
+        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x / 2, 0), FIELD_DEFAULT_SIZE.x / 2, false));
+        walls.add(new Wall(new Vector(0, FIELD_DEFAULT_SIZE.y / 2), FIELD_DEFAULT_SIZE.y / 2, true));
+        walls.add(new Wall(new Vector(FIELD_DEFAULT_SIZE.x, FIELD_DEFAULT_SIZE.y / 2), FIELD_DEFAULT_SIZE.y / 2, true));
     }
 
     /**
@@ -231,19 +228,27 @@ public class Game extends JFrame {
         this.elements.removeAll(deads);
     }
 
+    /**
+     * This method goes through every current bonus item and removes any that are
+     * out of bounds (that haven't been collected)
+     */
     public void removeUnusedBonusItems() {
         LinkedList<BonusItem> toDelete = new LinkedList<BonusItem>();
-            for (BonusItem b : bonusItems) {
-                if (b.pos.y > FIELD_DEFAULT_SIZE.y) {
-                    toDelete.add(b);
-                }
+        for (BonusItem b : bonusItems) {
+            if (b.pos.y > FIELD_DEFAULT_SIZE.y) {
+                toDelete.add(b);
             }
-            for (BonusItem b : toDelete) {
-                bonusItems.remove(b);
-            }
+        }
+        for (BonusItem b : toDelete) {
+            bonusItems.remove(b);
+        }
         toDelete.clear();
     }
 
+    /**
+     * This is the painter class, its constructer takes in a new graphic element and
+     * paints over it whatever it is indicated
+     */
     public class Painter extends JComponent {
 
         @Override
@@ -268,6 +273,10 @@ public class Game extends JFrame {
         }
     }
 
+    /**
+     * This method ends the computation behind the game when it is won or recreates
+     * the bricks when they have all been broken
+     */
     public void end() {
         if (this.bricks.isEmpty()) {
             this.numberGames++;
@@ -287,7 +296,6 @@ public class Game extends JFrame {
         }
     }
 
-
     /**
      * creates the final frame telling if the player has won or lost
      */
@@ -295,8 +303,9 @@ public class Game extends JFrame {
         winningFrame = new JFrame();
         finalPanel.setBackground(Color.gray);
         if (this.life.isDead()) {
-            winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250, (((int) screenSize.getHeight()) / 2) - 350,
-                iconGameOver.getIconWidth(), iconGameOver.getIconHeight());
+            winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250,
+                    (((int) screenSize.getHeight()) / 2) - 350,
+                    iconGameOver.getIconWidth(), iconGameOver.getIconHeight());
             winningFrame.setLayout(null);
             finalPanel.setBounds(0, 0, winningFrame.getWidth(), winningFrame.getHeight());
             imageGameOver.setBounds(winningFrame.getWidth() / 2 - iconGameOver.getIconWidth() / 2,
@@ -305,8 +314,9 @@ public class Game extends JFrame {
             finalPanel.add(imageGameOver);
             finalPanel.setVisible(true);
         } else if (this.numberGames >= 2) {
-            winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250, (((int) screenSize.getHeight()) / 2) - 350,
-                iconVictory.getIconWidth(), iconVictory.getIconHeight());
+            winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250,
+                    (((int) screenSize.getHeight()) / 2) - 350,
+                    iconVictory.getIconWidth(), iconVictory.getIconHeight());
             winningFrame.setLayout(null);
             finalPanel.setBounds(0, 0, winningFrame.getWidth(), winningFrame.getHeight());
             imageVictory.setBounds(winningFrame.getWidth() / 2 - iconVictory.getIconWidth() / 2,
@@ -338,27 +348,36 @@ public class Game extends JFrame {
         }
     }
 
-    public void createBonus (){
-        if (Math.random()<this.bricks.get(0).bonusChance){
-            switch ( (int) (this.nbBonus*Math.random()%this.nbBonus) ){
+    /**
+     * This method is to be exectuted when a star touches the platfrom. It randomly
+     * creates a bonus in the game under the form of a new ball, a bigger ball, a
+     * bigger platform or an additionnal life
+     */
+    public void createBonus() {
+        if (Math.random() < this.bricks.get(0).bonusChance) {
+            switch ((int) (this.nbBonus * Math.random() % this.nbBonus)) {
 
                 case 0:
-                this.life.addLife();
-                break;
+                    this.life.addLife();
+                    playSound("pongBonus.wav");
+                    break;
 
                 case 1:
-                this.balls.add(new Ball(250, 300, 10, 600));
-                this.elements.addAll(this.balls);
-                break;
+                    this.balls.add(new Ball(250, 300, 10, 600));
+                    this.elements.addAll(this.balls);
+                    playSound("pongBonus.wav");
+                    break;
 
                 case 2:
-                this.platform.widen();
-                break;
+                    this.platform.widen();
+                    playSound("pongBonus.wav");
+                    break;
 
                 case 3:
-                this.balls.get(0).widenRadius(); 
-                break;
-                
+                    this.balls.get(0).widenRadius();
+                    playSound("pongBonus.wav");
+                    break;
+
             }
         }
     }
