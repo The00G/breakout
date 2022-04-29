@@ -359,23 +359,19 @@ public class Game extends JFrame {
 
                 case 0:
                     this.life.addLife();
-                    playSound("pongBonus.wav");
                     break;
 
                 case 1:
                     this.balls.add(new Ball(250, 300, 10, 600));
                     this.elements.addAll(this.balls);
-                    playSound("pongBonus.wav");
                     break;
 
                 case 2:
                     this.platform.widen();
-                    playSound("pongBonus.wav");
                     break;
 
                 case 3:
                     this.balls.get(0).widenRadius();
-                    playSound("pongBonus.wav");
                     break;
 
             }

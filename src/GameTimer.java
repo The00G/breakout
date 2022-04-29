@@ -70,6 +70,7 @@ public class GameTimer implements ActionListener {
         for ( int i = 0; i< g.bonusItems.size(); i++) {
             g.bonusItems.get(i).move();
             if (starTouchesPlatform(g.bonusItems.get(i), g.platform)){
+                Game.playSound("pongBonus.wav");
                 g.createBonus();
                 g.bonusItems.remove(i);
             }
@@ -87,6 +88,7 @@ public class GameTimer implements ActionListener {
             g.score.add(b.move(g.obstacles, dt));
             if(b.pos.y > Game.FIELD_DEFAULT_SIZE.y+b.size.y) {
                 lostBalls.add(b);
+                Game.playSound("pongLose.wav");
             }
         }
         g.balls.removeAll(lostBalls);
