@@ -110,11 +110,16 @@ public class Menu extends JFrame implements ActionListener {
         int endOfRulesText = rulesPanel.getHeight() / 2;
 
         String[] rulesText = {
-                " L'évasion commence avec des rangées de briques, chacune de couleur différente, représentatnt une résistance différente.",
+                "Le jeu Breakout commence avec par une certaine disposition de briques, le niveau de vie de la brique est représenté par sa couleur.",
                 "L'ordre des couleurs dans l'ordre de résistance croissante est: le blanc, le vert, le jaune, le beige, le rouge, le rose, le violet et enfin le bleu.",
-                "A l'aide d'une seule balle, le joueur doit abattre un maximum de briques en utilisant les murs et/ou la raquette en dessous pour frapper la balle contre les briques et les éliminer.",
+                "A l'aide d'une seule balle, le joueur doit abattre un maximum de briques en utilisant les murs et la raquette/platteforme en dessous pour frapper la balle contre les briques et les éliminer.",
                 "Si la plateforme du joueur rate le rebond de la balle, il perdra une vie.",
                 "Le joueur dispose de trois vies pour essayer de nettoyer deux écrans de briques.",
+                "Il y a plusieurs bonus disponibles pendant chaque partie:",
+                " - La plateforme peut devenir plus grande",
+                " - La balle peut devenir plus grande",
+                " - Le joueur peut gagner une vie",
+                " - Une balle peut être rajoutée à la partie",
                 "Les briques touchées rapportent 20 points par rebond contre elles",};
 
         JLabel[] rulesLabels = new JLabel[rulesText.length];
@@ -134,6 +139,7 @@ public class Menu extends JFrame implements ActionListener {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) {
             new Game();
@@ -148,17 +154,26 @@ public class Menu extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Shows the about panel
+     */
     public void showAbout() {
         mainPanel.setVisible(false);
         aboutPanel.setVisible(true);
     }
 
+    /**
+     * Shows the main menu
+     */
     public void showMainMenu() {
         mainPanel.setVisible(true);
         aboutPanel.setVisible(false);
         rulesPanel.setVisible(false);
     }
 
+    /**
+     * Shows the rules page
+     */
     public void showRules() {
         mainPanel.setVisible(false);
         rulesPanel.setVisible(true);
