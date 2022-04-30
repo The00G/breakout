@@ -371,7 +371,8 @@ public class Game extends JFrame {
                     break;
 
                 case 3:
-                    this.balls.get(0).widenRadius();
+                    int index = (int) ((this.balls.size()-1)*Math.random())%(this.balls.size()-1);
+                    this.balls.get(index).widenRadius();
                     break;
 
             }
