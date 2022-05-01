@@ -39,7 +39,7 @@ public class Brick extends Obstacle {
     /**
      * The probability of a bonus item appearing upon the brick's destruction
      */
-    public double bonusChance = 0.1;
+    public double bonusChance = 0.2;
 
     /**
      * Create a new brick with a given position, size and life

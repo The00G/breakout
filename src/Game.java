@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.*;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 //for playing sound
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +18,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements WindowListener{
 
     /**
      * Size of the field
@@ -130,7 +133,7 @@ public class Game extends JFrame {
         // this.getContentPane().paint(this.getContentPane().getGraphics());
 
         gt = new GameTimer(1000 / fps, this);
-
+        this.addWindowListener(this);
         this.setVisible(true);
 
     }
@@ -246,6 +249,39 @@ public class Game extends JFrame {
     }
 
     /**
+     * methods necessary to implement WindowListener to know when the game methos is closed
+     * @param e
+     */
+    @Override
+    public void windowOpened(WindowEvent e) { }
+
+    /**
+     * method to close the gameTimer when the Game Frame is closed
+     * @param e
+     */
+    @Override
+    public void windowClosing(WindowEvent e) {
+        gt.stop();
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) { 
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) { }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) { }
+
+    @Override
+    public void windowActivated(WindowEvent e) { }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) { }
+
+
+    /**
      * This is the painter class, its constructer takes in a new graphic element and
      * paints over it whatever it is indicated
      */
@@ -300,9 +336,9 @@ public class Game extends JFrame {
      * creates the final frame telling if the player has won or lost
      */
     public void finalFrame() {
-        winningFrame = new JFrame();
-        finalPanel.setBackground(Color.gray);
         if (this.life.isDead()) {
+            winningFrame = new JFrame();
+            finalPanel.setBackground(Color.gray);
             winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250,
                     (((int) screenSize.getHeight()) / 2) - 350,
                     iconGameOver.getIconWidth(), iconGameOver.getIconHeight());
@@ -313,7 +349,11 @@ public class Game extends JFrame {
                     iconGameOver.getIconHeight());
             finalPanel.add(imageGameOver);
             finalPanel.setVisible(true);
+            winningFrame.add(finalPanel);
+            winningFrame.setVisible(true);
         } else if (this.numberGames >= 2) {
+            winningFrame = new JFrame();
+            finalPanel.setBackground(Color.gray);
             winningFrame.setBounds((((int) screenSize.getWidth()) / 2) - 250,
                     (((int) screenSize.getHeight()) / 2) - 350,
                     iconVictory.getIconWidth(), iconVictory.getIconHeight());
@@ -324,9 +364,9 @@ public class Game extends JFrame {
                     iconVictory.getIconHeight());
             finalPanel.add(imageVictory);
             finalPanel.setVisible(true);
+            winningFrame.add(finalPanel);
+            winningFrame.setVisible(true);
         }
-        winningFrame.add(finalPanel);
-        winningFrame.setVisible(true);
     }
 
     /**
@@ -371,7 +411,8 @@ public class Game extends JFrame {
                     break;
 
                 case 3:
-                    this.balls.get(0).widenRadius();
+                    int index = (int) ((this.balls.size()-1)*Math.random())%(this.balls.size()-1);
+                    this.balls.get(index).widenRadius();
                     break;
 
             }
