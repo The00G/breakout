@@ -261,7 +261,6 @@ public class Game extends JFrame implements WindowListener{
      */
     @Override
     public void windowClosing(WindowEvent e) {
-        System.out.println("methode 2 lancee");
         gt.stop();
     }
 
