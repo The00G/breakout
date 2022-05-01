@@ -34,4 +34,4 @@ Dernière mise à jour le 01/05/2021
 
 [@Valentin Minot](https://github.com/val23waaaah) - Développeur
 
-![Logo Insa](https://www.insa-lyon.fr/sites/www.insa-lyon.fr/files/logo-coul.png)
+<img src="https://www.insa-lyon.fr/sites/www.insa-lyon.fr/files/logo-coul.png" width="250"/>
