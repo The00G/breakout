@@ -62,9 +62,9 @@ public class mathHelper {
      * 
      * @param min
      * @param max
-     * @return      random integer between min and max
+     * @return random integer between min and max
      */
-    public static int RandomIntBetween(int min, int max){
-        return (int)lerp(min, max+1, Math.random());
+    public static int RandomIntBetween(int min, int max) {
+        return (int) lerp(min, max + 1, Math.random());
     }
 }

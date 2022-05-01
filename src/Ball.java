@@ -1,3 +1,4 @@
+package src;
 import java.awt.*;
 import java.util.*;
 
@@ -47,6 +48,9 @@ public class Ball extends GameElement {
         this.speed = sp;
         this.direction = Vector.normalized(new Vector(0, 1));
     }
+    public void widenRadius(){
+        this.radius += 3;
+    }
 
     /**
      * Moves this ball with a given time interval and set of obstacles
@@ -63,7 +67,7 @@ public class Ball extends GameElement {
             Obstacle nearest = null;
             double distanceNearest = 0;
             for(Obstacle o : obstacles) {
-                double d = o.distanceVectorTo(this.pos).mag() - this.radius;
+                double d = o.distanceTo(this.pos) - this.radius;
                 if(nearest == null){
                     nearest = o;
                     distanceNearest = d;

@@ -1,3 +1,4 @@
+package src;
 import javax.swing.*;
 
 import helpers.mathHelper;
@@ -15,8 +16,8 @@ public class Menu extends JFrame implements ActionListener {
     JPanel rulesPanel;
     JButton returnAboutButton;
     JButton returnRulesButton;
-    ImageIcon icon = new ImageIcon("breakout logo.png");
-    ImageIcon iconInsa = new ImageIcon("Logo Insa.png");
+    ImageIcon icon = new ImageIcon("media/breakout logo.png");
+    ImageIcon iconInsa = new ImageIcon("media/Logo Insa.png");
 
     int buttonWidth = 150;
     int buttonHeight = 50;
@@ -55,10 +56,6 @@ public class Menu extends JFrame implements ActionListener {
         playButton.addActionListener(this);
         playButton.setBackground(Color.white);
         mainPanel.add(playButton);
-
-        // JLabel titre = new JLabel();
-        // titre.setBounds(75,30,100,50);
-        // titre.setText("Breakout !");
 
         JLabel imageBreakout = new JLabel(icon, JLabel.CENTER);
         imageBreakout.setBounds(mainPanel.getWidth() / 2 - icon.getIconWidth() / 2, 50, icon.getIconWidth(),
@@ -113,14 +110,17 @@ public class Menu extends JFrame implements ActionListener {
         int endOfRulesText = rulesPanel.getHeight() / 2;
 
         String[] rulesText = {
-                " L'évasion commence avec huit rangées de briques, avec chacune deux rangées d'un type de couleur différent.",
-                "L'ordre des couleurs de bas en haut est le jaune, le vert, l'orange et le rouge.",
-                "A l'aide d'une seule balle, le joueur doit abattre un maximum de briques en utilisant les murs et/ou la raquette en dessous pour frapper la balle contre les briques et les éliminer.",
-                "Si la raquette du joueur rate le rebond de la balle, il perdra un tour.",
-                "Le joueur dispose de trois tours pour essayer de nettoyer deux écrans de briques.",
-                "Les briques jaunes gagnent un point chacune, les briques vertes gagnent trois points, les briques orange gagnent cinq points et les briques rouges de niveau supérieur marquent sept points chacune.",
-                "La palette se rétrécit à la moitié de sa taille après que la balle a traversé la rangée rouge et touché le mur supérieur.",
-                "La vitesse de la balle augmente à des intervalles spécifiques : après quatre coups, après douze coups et après avoir touché les rangées orange et rouge. " };
+                "Le jeu Breakout commence avec par une certaine disposition de briques, le niveau de vie de la brique est représenté par sa couleur.",
+                "L'ordre des couleurs dans l'ordre de résistance croissante est: le blanc, le vert, le jaune, le beige, le rouge, le rose, le violet et enfin le bleu.",
+                "A l'aide d'une seule balle, le joueur doit abattre un maximum de briques en utilisant les murs et la raquette/platteforme en dessous pour frapper la balle contre les briques et les éliminer.",
+                "Si la plateforme du joueur rate le rebond de la balle, il perdra une vie.",
+                "Le joueur dispose de trois vies pour essayer de nettoyer deux écrans de briques.",
+                "Il y a plusieurs bonus disponibles pendant chaque partie:",
+                " - La plateforme peut devenir plus grande",
+                " - La balle peut devenir plus grande",
+                " - Le joueur peut gagner une vie",
+                " - Une balle peut être rajoutée à la partie",
+                "Les briques touchées rapportent 20 points par rebond contre elles",};
 
         JLabel[] rulesLabels = new JLabel[rulesText.length];
         for (int i = 0; i < rulesText.length; i++) {
@@ -139,6 +139,7 @@ public class Menu extends JFrame implements ActionListener {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) {
             new Game();
@@ -153,17 +154,26 @@ public class Menu extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Shows the about panel
+     */
     public void showAbout() {
         mainPanel.setVisible(false);
         aboutPanel.setVisible(true);
     }
 
+    /**
+     * Shows the main menu
+     */
     public void showMainMenu() {
         mainPanel.setVisible(true);
         aboutPanel.setVisible(false);
         rulesPanel.setVisible(false);
     }
 
+    /**
+     * Shows the rules page
+     */
     public void showRules() {
         mainPanel.setVisible(false);
         rulesPanel.setVisible(true);
