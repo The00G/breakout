@@ -401,7 +401,7 @@ public class Game extends JFrame implements WindowListener {
      * bigger platform or an additionnal life
      */
     public void createBonus() {
-        switch ((int) (this.nbBonus * Math.random() % this.nbBonus)) {
+        switch ((int) (this.nbBonus * Math.random())) {
             case 0:
                 this.life.addLife();
                 break;
