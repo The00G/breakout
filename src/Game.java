@@ -402,7 +402,6 @@ public class Game extends JFrame implements WindowListener {
      */
     public void createBonus() {
         switch ((int) (this.nbBonus * Math.random() % this.nbBonus)) {
-
             case 0:
                 this.life.addLife();
                 break;
@@ -417,7 +416,7 @@ public class Game extends JFrame implements WindowListener {
                 break;
 
             case 3:
-                int index = (int) ((this.balls.size() - 1) * Math.random()) % (this.balls.size() - 1);
+                int index = (int) (this.balls.size() * Math.random());
                 this.balls.get(index).widenRadius();
                 break;
 
