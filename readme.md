@@ -15,7 +15,7 @@ D'autres fichiers sont aussi présents comme la chartre visuelle des briques, le
 
 ## Comment jouer
 
-Pour jouer à la bataille navale, téléchargez le répositoire et exécutez les commandes suivantes:
+Pour jouer à breakout, téléchargez le répositoire et exécutez les commandes suivantes:
 - ``javac src/Main.java``
 - ``java src/Main``
 
