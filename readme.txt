@@ -8,15 +8,17 @@ Il utilise les notions d'algorithmique et de programmation en Java découvertes 
 
 //////////////// Comment jouer
 
-Pour jouer à la bataille navale, téléchargez le répositoire et exécutez le fichier `Main.java`.
+Pour jouer à breakout, téléchargez le répositoire et exécutez les commandes suivantes:
+- javac src/Main.java
+- java src/Main
 
 Le jeu se joue intégralement à l'aide de la souris et d'une interface graphique.
 
 //////////////// L'archive
 
-L'archive contient 2 dossiers : 
+L'archive contient 3 dossiers : 
 - media avec les différentes images utilisées 
-- src qui contient les fichiers .java du projet 
+- src et helpers qui contient les fichiers .java du projet 
 
 D'autres fichiers sont aussi présents comme la chartre visuelle des briques, les fichiers sons et le diagramme UML 
 
