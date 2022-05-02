@@ -13,9 +13,9 @@ Pour jouer à la bataille navale, téléchargez le répositoire et exécutez le 
 Le jeu se joue intégralement à l'aide de la souris et d'une interface graphique.
 
 ## L'archive
-L'archive contient 2 dossiers : 
-- media avec les différentes images utilisées 
-- src qui contient les fichiers .java du projet 
+L'archive contient 3 dossiers : 
+- `media` avec les différentes images utilisées 
+- `src` et `helpers` qui contient les fichiers .java du projet 
 
 D'autres fichiers sont aussi présents comme la chartre visuelle des briques, les fichiers sons et le diagramme UML 
 
