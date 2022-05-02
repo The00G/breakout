@@ -18,7 +18,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class Game extends JFrame implements WindowListener{
+public class Game extends JFrame implements WindowListener {
 
     /**
      * Size of the field
@@ -249,14 +249,18 @@ public class Game extends JFrame implements WindowListener{
     }
 
     /**
-     * methods necessary to implement WindowListener to know when the game methos is closed
+     * methods necessary to implement WindowListener to know when the game methos is
+     * closed
+     * 
      * @param e
      */
     @Override
-    public void windowOpened(WindowEvent e) { }
+    public void windowOpened(WindowEvent e) {
+    }
 
     /**
      * method to close the gameTimer when the Game Frame is closed
+     * 
      * @param e
      */
     @Override
@@ -265,21 +269,24 @@ public class Game extends JFrame implements WindowListener{
     }
 
     @Override
-    public void windowClosed(WindowEvent e) { 
+    public void windowClosed(WindowEvent e) {
     }
 
     @Override
-    public void windowIconified(WindowEvent e) { }
+    public void windowIconified(WindowEvent e) {
+    }
 
     @Override
-    public void windowDeiconified(WindowEvent e) { }
+    public void windowDeiconified(WindowEvent e) {
+    }
 
     @Override
-    public void windowActivated(WindowEvent e) { }
+    public void windowActivated(WindowEvent e) {
+    }
 
     @Override
-    public void windowDeactivated(WindowEvent e) { }
-
+    public void windowDeactivated(WindowEvent e) {
+    }
 
     /**
      * This is the painter class, its constructer takes in a new graphic element and
@@ -394,28 +401,26 @@ public class Game extends JFrame implements WindowListener{
      * bigger platform or an additionnal life
      */
     public void createBonus() {
-        if (Math.random() < this.bricks.get(0).bonusChance) {
-            switch ((int) (this.nbBonus * Math.random() % this.nbBonus)) {
+        switch ((int) (this.nbBonus * Math.random() % this.nbBonus)) {
 
-                case 0:
-                    this.life.addLife();
-                    break;
+            case 0:
+                this.life.addLife();
+                break;
 
-                case 1:
-                    this.balls.add(new Ball(250, 300, 10, 600));
-                    this.elements.addAll(this.balls);
-                    break;
+            case 1:
+                this.balls.add(new Ball(250, 300, 10, 600));
+                this.elements.addAll(this.balls);
+                break;
 
-                case 2:
-                    this.platform.widen();
-                    break;
+            case 2:
+                this.platform.widen();
+                break;
 
-                case 3:
-                    int index = (int) ((this.balls.size()-1)*Math.random())%(this.balls.size()-1);
-                    this.balls.get(index).widenRadius();
-                    break;
+            case 3:
+                int index = (int) ((this.balls.size() - 1) * Math.random()) % (this.balls.size() - 1);
+                this.balls.get(index).widenRadius();
+                break;
 
-            }
         }
     }
 
